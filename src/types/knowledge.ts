@@ -1,0 +1,98 @@
+export type ViewId =
+  | 'dashboard'
+  | 'credit-risk'
+  | 'output-atlas'
+  | 'formula-library'
+  | 'model-library'
+  | 'business-cases'
+  | 'knowledge-map'
+  | 'quality-review'
+
+export type Level = 'Foundation' | 'Intermediate' | 'Advanced' | 'Professional'
+
+export interface NavItem {
+  id: ViewId
+  label: string
+  eyebrow: string
+  description: string
+  icon: string
+}
+
+export interface Lesson {
+  id: string
+  title: string
+  subtitle: string
+  level: Level
+  purpose: string
+  explanation: string
+  professionalWorkflow: string[]
+  outputs: string[]
+  relatedFormulas: string[]
+  relatedModels: string[]
+  relatedCases: string[]
+  decisions: string[]
+  redFlags: string[]
+  sourceCoverage: string[]
+}
+
+export interface OutputAtlasItem {
+  id: string
+  title: string
+  category: string
+  usedIn: string[]
+  whatItIs: string
+  exampleOutput: string
+  howToRead: string[]
+  goodResult: string
+  badResult: string
+  redFlags: string[]
+  howToImprove: string[]
+  businessImpact: string
+  relatedConcepts: string[]
+  relatedCases: string[]
+}
+
+export interface FormulaItem {
+  id: string
+  title: string
+  area: string
+  formula: string
+  variables: string
+  interpretation: string
+  professionalUse: string
+  relatedItems: string[]
+}
+
+export interface ModelItem {
+  id: string
+  title: string
+  family: string
+  objective: string
+  inputs: string
+  outputs: string
+  interpretation: string
+  goodResult: string
+  badResult: string
+  applications: string[]
+}
+
+export interface BusinessCase {
+  id: string
+  title: string
+  area: string
+  businessQuestion: string
+  dataRequired: string[]
+  workflow: string[]
+  tools: string[]
+  outputs: string[]
+  decision: string
+  governance: string
+  relatedModules: string[]
+}
+
+export interface KnowledgeChain {
+  id: string
+  title: string
+  nodes: string[]
+  professionalUse: string
+}
