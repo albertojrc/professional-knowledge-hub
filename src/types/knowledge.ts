@@ -1,5 +1,7 @@
 export type ViewId =
   | 'dashboard'
+  | 'data-science'
+  | 'banking-finance'
   | 'credit-risk'
   | 'output-atlas'
   | 'formula-library'
@@ -16,6 +18,20 @@ export interface NavItem {
   eyebrow: string
   description: string
   icon: string
+}
+
+export interface LearningModule {
+  id: string
+  area: string
+  title: string
+  subtitle: string
+  level: Level
+  purpose: string
+  lessons: string[]
+  workflow: string[]
+  outputs: string[]
+  relatedCases: string[]
+  sourceCoverage: string[]
 }
 
 export interface Lesson {
