@@ -1,32 +1,26 @@
 # Professional Knowledge Hub
 
-A professional learning platform for **Data Science, Banking, Finance, Economics, Management, Analytics and AI Governance**.
+A React + Vite + TypeScript platform for Data Science, Banking, Finance, Economics, Management, Analytics and AI Governance.
 
-This repository is built as a **React + Vite + TypeScript app**, not as a static HTML page.
+## Vision
 
-## Product vision
+The Hub is designed as a professional second brain. It explains what a concept is, when to use it, how to use it, where it appears in a project, what output it produces, what decision it supports and what should be monitored afterward.
 
-The Hub works as a professional second brain with five main experiences:
+## Current modules
 
-1. **Learn** — course-like modules and lessons.
-2. **Interpret** — Output Atlas for reading real analytical and model outputs.
-3. **Apply** — Business case playbooks.
-4. **Connect** — Knowledge chains across concepts, tools, formulas, models and decisions.
-5. **Reference** — formulas, models, glossary, sources and quality coverage.
-
-## Current implementation
-
-The first implementation includes:
-
-- Home Dashboard
-- Credit Risk Analytics module
-- Calibration Plot Output Atlas page
+- Dashboard
+- Data Science Operating System
+- Business Operating System
+- Banking & Finance
+- Credit Risk Analytics
+- Professional Scenarios
+- Decision Playbooks
+- Output Atlas
 - Formula Library
 - Model Library
-- Business Case Library
+- Business Cases
 - Knowledge Map
 - Quality Review
-- Extensible data model in `src/data/knowledge`
 
 ## Local setup
 
@@ -35,17 +29,38 @@ npm install
 npm run dev
 ```
 
-Useful checks:
+Open the local Vite URL, usually:
+
+```text
+http://localhost:5173
+```
+
+## Validation
 
 ```bash
 npm run build
 npm run lint
 ```
 
+See also:
+
+```text
+docs/QA_CHECKLIST.md
+```
+
 ## Design principles
 
-- Main theory must be visible, not hidden behind cards.
-- Modules should feel like professional courses/manuals.
-- Output Atlas pages must teach interpretation deeply.
-- Business cases should work like playbooks.
-- Every concept should connect to formulas, models, outputs, cases and professional decisions.
+- Main theory must be visible.
+- Every important topic should answer: what, when, how, project moment, output, decision and monitoring.
+- Output Atlas teaches how to interpret outputs.
+- Professional Scenarios show end-to-end workflows.
+- Decision Playbooks translate outputs into professional decisions.
+- Knowledge Map connects concepts, tools, formulas, models, outputs and cases.
+
+## Current maturity
+
+- Architecture: strong foundation.
+- Content depth: expanding.
+- UX/UI: functional, pending premium polish.
+- Technical QA: configured, pending local or CI validation.
+- Final platform: not finished yet.
