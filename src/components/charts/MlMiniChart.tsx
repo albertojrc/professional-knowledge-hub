@@ -1,4 +1,4 @@
-type MlChartType = 'roc' | 'pr' | 'calibration' | 'confusion' | 'feature-importance' | 'shap' | 'residual' | 'actual-predicted' | 'elbow' | 'cluster' | 'forecast' | 'learning-curve'
+export type MlChartType = 'roc' | 'pr' | 'calibration' | 'confusion' | 'feature-importance' | 'shap' | 'residual' | 'actual-predicted' | 'elbow' | 'cluster' | 'forecast' | 'learning-curve'
 
 interface MlMiniChartProps {
   type: MlChartType
@@ -20,46 +20,16 @@ export function MlMiniChart({ type, title }: MlMiniChartProps) {
     )
   }
 
-  if (type === 'feature-importance') {
-    return <BarChart title={title} values={[92, 78, 61, 44, 31]} labels={['Income', 'Utilization', 'Age', 'Balance', 'Tenure']} />
-  }
-
-  if (type === 'shap') {
-    return <BarChart title={title} values={[88, 74, 64, 48, 35]} labels={['Feature A', 'Feature B', 'Feature C', 'Feature D', 'Feature E']} />
-  }
-
-  if (type === 'elbow') {
-    return <LineChart title={title} points="20,120 70,70 120,45 170,35 220,30 270,27" />
-  }
-
-  if (type === 'residual') {
-    return <ScatterChart title={title} residual />
-  }
-
-  if (type === 'cluster') {
-    return <ScatterChart title={title} clustered />
-  }
-
-  if (type === 'forecast') {
-    return <LineChart title={title} points="20,95 65,92 110,82 155,76 200,70 245,64 290,58" forecast />
-  }
-
-  if (type === 'learning-curve') {
-    return <LineChart title={title} points="20,105 70,82 120,66 170,56 220,51 270,49" secondPoints="20,145 70,111 120,86 170,66 220,55 270,51" />
-  }
-
-  if (type === 'actual-predicted') {
-    return <ScatterChart title={title} diagonal />
-  }
-
-  if (type === 'pr') {
-    return <LineChart title={title} points="20,35 65,42 110,54 155,68 200,84 245,108 290,136" />
-  }
-
-  if (type === 'calibration') {
-    return <LineChart title={title} points="20,145 70,118 120,98 170,72 220,50 270,30" secondPoints="20,150 70,126 120,102 170,78 220,54 270,30" />
-  }
-
+  if (type === 'feature-importance') return <BarChart title={title} values={[92, 78, 61, 44, 31]} labels={['Income', 'Utilization', 'Age', 'Balance', 'Tenure']} />
+  if (type === 'shap') return <BarChart title={title} values={[88, 74, 64, 48, 35]} labels={['Feature A', 'Feature B', 'Feature C', 'Feature D', 'Feature E']} />
+  if (type === 'elbow') return <LineChart title={title} points="20,120 70,70 120,45 170,35 220,30 270,27" />
+  if (type === 'residual') return <ScatterChart title={title} residual />
+  if (type === 'cluster') return <ScatterChart title={title} clustered />
+  if (type === 'forecast') return <LineChart title={title} points="20,95 65,92 110,82 155,76 200,70 245,64 290,58" forecast />
+  if (type === 'learning-curve') return <LineChart title={title} points="20,105 70,82 120,66 170,56 220,51 270,49" secondPoints="20,145 70,111 120,86 170,66 220,55 270,51" />
+  if (type === 'actual-predicted') return <ScatterChart title={title} diagonal />
+  if (type === 'pr') return <LineChart title={title} points="20,35 65,42 110,54 155,68 200,84 245,108 290,136" />
+  if (type === 'calibration') return <LineChart title={title} points="20,145 70,118 120,98 170,72 220,50 270,30" secondPoints="20,150 70,126 120,102 170,78 220,54 270,30" />
   return <LineChart title={title} points="20,145 70,118 120,92 170,70 220,48 270,28" diagonal />
 }
 
@@ -96,9 +66,7 @@ function BarChart({ title, values, labels }: { title: string; values: number[]; 
 }
 
 function ScatterChart({ title, residual, clustered, diagonal }: { title: string; residual?: boolean; clustered?: boolean; diagonal?: boolean }) {
-  const points = [
-    [52, 98], [74, 84], [93, 105], [118, 71], [138, 87], [155, 62], [178, 73], [202, 50], [230, 59], [254, 38]
-  ]
+  const points = [[52,98],[74,84],[93,105],[118,71],[138,87],[155,62],[178,73],[202,50],[230,59],[254,38]]
   return (
     <div className="ml-chart-card">
       <h3>{title}</h3>
