@@ -1,6 +1,7 @@
 import { formulas, models } from '../data/knowledge'
 import { extraModels } from '../data/phase3Knowledge'
 import { BadgeList } from '../components/ui/BadgeList'
+import { ReadingGuide } from '../components/ui/ReadingGuide'
 
 interface ReferencePageProps {
   type: 'formulas' | 'models'
@@ -22,13 +23,23 @@ export function ReferencePage({ type, query }: ReferencePageProps) {
           <h1>Finance, risk and analytics formulas</h1>
           <p>Formulas are shown with variables, interpretation, professional use and related knowledge.</p>
         </div>
+
+        <ReadingGuide
+          title="How to use formulas professionally"
+          steps={[
+            'Start by identifying the decision or metric the formula supports.',
+            'Read the variables before using the formula mechanically.',
+            'Translate the numerical result into interpretation and action.'
+          ]}
+        />
+
         <div className="card-grid">
           {visibleFormulas.map((formula) => (
             <article className="reference-card" key={formula.id}>
               <span className="eyebrow">{formula.area}</span>
               <h3>{formula.title}</h3>
               <pre className="code-block compact">{formula.formula}</pre>
-              <p><strong>Variables:</strong> {formula.variables}</p>
+              <div className="mini-result good"><strong>Variables:</strong> {formula.variables}</div>
               <p><strong>Interpretation:</strong> {formula.interpretation}</p>
               <p><strong>Professional use:</strong> {formula.professionalUse}</p>
               <BadgeList items={formula.relatedItems} tone="purple" />
@@ -51,8 +62,18 @@ export function ReferencePage({ type, query }: ReferencePageProps) {
         <h1>Models with interpretation and business meaning</h1>
         <p>Each model is treated as a professional method: objective, preparation, outputs, interpretation, good/bad result and applications.</p>
       </div>
+
+      <ReadingGuide
+        title="How to choose and read a model"
+        steps={[
+          'Start with the model objective and confirm it matches the business question.',
+          'Check the inputs and outputs before interpreting performance.',
+          'Use good/bad result signals to decide whether to deploy, improve or reject the model.'
+        ]}
+      />
+
       {visibleModels.map((model) => (
-        <article className="case-playbook" key={model.id}>
+        <article className="case-playbook readable-page" key={model.id}>
           <header className="course-hero">
             <span className="eyebrow">{model.family}</span>
             <h1>{model.title}</h1>
@@ -60,19 +81,28 @@ export function ReferencePage({ type, query }: ReferencePageProps) {
           </header>
 
           <div className="two-column">
-            <div className="manual-section">
-              <h2>Inputs / preparation</h2>
-              <p>{model.inputs}</p>
+            <div className="manual-section section-lead">
+              <span className="section-number">INPUT</span>
+              <div>
+                <h2>Inputs / preparation</h2>
+                <p>{model.inputs}</p>
+              </div>
             </div>
-            <div className="manual-section">
-              <h2>Outputs generated</h2>
-              <p>{model.outputs}</p>
+            <div className="manual-section section-lead">
+              <span className="section-number">OUTPUT</span>
+              <div>
+                <h2>Outputs generated</h2>
+                <p>{model.outputs}</p>
+              </div>
             </div>
           </div>
 
-          <div className="manual-section result-impact">
-            <h2>How to interpret it</h2>
-            <p>{model.interpretation}</p>
+          <div className="manual-section result-impact section-lead">
+            <span className="section-number">READ</span>
+            <div>
+              <h2>How to interpret it</h2>
+              <p>{model.interpretation}</p>
+            </div>
           </div>
 
           <div className="two-column">
@@ -86,9 +116,12 @@ export function ReferencePage({ type, query }: ReferencePageProps) {
             </div>
           </div>
 
-          <div className="manual-section">
-            <h2>Professional applications</h2>
-            <BadgeList items={model.applications} tone="green" />
+          <div className="manual-section section-lead">
+            <span className="section-number">USE</span>
+            <div>
+              <h2>Professional applications</h2>
+              <BadgeList items={model.applications} tone="green" />
+            </div>
           </div>
         </article>
       ))}
