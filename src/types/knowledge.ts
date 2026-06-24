@@ -4,6 +4,7 @@ export type ViewId =
   | 'business-os'
   | 'banking-finance'
   | 'credit-risk'
+  | 'professional-scenarios'
   | 'output-atlas'
   | 'formula-library'
   | 'model-library'
