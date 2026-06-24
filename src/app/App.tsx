@@ -4,6 +4,7 @@ import { navItems } from '../data/knowledge'
 import { Sidebar } from '../components/layout/Sidebar'
 import { TopBar } from '../components/layout/TopBar'
 import { DashboardPage } from '../pages/DashboardPage'
+import { CoreAreaPage } from '../pages/CoreAreaPage'
 import { CreditRiskPage } from '../pages/CreditRiskPage'
 import { OutputAtlasPage } from '../pages/OutputAtlasPage'
 import { ReferencePage } from '../pages/ReferencePage'
@@ -27,6 +28,8 @@ export function App() {
         <TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} />
         <main className="content-shell">
           {activeView === 'dashboard' && <DashboardPage onNavigate={setActiveView} />}
+          {activeView === 'data-science' && <CoreAreaPage area="Data Science & Analytics" onNavigate={setActiveView} />}
+          {activeView === 'banking-finance' && <CoreAreaPage area="Banking & Finance" onNavigate={setActiveView} />}
           {activeView === 'credit-risk' && <CreditRiskPage />}
           {activeView === 'output-atlas' && <OutputAtlasPage />}
           {activeView === 'formula-library' && <ReferencePage type="formulas" query={query} />}
