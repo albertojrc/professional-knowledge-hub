@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react'
+
 export type MlChartType = 'roc' | 'pr' | 'calibration' | 'confusion' | 'feature-importance' | 'shap' | 'residual' | 'actual-predicted' | 'elbow' | 'cluster' | 'forecast' | 'learning-curve' | 'lift' | 'gain' | 'ks' | 'pdp'
 
 interface MlMiniChartProps {
@@ -24,7 +26,7 @@ export function MlMiniChart({ type, title }: MlMiniChartProps) {
   return <LineChart title={title} points="20,145 70,118 120,92 170,70 220,48 270,28" diagonal xLabel="False positive rate" yLabel="True positive rate" note="Closer to top-left means stronger class separation." />
 }
 
-function ChartFrame({ title, children, xLabel, yLabel, note }: { title: string; children: React.ReactNode; xLabel?: string; yLabel?: string; note?: string }) {
+function ChartFrame({ title, children, xLabel, yLabel, note }: { title: string; children: ReactNode; xLabel?: string; yLabel?: string; note?: string }) {
   return (
     <div className="ml-chart-card">
       <div className="ml-chart-header">
