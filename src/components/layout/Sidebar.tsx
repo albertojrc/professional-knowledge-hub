@@ -9,7 +9,7 @@ interface SidebarProps {
 const groups = [
   {
     title: 'Study',
-    ids: ['dashboard', 'credit-risk'] as ViewId[]
+    ids: ['dashboard', 'data-science', 'banking-finance', 'credit-risk'] as ViewId[]
   },
   {
     title: 'Reference',
@@ -25,7 +25,7 @@ export function Sidebar({ activeView, onChangeView }: SidebarProps) {
   return (
     <aside className="sidebar">
       <div className="brand-panel">
-        <span className="eyebrow">PKOS v0.1</span>
+        <span className="eyebrow">PKOS v0.2</span>
         <h1>Professional Knowledge Hub</h1>
         <p>Data Science + Banking + Finance + Business as a professional second brain.</p>
       </div>
