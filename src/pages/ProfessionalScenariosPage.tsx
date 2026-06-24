@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { professionalScenarios } from '../data/professionalScenarios'
 import { BadgeList } from '../components/ui/BadgeList'
+import { ReadingGuide } from '../components/ui/ReadingGuide'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
 
 export function ProfessionalScenariosPage() {
@@ -27,16 +28,28 @@ export function ProfessionalScenariosPage() {
         ))}
       </aside>
 
-      <article className="output-main">
+      <article className="output-main readable-page">
         <header className="course-hero">
           <span className="eyebrow">{activeScenario.area}</span>
           <h1>{activeScenario.title}</h1>
           <p>{activeScenario.businessProblem}</p>
         </header>
 
-        <div className="manual-section result-impact">
-          <h2>Final decision this scenario supports</h2>
-          <p>{activeScenario.finalDecision}</p>
+        <ReadingGuide
+          title="How to work through this scenario"
+          steps={[
+            'Start with the business problem and final decision before looking at tools.',
+            'Follow the phases as a real project sequence, not as independent notes.',
+            'At each phase, connect tools and outputs to the decision that becomes possible.'
+          ]}
+        />
+
+        <div className="manual-section result-impact section-lead">
+          <span className="section-number">GOAL</span>
+          <div>
+            <h2>Final decision this scenario supports</h2>
+            <p>{activeScenario.finalDecision}</p>
+          </div>
         </div>
 
         <div className="manual-section">
@@ -46,15 +59,18 @@ export function ProfessionalScenariosPage() {
 
         {activeScenario.phases.map((phase, index) => (
           <section className="case-playbook" key={phase.id}>
-            <header className="course-hero">
+            <header className="course-hero phase-hero">
               <span className="eyebrow">Phase {index + 1}</span>
               <h1>{phase.title}</h1>
               <p>{phase.moment}</p>
             </header>
 
-            <div className="manual-section">
-              <h2>What happens here</h2>
-              <p>{phase.whatHappens}</p>
+            <div className="manual-section section-lead">
+              <span className="section-number">WHY</span>
+              <div>
+                <h2>What happens here</h2>
+                <p>{phase.whatHappens}</p>
+              </div>
             </div>
 
             <div className="two-column">
@@ -68,9 +84,12 @@ export function ProfessionalScenariosPage() {
               </div>
             </div>
 
-            <div className="manual-section result-good">
-              <h3>Decisions made at this phase</h3>
-              <BadgeList items={phase.decisions} tone="green" />
+            <div className="manual-section result-good section-lead">
+              <span className="section-number">DECIDE</span>
+              <div>
+                <h3>Decisions made at this phase</h3>
+                <BadgeList items={phase.decisions} tone="green" />
+              </div>
             </div>
 
             <details className="details-card" open>
@@ -94,6 +113,7 @@ export function ProfessionalScenariosPage() {
         </p>
         <h3>Scenario area</h3>
         <BadgeList items={[activeScenario.area]} tone="amber" />
+        <div className="mini-result good">Scenario = project simulation.</div>
       </aside>
     </section>
   )
