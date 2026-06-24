@@ -53,6 +53,13 @@ const operatingSystemCards = [
   }
 ]
 
+const statusCards = [
+  { label: 'Architecture', value: 'Strong', note: 'Operating-system structure is in place.' },
+  { label: 'Content Depth', value: 'Growing', note: 'Core modules exist; deep expansion continues.' },
+  { label: 'UX/UI', value: 'Phase 7', note: 'Premium interface polish has started.' },
+  { label: 'QA', value: 'Configured', note: 'Build, lint and checklist are documented.' }
+]
+
 const primaryNavigation: NavItem[] = [
   businessOsItem,
   professionalScenariosItem,
@@ -81,6 +88,17 @@ export function DashboardPage({ onNavigate }: DashboardPageProps) {
             Open Decision Playbooks
           </button>
         </div>
+      </div>
+
+      <div className="dashboard-grid">
+        {statusCards.map((card) => (
+          <article className="feature-card" key={card.label}>
+            <span className="eyebrow">Project Status</span>
+            <h3>{card.label}</h3>
+            <div className="mini-result good">{card.value}</div>
+            <p>{card.note}</p>
+          </article>
+        ))}
       </div>
 
       <div className="dashboard-grid">
