@@ -1,4 +1,4 @@
-import type { ViewId } from '../types/knowledge'
+import type { NavItem, ViewId } from '../types/knowledge'
 import { navItems, knowledgeChains } from '../data/knowledge'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
 
@@ -6,41 +6,104 @@ interface DashboardPageProps {
   onNavigate: (view: ViewId) => void
 }
 
+const businessOsItem: NavItem = {
+  id: 'business-os',
+  label: 'Business OS',
+  eyebrow: 'Core Area',
+  description: 'Strategy, finance, marketing, operations and economics connected to decisions.',
+  icon: '💼'
+}
+
+const operatingSystemCards = [
+  {
+    title: 'What is it?',
+    description: 'Understand the concept, method, output, model or business tool in plain professional language.',
+    example: 'What is a calibration plot? What is WACC? What is feature engineering?'
+  },
+  {
+    title: 'When do I use it?',
+    description: 'Identify the exact project moment where the method becomes useful.',
+    example: 'Before modeling, after EDA, during evaluation, before a credit decision or after deployment.'
+  },
+  {
+    title: 'How do I use it?',
+    description: 'Learn the workflow, inputs, tools, interpretation and red flags.',
+    example: 'SQL ABT → Data Quality → Feature Engineering → Model → Output → Decision.'
+  },
+  {
+    title: 'What decision does it support?',
+    description: 'Translate analysis into business action, risk control, investment choice or operational change.',
+    example: 'Approve, reject, monitor, reprice, redesign, automate, invest or escalate.'
+  }
+]
+
+const primaryNavigation: NavItem[] = [
+  ...navItems.filter((item) => ['data-science', 'banking-finance', 'credit-risk', 'output-atlas', 'model-library', 'business-cases', 'knowledge-map'].includes(item.id)),
+  businessOsItem
+]
+
 export function DashboardPage({ onNavigate }: DashboardPageProps) {
   return (
     <section className="page-stack">
       <div className="hero-panel">
         <span className="eyebrow">Professional Knowledge Operating System</span>
-        <h1>Learn. Interpret. Apply. Connect.</h1>
+        <h1>Know what it is, when to use it, how to use it, and what decision it supports.</h1>
         <p>
-          A professional knowledge platform for Data Science, Banking, Finance, Economics,
-          Management and Analytics — designed around decisions, not isolated notes.
+          This Hub is not a storage folder. It is a professional system for understanding exactly
+          where concepts, tools, formulas, models, outputs and business frameworks enter a real project.
         </p>
+        <div className="badge-list">
+          <button className="primary-button" onClick={() => onNavigate('data-science')} type="button">
+            Open Data Science OS
+          </button>
+          <button className="primary-button" onClick={() => onNavigate('business-os')} type="button">
+            Open Business OS
+          </button>
+        </div>
       </div>
 
       <div className="dashboard-grid">
-        <article className="feature-card feature-card-wide">
-          <span className="eyebrow">Continue Learning</span>
-          <h3>Credit Risk & Fraud Analyst</h3>
-          <p>
-            Continue with the workflow from banking data to credit scoring, calibration, SHAP,
-            expected loss and model monitoring.
-          </p>
-          <button className="primary-button" onClick={() => onNavigate('credit-risk')} type="button">
-            Open Credit Risk Module
-          </button>
-        </article>
+        {operatingSystemCards.map((card) => (
+          <article className="feature-card" key={card.title}>
+            <span className="eyebrow">Learning Logic</span>
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+            <div className="mini-result good">{card.example}</div>
+          </article>
+        ))}
+      </div>
 
-        {navItems
-          .filter((item) => item.id !== 'dashboard')
-          .map((item) => (
-            <button className="feature-card navigation-card" key={item.id} onClick={() => onNavigate(item.id)} type="button">
-              <span className="card-icon">{item.icon}</span>
-              <span className="eyebrow">{item.eyebrow}</span>
-              <h3>{item.label}</h3>
-              <p>{item.description}</p>
-            </button>
-          ))}
+      <section className="manual-panel">
+        <span className="eyebrow">Main Project Flow</span>
+        <h2>From business question to monitored decision</h2>
+        <KnowledgeChain
+          nodes={[
+            'Business Question',
+            'Data Sources',
+            'SQL ABT',
+            'Data Quality',
+            'EDA',
+            'Features',
+            'Model / Analysis',
+            'Output Interpretation',
+            'Business Decision',
+            'Monitoring'
+          ]}
+        />
+        <p>
+          Every major page in the Hub should answer where it belongs in this chain and what action it enables.
+        </p>
+      </section>
+
+      <div className="dashboard-grid">
+        {primaryNavigation.map((item) => (
+          <button className="feature-card navigation-card" key={item.id} onClick={() => onNavigate(item.id)} type="button">
+            <span className="card-icon">{item.icon}</span>
+            <span className="eyebrow">{item.eyebrow}</span>
+            <h3>{item.label}</h3>
+            <p>{item.description}</p>
+          </button>
+        ))}
       </div>
 
       <section className="manual-panel">
