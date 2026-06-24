@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { businessOperatingSystem } from '../data/businessOperatingSystem'
 import { BadgeList } from '../components/ui/BadgeList'
+import { ReadingGuide } from '../components/ui/ReadingGuide'
 
 export function BusinessOperatingSystemPage() {
   const [activeStageId, setActiveStageId] = useState(businessOperatingSystem[0].id)
@@ -26,60 +27,84 @@ export function BusinessOperatingSystemPage() {
         ))}
       </aside>
 
-      <article className="output-main">
+      <article className="output-main readable-page">
         <header className="course-hero">
           <span className="eyebrow">{activeStage.businessFunction}</span>
           <h1>{activeStage.title}</h1>
           <p>{activeStage.moment}</p>
         </header>
 
-        <div className="manual-section result-impact">
-          <h2>Exact moment in a business project</h2>
-          <p>{activeStage.moment}</p>
+        <ReadingGuide
+          title="How to use this business function"
+          steps={[
+            'Start with the business decision, not the metric.',
+            'Identify the data and methods needed to support that decision.',
+            'Translate the output into an action, risk, recommendation or next analysis.'
+          ]}
+        />
+
+        <div className="manual-section result-impact section-lead">
+          <span className="section-number">00</span>
+          <div>
+            <h2>Exact moment in a business project</h2>
+            <p>{activeStage.moment}</p>
+          </div>
         </div>
 
-        <div className="manual-section">
-          <h2>1. What it is</h2>
-          <p>{activeStage.whatItIs}</p>
+        <div className="manual-section section-lead">
+          <span className="section-number">01</span>
+          <div>
+            <h2>What it is</h2>
+            <p>{activeStage.whatItIs}</p>
+          </div>
         </div>
 
-        <div className="manual-section">
-          <h2>2. When to use it</h2>
-          <p>{activeStage.whenToUse}</p>
+        <div className="manual-section section-lead">
+          <span className="section-number">02</span>
+          <div>
+            <h2>When to use it</h2>
+            <p>{activeStage.whenToUse}</p>
+          </div>
         </div>
 
-        <div className="manual-section">
-          <h2>3. How to use it</h2>
-          <ul>
-            {activeStage.howToUse.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+        <div className="manual-section section-lead">
+          <span className="section-number">03</span>
+          <div>
+            <h2>How to use it</h2>
+            <ul>
+              {activeStage.howToUse.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="two-column">
           <div className="manual-section">
-            <h2>4. Data needed</h2>
+            <h2>Data needed</h2>
             <BadgeList items={activeStage.dataNeeded} tone="blue" />
           </div>
           <div className="manual-section">
-            <h2>5. Analysis methods</h2>
+            <h2>Analysis methods</h2>
             <BadgeList items={activeStage.analysisMethods} tone="purple" />
           </div>
         </div>
 
         <div className="manual-section">
-          <h2>6. Outputs produced</h2>
+          <h2>Outputs produced</h2>
           <BadgeList items={activeStage.outputs} tone="green" />
         </div>
 
-        <div className="manual-section result-good">
-          <h2>7. Decision supported</h2>
-          <p>{activeStage.decision}</p>
+        <div className="manual-section result-good section-lead">
+          <span className="section-number">DECIDE</span>
+          <div>
+            <h2>Decision supported</h2>
+            <p>{activeStage.decision}</p>
+          </div>
         </div>
 
         <details className="details-card" open>
-          <summary>8. Red flags</summary>
+          <summary>Red flags</summary>
           <ul>
             {activeStage.redFlags.map((item) => (
               <li key={item}>{item}</li>
@@ -97,6 +122,7 @@ export function BusinessOperatingSystemPage() {
         </p>
         <h3>Function</h3>
         <BadgeList items={[activeStage.businessFunction]} tone="amber" />
+        <div className="mini-result good">Decision first. Metrics second.</div>
       </aside>
     </section>
   )
