@@ -14,6 +14,22 @@ const businessOsItem: NavItem = {
   icon: '💼'
 }
 
+const professionalScenariosItem: NavItem = {
+  id: 'professional-scenarios',
+  label: 'Professional Scenarios',
+  eyebrow: 'Apply',
+  description: 'End-to-end workflows from business problem to monitored decision.',
+  icon: '🧭'
+}
+
+const decisionPlaybooksItem: NavItem = {
+  id: 'decision-playbooks',
+  label: 'Decision Playbooks',
+  eyebrow: 'Decide',
+  description: 'Convert analytical outputs into professional actions, evidence and monitoring.',
+  icon: '⚖️'
+}
+
 const operatingSystemCards = [
   {
     title: 'What is it?',
@@ -38,8 +54,10 @@ const operatingSystemCards = [
 ]
 
 const primaryNavigation: NavItem[] = [
-  ...navItems.filter((item) => ['data-science', 'banking-finance', 'credit-risk', 'output-atlas', 'model-library', 'business-cases', 'knowledge-map'].includes(item.id)),
-  businessOsItem
+  businessOsItem,
+  professionalScenariosItem,
+  decisionPlaybooksItem,
+  ...navItems.filter((item) => ['data-science', 'banking-finance', 'credit-risk', 'output-atlas', 'model-library', 'business-cases', 'knowledge-map'].includes(item.id))
 ]
 
 export function DashboardPage({ onNavigate }: DashboardPageProps) {
@@ -56,8 +74,11 @@ export function DashboardPage({ onNavigate }: DashboardPageProps) {
           <button className="primary-button" onClick={() => onNavigate('data-science')} type="button">
             Open Data Science OS
           </button>
-          <button className="primary-button" onClick={() => onNavigate('business-os')} type="button">
-            Open Business OS
+          <button className="primary-button" onClick={() => onNavigate('professional-scenarios')} type="button">
+            Open Scenarios
+          </button>
+          <button className="primary-button" onClick={() => onNavigate('decision-playbooks')} type="button">
+            Open Decision Playbooks
           </button>
         </div>
       </div>
