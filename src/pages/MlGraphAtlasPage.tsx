@@ -38,9 +38,9 @@ export function MlGraphAtlasPage() {
         <ReadingGuide
           title="How to read this ML graph"
           steps={[
-            'Start by identifying what model problem this graph belongs to.',
-            'Build the graph from model outputs, not manually invented numbers.',
-            'Interpret the graph by connecting signals to model quality and business decisions.'
+            'Start by identifying the model problem: classification, regression, clustering, forecasting or explainability.',
+            'Build the graph from real model outputs, then compare the visual pattern against the expected diagnostic signal.',
+            'Translate the graph into a model decision: accept, tune, recalibrate, simplify, explain further or reject.'
           ]}
         />
 
@@ -61,11 +61,7 @@ export function MlGraphAtlasPage() {
           <span className="section-number">BUILD</span>
           <div>
             <h2>How to construct it</h2>
-            <ul>
-              {graph.howToBuild.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            <ul>{graph.howToBuild.map((item) => <li key={item}>{item}</li>)}</ul>
           </div>
         </div>
 
@@ -73,11 +69,7 @@ export function MlGraphAtlasPage() {
           <span className="section-number">USE</span>
           <div>
             <h2>How to use it</h2>
-            <ul>
-              {graph.howToUse.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            <ul>{graph.howToUse.map((item) => <li key={item}>{item}</li>)}</ul>
           </div>
         </div>
 
@@ -85,11 +77,7 @@ export function MlGraphAtlasPage() {
           <span className="section-number">READ</span>
           <div>
             <h2>How to interpret it</h2>
-            <ul>
-              {graph.howToInterpret.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            <ul>{graph.howToInterpret.map((item) => <li key={item}>{item}</li>)}</ul>
           </div>
         </div>
 
@@ -103,13 +91,31 @@ export function MlGraphAtlasPage() {
             <p>{graph.badSignal}</p>
           </div>
         </div>
+
+        <div className="manual-section section-lead result-bad">
+          <span className="section-number">AVOID</span>
+          <div>
+            <h2>Common mistakes</h2>
+            <ul>{graph.commonMistakes.map((item) => <li key={item}>{item}</li>)}</ul>
+          </div>
+        </div>
+
+        <div className="manual-section section-lead result-good">
+          <span className="section-number">DECIDE</span>
+          <div>
+            <h2>Decision impact</h2>
+            <p>{graph.decisionImpact}</p>
+          </div>
+        </div>
       </article>
 
       <aside className="context-panel panel-card">
         <span className="eyebrow">Graph Logic</span>
-        <h3>Rule</h3>
-        <p>A machine learning graph is useful only when it helps you decide whether the model is reliable, interpretable or ready for action.</p>
-        <div className="mini-result good">Graph → interpretation → model decision.</div>
+        <h3>Diagnostic question</h3>
+        <p>Does this graph prove that the model is reliable, interpretable, calibrated, stable or useful for the next business decision?</p>
+        <div className="mini-result good">Graph → diagnostic signal → model decision.</div>
+        <h3>Current graph</h3>
+        <BadgeList items={[graph.category, graph.chartType]} tone="amber" />
       </aside>
     </section>
   )
