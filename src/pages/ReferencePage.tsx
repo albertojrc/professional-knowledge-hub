@@ -47,23 +47,49 @@ export function ReferencePage({ type, query }: ReferencePageProps) {
       <div className="page-header-panel">
         <span className="eyebrow">Model Library</span>
         <h1>Models with interpretation and business meaning</h1>
-        <p>Models are organized by objective, inputs, outputs, good/bad results and applications.</p>
+        <p>Each model is treated as a professional method: objective, preparation, outputs, interpretation, good/bad result and applications.</p>
       </div>
-      <div className="card-grid">
-        {visibleModels.map((model) => (
-          <article className="reference-card" key={model.id}>
+      {visibleModels.map((model) => (
+        <article className="case-playbook" key={model.id}>
+          <header className="course-hero">
             <span className="eyebrow">{model.family}</span>
-            <h3>{model.title}</h3>
-            <p><strong>Objective:</strong> {model.objective}</p>
-            <p><strong>Inputs:</strong> {model.inputs}</p>
-            <p><strong>Outputs:</strong> {model.outputs}</p>
-            <p><strong>Interpretation:</strong> {model.interpretation}</p>
-            <div className="mini-result good"><strong>Good:</strong> {model.goodResult}</div>
-            <div className="mini-result bad"><strong>Bad:</strong> {model.badResult}</div>
+            <h1>{model.title}</h1>
+            <p>{model.objective}</p>
+          </header>
+
+          <div className="two-column">
+            <div className="manual-section">
+              <h2>Inputs / preparation</h2>
+              <p>{model.inputs}</p>
+            </div>
+            <div className="manual-section">
+              <h2>Outputs generated</h2>
+              <p>{model.outputs}</p>
+            </div>
+          </div>
+
+          <div className="manual-section result-impact">
+            <h2>How to interpret it</h2>
+            <p>{model.interpretation}</p>
+          </div>
+
+          <div className="two-column">
+            <div className="manual-section result-good">
+              <h2>Good result</h2>
+              <p>{model.goodResult}</p>
+            </div>
+            <div className="manual-section result-bad">
+              <h2>Bad result</h2>
+              <p>{model.badResult}</p>
+            </div>
+          </div>
+
+          <div className="manual-section">
+            <h2>Professional applications</h2>
             <BadgeList items={model.applications} tone="green" />
-          </article>
-        ))}
-      </div>
+          </div>
+        </article>
+      ))}
     </section>
   )
 }
