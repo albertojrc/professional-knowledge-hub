@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { decisionPlaybooks } from '../data/decisionPlaybooks'
 import { BadgeList } from '../components/ui/BadgeList'
+import { ReadingGuide } from '../components/ui/ReadingGuide'
 
 export function DecisionPlaybooksPage() {
   const [activePlaybookId, setActivePlaybookId] = useState(decisionPlaybooks[0].id)
@@ -26,51 +27,75 @@ export function DecisionPlaybooksPage() {
         ))}
       </aside>
 
-      <article className="output-main">
+      <article className="output-main readable-page">
         <header className="course-hero">
           <span className="eyebrow">{activePlaybook.area}</span>
           <h1>{activePlaybook.title}</h1>
           <p>{activePlaybook.triggerOutput}</p>
         </header>
 
-        <div className="manual-section">
-          <h2>1. What the output means</h2>
-          <p>{activePlaybook.whatItMeans}</p>
+        <ReadingGuide
+          title="How to turn this output into action"
+          steps={[
+            'Start by interpreting what the output really says and what it does not say.',
+            'Frame the decision question before choosing an action.',
+            'Check evidence, risks and monitoring before treating the recommendation as final.'
+          ]}
+        />
+
+        <div className="manual-section section-lead">
+          <span className="section-number">READ</span>
+          <div>
+            <h2>What the output means</h2>
+            <p>{activePlaybook.whatItMeans}</p>
+          </div>
         </div>
 
-        <div className="manual-section result-impact">
-          <h2>2. Decision question</h2>
-          <p>{activePlaybook.decisionQuestion}</p>
+        <div className="manual-section result-impact section-lead">
+          <span className="section-number">ASK</span>
+          <div>
+            <h2>Decision question</h2>
+            <p>{activePlaybook.decisionQuestion}</p>
+          </div>
         </div>
 
-        <div className="manual-section">
-          <h2>3. Possible professional actions</h2>
-          <BadgeList items={activePlaybook.possibleActions} tone="green" />
+        <div className="manual-section section-lead">
+          <span className="section-number">ACT</span>
+          <div>
+            <h2>Possible professional actions</h2>
+            <BadgeList items={activePlaybook.possibleActions} tone="green" />
+          </div>
         </div>
 
-        <div className="manual-section">
-          <h2>4. Decision rules</h2>
-          <ul>
-            {activePlaybook.decisionRules.map((rule) => (
-              <li key={rule}>{rule}</li>
-            ))}
-          </ul>
+        <div className="manual-section section-lead">
+          <span className="section-number">RULES</span>
+          <div>
+            <h2>Decision rules</h2>
+            <ul>
+              {activePlaybook.decisionRules.map((rule) => (
+                <li key={rule}>{rule}</li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="two-column">
           <div className="manual-section">
-            <h2>5. Evidence needed</h2>
+            <h2>Evidence needed</h2>
             <BadgeList items={activePlaybook.evidenceNeeded} tone="blue" />
           </div>
           <div className="manual-section result-bad">
-            <h2>6. Risks if ignored</h2>
+            <h2>Risks if ignored</h2>
             <BadgeList items={activePlaybook.risks} tone="red" />
           </div>
         </div>
 
-        <div className="manual-section result-good">
-          <h2>7. Follow-up monitoring</h2>
-          <BadgeList items={activePlaybook.followUpMonitoring} tone="purple" />
+        <div className="manual-section result-good section-lead">
+          <span className="section-number">WATCH</span>
+          <div>
+            <h2>Follow-up monitoring</h2>
+            <BadgeList items={activePlaybook.followUpMonitoring} tone="purple" />
+          </div>
         </div>
       </article>
 
@@ -81,6 +106,7 @@ export function DecisionPlaybooksPage() {
           This section teaches how to convert an analytical output into a controlled professional decision,
           with evidence, rules, risks and monitoring.
         </p>
+        <div className="mini-result good">Interpretation is not the final step. Decision design is.</div>
       </aside>
     </section>
   )
