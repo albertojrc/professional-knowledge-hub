@@ -1,11 +1,31 @@
+import { useMemo, useState } from 'react'
 import { outputAtlas } from '../data/knowledge'
 import { BadgeList } from '../components/ui/BadgeList'
 
 export function OutputAtlasPage() {
-  const output = outputAtlas[0]
+  const [activeOutputId, setActiveOutputId] = useState(outputAtlas[0]?.id ?? '')
+  const output = useMemo(
+    () => outputAtlas.find((item) => item.id === activeOutputId) ?? outputAtlas[0],
+    [activeOutputId]
+  )
 
   return (
     <section className="output-layout">
+      <aside className="lesson-nav panel-card">
+        <span className="eyebrow">Atlas Index</span>
+        {outputAtlas.map((item, index) => (
+          <button
+            className={`lesson-nav-item ${item.id === output.id ? 'active' : ''}`}
+            key={item.id}
+            onClick={() => setActiveOutputId(item.id)}
+            type="button"
+          >
+            <span>{index + 1}</span>
+            <strong>{item.title}</strong>
+          </button>
+        ))}
+      </aside>
+
       <article className="output-main">
         <header className="course-hero">
           <span className="eyebrow">{output.category}</span>
@@ -62,7 +82,7 @@ export function OutputAtlasPage() {
         </div>
 
         <div className="manual-section result-impact">
-          <h2>8. Banking decision impact</h2>
+          <h2>8. Business / banking decision impact</h2>
           <p>{output.businessImpact}</p>
         </div>
       </article>
