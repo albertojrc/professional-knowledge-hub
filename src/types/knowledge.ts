@@ -1,6 +1,7 @@
 export type ViewId =
   | 'dashboard'
   | 'data-science'
+  | 'business-os'
   | 'banking-finance'
   | 'credit-risk'
   | 'output-atlas'
