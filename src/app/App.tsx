@@ -8,6 +8,7 @@ import { CoreAreaPage } from '../pages/CoreAreaPage'
 import { DataScienceOperatingSystemPage } from '../pages/DataScienceOperatingSystemPage'
 import { BusinessOperatingSystemPage } from '../pages/BusinessOperatingSystemPage'
 import { ProfessionalScenariosPage } from '../pages/ProfessionalScenariosPage'
+import { DecisionPlaybooksPage } from '../pages/DecisionPlaybooksPage'
 import { CreditRiskPage } from '../pages/CreditRiskPage'
 import { OutputAtlasPage } from '../pages/OutputAtlasPage'
 import { ReferencePage } from '../pages/ReferencePage'
@@ -31,7 +32,15 @@ const professionalScenariosItem: NavItem = {
   icon: '🧭'
 }
 
-const navCatalog: NavItem[] = [...navItems, businessOsItem, professionalScenariosItem]
+const decisionPlaybooksItem: NavItem = {
+  id: 'decision-playbooks',
+  label: 'Decision Playbooks',
+  eyebrow: 'Decide',
+  description: 'Convert analytical outputs into professional actions, evidence and monitoring.',
+  icon: '⚖️'
+}
+
+const navCatalog: NavItem[] = [...navItems, businessOsItem, professionalScenariosItem, decisionPlaybooksItem]
 
 export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
@@ -52,6 +61,7 @@ export function App() {
           {activeView === 'data-science' && <DataScienceOperatingSystemPage />}
           {activeView === 'business-os' && <BusinessOperatingSystemPage />}
           {activeView === 'professional-scenarios' && <ProfessionalScenariosPage />}
+          {activeView === 'decision-playbooks' && <DecisionPlaybooksPage />}
           {activeView === 'banking-finance' && <CoreAreaPage area="Banking & Finance" onNavigate={setActiveView} />}
           {activeView === 'credit-risk' && <CreditRiskPage />}
           {activeView === 'output-atlas' && <OutputAtlasPage />}
