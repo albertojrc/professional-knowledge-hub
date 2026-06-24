@@ -6,6 +6,8 @@ export type ViewId =
   | 'credit-risk'
   | 'professional-scenarios'
   | 'decision-playbooks'
+  | 'ml-models'
+  | 'ml-graph-atlas'
   | 'output-atlas'
   | 'formula-library'
   | 'model-library'
