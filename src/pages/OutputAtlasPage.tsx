@@ -1,11 +1,14 @@
 import { useMemo, useState } from 'react'
 import { outputAtlas } from '../data/knowledge'
+import { extraOutputAtlas } from '../data/phase3Knowledge'
 import { BadgeList } from '../components/ui/BadgeList'
 
+const allOutputAtlas = [...outputAtlas, ...extraOutputAtlas]
+
 export function OutputAtlasPage() {
-  const [activeOutputId, setActiveOutputId] = useState(outputAtlas[0]?.id ?? '')
+  const [activeOutputId, setActiveOutputId] = useState(allOutputAtlas[0]?.id ?? '')
   const output = useMemo(
-    () => outputAtlas.find((item) => item.id === activeOutputId) ?? outputAtlas[0],
+    () => allOutputAtlas.find((item) => item.id === activeOutputId) ?? allOutputAtlas[0],
     [activeOutputId]
   )
 
@@ -13,7 +16,7 @@ export function OutputAtlasPage() {
     <section className="output-layout">
       <aside className="lesson-nav panel-card">
         <span className="eyebrow">Atlas Index</span>
-        {outputAtlas.map((item, index) => (
+        {allOutputAtlas.map((item, index) => (
           <button
             className={`lesson-nav-item ${item.id === output.id ? 'active' : ''}`}
             key={item.id}
