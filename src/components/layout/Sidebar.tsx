@@ -14,7 +14,15 @@ const businessOsItem: NavItem = {
   icon: '💼'
 }
 
-const navCatalog: NavItem[] = [...navItems, businessOsItem]
+const professionalScenariosItem: NavItem = {
+  id: 'professional-scenarios',
+  label: 'Professional Scenarios',
+  eyebrow: 'Apply',
+  description: 'End-to-end workflows from business problem to monitored decision.',
+  icon: '🧭'
+}
+
+const navCatalog: NavItem[] = [...navItems, businessOsItem, professionalScenariosItem]
 
 const groups = [
   {
@@ -27,7 +35,7 @@ const groups = [
   },
   {
     title: 'Application',
-    ids: ['business-cases', 'knowledge-map', 'quality-review'] as ViewId[]
+    ids: ['professional-scenarios', 'business-cases', 'knowledge-map', 'quality-review'] as ViewId[]
   }
 ]
 
@@ -35,7 +43,7 @@ export function Sidebar({ activeView, onChangeView }: SidebarProps) {
   return (
     <aside className="sidebar">
       <div className="brand-panel">
-        <span className="eyebrow">PKOS v0.3</span>
+        <span className="eyebrow">PKOS v0.4</span>
         <h1>Professional Knowledge Hub</h1>
         <p>Data Science + Banking + Finance + Business as a professional second brain.</p>
       </div>
