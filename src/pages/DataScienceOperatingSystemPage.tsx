@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { dataScienceOperatingSystem } from '../data/operatingSystem'
 import { BadgeList } from '../components/ui/BadgeList'
+import { ReadingGuide } from '../components/ui/ReadingGuide'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
 
 export function DataScienceOperatingSystemPage() {
@@ -27,49 +28,72 @@ export function DataScienceOperatingSystemPage() {
         ))}
       </aside>
 
-      <article className="output-main">
+      <article className="output-main readable-page">
         <header className="course-hero">
           <span className="eyebrow">Data Science Operating System</span>
           <h1>{activeStage.title}</h1>
           <p>{activeStage.moment}</p>
         </header>
 
-        <div className="manual-section result-impact">
-          <h2>Exact moment in the project</h2>
-          <p>{activeStage.moment}</p>
+        <ReadingGuide
+          title="How to read this stage"
+          steps={[
+            'Start with the exact project moment so you know why this stage exists.',
+            'Understand what the stage is before thinking about tools.',
+            'Use the workflow and outputs to connect the stage to the next decision.'
+          ]}
+        />
+
+        <div className="manual-section result-impact section-lead">
+          <span className="section-number">00</span>
+          <div>
+            <h2>Exact moment in the project</h2>
+            <p>{activeStage.moment}</p>
+          </div>
         </div>
 
-        <div className="manual-section">
-          <h2>1. What it is</h2>
-          <p>{activeStage.whatItIs}</p>
+        <div className="manual-section section-lead">
+          <span className="section-number">01</span>
+          <div>
+            <h2>What it is</h2>
+            <p>{activeStage.whatItIs}</p>
+          </div>
         </div>
 
-        <div className="manual-section">
-          <h2>2. When to use it</h2>
-          <p>{activeStage.whenToUse}</p>
+        <div className="manual-section section-lead">
+          <span className="section-number">02</span>
+          <div>
+            <h2>When to use it</h2>
+            <p>{activeStage.whenToUse}</p>
+          </div>
         </div>
 
-        <div className="manual-section">
-          <h2>3. How to use it</h2>
-          <ul>
-            {activeStage.howToUse.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+        <div className="manual-section section-lead">
+          <span className="section-number">03</span>
+          <div>
+            <h2>How to use it</h2>
+            <ul>
+              {activeStage.howToUse.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="manual-section">
-          <h2>4. What to analyze at this stage</h2>
-          <BadgeList items={activeStage.whatToAnalyze} tone="blue" />
-        </div>
+        <div className="two-column">
+          <div className="manual-section">
+            <h2>What to analyze</h2>
+            <BadgeList items={activeStage.whatToAnalyze} tone="blue" />
+          </div>
 
-        <div className="manual-section">
-          <h2>5. Outputs produced</h2>
-          <BadgeList items={activeStage.outputs} tone="purple" />
+          <div className="manual-section">
+            <h2>Outputs produced</h2>
+            <BadgeList items={activeStage.outputs} tone="purple" />
+          </div>
         </div>
 
         <details className="details-card" open>
-          <summary>6. Red flags</summary>
+          <summary>Red flags</summary>
           <ul>
             {activeStage.redFlags.map((item) => (
               <li key={item}>{item}</li>
@@ -77,15 +101,19 @@ export function DataScienceOperatingSystemPage() {
           </ul>
         </details>
 
-        <div className="manual-section result-good">
-          <h2>7. What comes next</h2>
-          <p>{activeStage.nextStage}</p>
+        <div className="manual-section result-good section-lead">
+          <span className="section-number">NEXT</span>
+          <div>
+            <h2>What comes next</h2>
+            <p>{activeStage.nextStage}</p>
+          </div>
         </div>
       </article>
 
       <aside className="context-panel panel-card">
         <span className="eyebrow">Full workflow</span>
         <KnowledgeChain nodes={dataScienceOperatingSystem.map((stage) => stage.title)} />
+        <div className="mini-result good">Current stage: {activeStage.title}</div>
       </aside>
     </section>
   )
