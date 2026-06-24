@@ -7,6 +7,7 @@ import { DashboardPage } from '../pages/DashboardPage'
 import { CoreAreaPage } from '../pages/CoreAreaPage'
 import { DataScienceOperatingSystemPage } from '../pages/DataScienceOperatingSystemPage'
 import { BusinessOperatingSystemPage } from '../pages/BusinessOperatingSystemPage'
+import { ProfessionalScenariosPage } from '../pages/ProfessionalScenariosPage'
 import { CreditRiskPage } from '../pages/CreditRiskPage'
 import { OutputAtlasPage } from '../pages/OutputAtlasPage'
 import { ReferencePage } from '../pages/ReferencePage'
@@ -22,7 +23,15 @@ const businessOsItem: NavItem = {
   icon: '💼'
 }
 
-const navCatalog: NavItem[] = [...navItems, businessOsItem]
+const professionalScenariosItem: NavItem = {
+  id: 'professional-scenarios',
+  label: 'Professional Scenarios',
+  eyebrow: 'Apply',
+  description: 'End-to-end workflows from business problem to monitored decision.',
+  icon: '🧭'
+}
+
+const navCatalog: NavItem[] = [...navItems, businessOsItem, professionalScenariosItem]
 
 export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
@@ -42,6 +51,7 @@ export function App() {
           {activeView === 'dashboard' && <DashboardPage onNavigate={setActiveView} />}
           {activeView === 'data-science' && <DataScienceOperatingSystemPage />}
           {activeView === 'business-os' && <BusinessOperatingSystemPage />}
+          {activeView === 'professional-scenarios' && <ProfessionalScenariosPage />}
           {activeView === 'banking-finance' && <CoreAreaPage area="Banking & Finance" onNavigate={setActiveView} />}
           {activeView === 'credit-risk' && <CreditRiskPage />}
           {activeView === 'output-atlas' && <OutputAtlasPage />}
