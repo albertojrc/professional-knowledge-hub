@@ -1,4 +1,5 @@
 import { formulas, models } from '../data/knowledge'
+import { extraModels } from '../data/phase3Knowledge'
 import { BadgeList } from '../components/ui/BadgeList'
 
 interface ReferencePageProps {
@@ -38,7 +39,8 @@ export function ReferencePage({ type, query }: ReferencePageProps) {
     )
   }
 
-  const visibleModels = models.filter((model) =>
+  const allModels = [...models, ...extraModels]
+  const visibleModels = allModels.filter((model) =>
     `${model.title} ${model.family} ${model.objective} ${model.interpretation}`.toLowerCase().includes(normalizedQuery)
   )
 
