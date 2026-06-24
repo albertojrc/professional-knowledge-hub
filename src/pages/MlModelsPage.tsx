@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { detailedMlModels } from '../data/mlModelLibrary'
 import { BadgeList } from '../components/ui/BadgeList'
 import { ReadingGuide } from '../components/ui/ReadingGuide'
-import { MlMiniChart } from '../components/charts/MlMiniChart'
+import { MlMiniChart, type MlChartType } from '../components/charts/MlMiniChart'
 
 export function MlModelsPage() {
   const [activeModelId, setActiveModelId] = useState(detailedMlModels[0].id)
@@ -60,11 +60,7 @@ export function MlModelsPage() {
           <span className="section-number">BUILD</span>
           <div>
             <h2>How to build it</h2>
-            <ul>
-              {model.howToBuild.map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ul>
+            <ul>{model.howToBuild.map((step) => <li key={step}>{step}</li>)}</ul>
           </div>
         </div>
 
@@ -72,11 +68,7 @@ export function MlModelsPage() {
           <span className="section-number">READ</span>
           <div>
             <h2>How to interpret it</h2>
-            <ul>
-              {model.howToInterpret.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            <ul>{model.howToInterpret.map((item) => <li key={item}>{item}</li>)}</ul>
           </div>
         </div>
 
@@ -119,7 +111,7 @@ export function MlModelsPage() {
   )
 }
 
-function graphToChartType(graph: string) {
+function graphToChartType(graph: string): MlChartType {
   const name = graph.toLowerCase()
   if (name.includes('precision')) return 'pr'
   if (name.includes('calibration')) return 'calibration'
