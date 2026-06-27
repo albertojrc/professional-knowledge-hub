@@ -7,6 +7,7 @@ import './styles/lightBlueTheme.css'
 import './styles/knowledgeOS.css'
 import './styles/searchOS.css'
 import './styles/deepLinkOS.css'
+import './styles/libraryFilterOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
