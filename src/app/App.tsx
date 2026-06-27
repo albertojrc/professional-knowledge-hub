@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import type { NavItem, ViewId } from '../types/knowledge'
 import { navItems } from '../data/knowledge'
 import { useAssetProgress } from '../hooks/useAssetProgress'
+import { usePathPrefs } from '../hooks/usePathPrefs'
 import { Sidebar } from '../components/layout/Sidebar'
 import { TopBar } from '../components/layout/TopBar'
 import { DashboardPage } from '../pages/DashboardPage'
@@ -42,6 +43,7 @@ export function App() {
   const [activeAssetId, setActiveAssetId] = useState<string | null>(null)
   const [focusId, setFocusId] = useState<string | null>(null)
   const assetProgress = useAssetProgress()
+  const pathPrefs = usePathPrefs()
 
   const activeItem = useMemo(() => navCatalog.find((item) => item.id === activeView) ?? navCatalog[0], [activeView])
 
@@ -63,11 +65,11 @@ export function App() {
       <div className="app-main">
         <TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} />
         <main className="content-shell">
-          {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} />}
+          {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} pathPrefs={pathPrefs} />}
           {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
           {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
-          {activeView === 'study-paths' && <StudyPathsPage assetProgress={assetProgress} onOpenAsset={openAsset} />}
+          {activeView === 'study-paths' && <StudyPathsPage assetProgress={assetProgress} onOpenAsset={openAsset} pathPrefs={pathPrefs} />}
           {activeView === 'knowledge-factory' && <KnowledgeFactoryPage focusId={focusId} />}
           {activeView === 'data-science' && <DataScienceOperatingSystemPage />}
           {activeView === 'business-os' && <BusinessOperatingSystemPage />}
