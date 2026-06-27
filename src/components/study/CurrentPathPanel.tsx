@@ -7,9 +7,10 @@ interface CurrentPathPanelProps {
   getAssetStatus: (assetId: string) => AssetProgressStatus
   onOpenAsset: (assetId: string) => void
   onOpenStudyPaths: () => void
+  onStartSession: () => void
 }
 
-export function CurrentPathPanel({ activePathId, getAssetStatus, onOpenAsset, onOpenStudyPaths }: CurrentPathPanelProps) {
+export function CurrentPathPanel({ activePathId, getAssetStatus, onOpenAsset, onOpenStudyPaths, onStartSession }: CurrentPathPanelProps) {
   const currentPath = studyPaths.find((path) => path.id === activePathId)
 
   if (!currentPath) {
@@ -36,11 +37,8 @@ export function CurrentPathPanel({ activePathId, getAssetStatus, onOpenAsset, on
         <strong>{progress.percentage}%</strong>
         <div className="study-score-bar"><i style={{ width: `${progress.percentage}%` }} /></div>
       </div>
-      {progress.nextAsset && (
-        <button className="primary-button" onClick={() => onOpenAsset(progress.nextAsset.id)} type="button">
-          Continue: {progress.nextAsset.title}
-        </button>
-      )}
+      <button className="primary-button" onClick={onStartSession} type="button">Start Learning Session</button>
+      {progress.nextAsset && <button className="text-button" onClick={() => onOpenAsset(progress.nextAsset.id)} type="button">Open: {progress.nextAsset.title}</button>}
       <button className="text-button" onClick={onOpenStudyPaths} type="button">Manage Study Paths</button>
     </section>
   )
