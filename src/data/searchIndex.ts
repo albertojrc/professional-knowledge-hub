@@ -1,4 +1,4 @@
-import { knowledgeAssets } from './knowledgeAssets'
+import { knowledgeAssetRegistry } from './knowledgeAssetRegistry'
 import { outputAtlas, formulas, models, businessCases } from './knowledge'
 import { extraOutputAtlas, extraModels } from './phase3Knowledge'
 import { expansionBacklog } from './assetExpansionSystem'
@@ -21,14 +21,14 @@ const allOutputs = [...outputAtlas, ...extraOutputAtlas]
 const allModels = [...models, ...extraModels]
 
 export const globalSearchIndex: SearchResultItem[] = [
-  ...knowledgeAssets.map((asset) => ({
+  ...knowledgeAssetRegistry.map((asset) => ({
     id: asset.id,
     title: asset.title,
     kind: 'Knowledge Asset' as const,
     area: asset.area,
     category: asset.category,
     summary: asset.summary,
-    tags: [asset.type, asset.difficulty, ...asset.metrics, ...asset.outputs, ...asset.graphs, ...asset.businessApplications, ...asset.bankingApplications],
+    tags: [asset.type, asset.difficulty, ...asset.metrics, ...asset.outputs, ...asset.graphs, ...asset.businessApplications, ...asset.bankingApplications, ...asset.relatedAssets],
     targetView: 'knowledge-library' as const,
     assetId: asset.id
   })),
@@ -93,7 +93,6 @@ export function searchKnowledge(query: string, filters: { kind?: string; area?: 
       const matchesArea = !filters.area || filters.area === 'All' || item.area === filters.area
       const matchesCategory = !filters.category || filters.category === 'All' || item.category === filters.category
       if (!matchesKind || !matchesArea || !matchesCategory) return false
-
       if (!normalizedQuery) return true
       const haystack = `${item.title} ${item.kind} ${item.area} ${item.category} ${item.summary} ${item.tags.join(' ')}`.toLowerCase()
       return haystack.includes(normalizedQuery)
