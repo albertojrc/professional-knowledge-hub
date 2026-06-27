@@ -3,6 +3,7 @@ export type ViewId =
   | 'global-search'
   | 'material-inventory'
   | 'course-area-map'
+  | 'evidence-expansion'
   | 'knowledge-library'
   | 'study-paths'
   | 'learning-session'
