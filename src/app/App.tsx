@@ -4,6 +4,7 @@ import { navItems } from '../data/knowledge'
 import { Sidebar } from '../components/layout/Sidebar'
 import { TopBar } from '../components/layout/TopBar'
 import { DashboardPage } from '../pages/DashboardPage'
+import { GlobalSearchPage } from '../pages/GlobalSearchPage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { KnowledgeFactoryPage } from '../pages/KnowledgeFactoryPage'
@@ -21,6 +22,7 @@ import { BusinessCasesPage } from '../pages/BusinessCasesPage'
 import { KnowledgeMapPage } from '../pages/KnowledgeMapPage'
 import { QualityReviewPage } from '../pages/QualityReviewPage'
 
+const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across assets, outputs, formulas, models, cases and backlog.', icon: 'SE' }
 const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable concepts across business, data science and banking.', icon: 'KB' }
 const knowledgeFactoryItem: NavItem = { id: 'knowledge-factory', label: 'Knowledge Factory', eyebrow: 'Expansion System', description: 'Backlog, quality gates and source strategy for scaling the Hub.', icon: 'KF' }
 const businessOsItem: NavItem = { id: 'business-os', label: 'Business OS', eyebrow: 'Core Area', description: 'Strategy, finance, marketing, operations and economics connected to decisions.', icon: 'BS' }
@@ -29,7 +31,7 @@ const decisionPlaybooksItem: NavItem = { id: 'decision-playbooks', label: 'Decis
 const mlModelsItem: NavItem = { id: 'ml-models', label: 'ML Models', eyebrow: 'Machine Learning', description: 'Detailed ML models with outputs, interpretation and graph examples.', icon: 'ML' }
 const mlGraphAtlasItem: NavItem = { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'Interpret', description: 'Machine learning charts: how to build, use and interpret them.', icon: 'GA' }
 
-const navCatalog: NavItem[] = [...navItems, knowledgeLibraryItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
+const navCatalog: NavItem[] = [...navItems, globalSearchItem, knowledgeLibraryItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
 
 export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
@@ -55,6 +57,7 @@ export function App() {
         <TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} />
         <main className="content-shell">
           {activeView === 'dashboard' && <DashboardPage onNavigate={setActiveView} />}
+          {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
           {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} />}
           {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} />}
           {activeView === 'knowledge-factory' && <KnowledgeFactoryPage />}
