@@ -9,6 +9,7 @@ import { DashboardPage } from '../pages/DashboardPage'
 import { GlobalSearchPage } from '../pages/GlobalSearchPage'
 import { MaterialInventoryPage } from '../pages/MaterialInventoryPage'
 import { CourseAreaMapPage } from '../pages/CourseAreaMapPage'
+import { EvidenceExpansionPage } from '../pages/EvidenceExpansionPage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
@@ -31,6 +32,7 @@ import { QualityReviewPage } from '../pages/QualityReviewPage'
 const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across assets, outputs, formulas, models, cases and backlog.', icon: 'SE' }
 const materialInventoryItem: NavItem = { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Source System', description: 'Inventory class materials and map them to topics, assets and gaps.', icon: 'MI' }
 const courseAreaMapItem: NavItem = { id: 'course-area-map', label: 'Course Area Map', eyebrow: 'Source Mapping', description: 'Map courses and materials into professional knowledge areas.', icon: 'CM' }
+const evidenceExpansionItem: NavItem = { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Asset Queue', description: 'Validate candidate assets against class evidence before adding source claims.', icon: 'EV' }
 const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable concepts across business, data science and banking.', icon: 'KB' }
 const studyPathsItem: NavItem = { id: 'study-paths', label: 'Study Paths', eyebrow: 'Learning Tracks', description: 'Role-based professional learning paths built from assets.', icon: 'SP' }
 const learningSessionItem: NavItem = { id: 'learning-session', label: 'Learning Session', eyebrow: 'Focus Mode', description: 'Guided one-asset-at-a-time study mode for your current path.', icon: 'LS' }
@@ -41,7 +43,7 @@ const decisionPlaybooksItem: NavItem = { id: 'decision-playbooks', label: 'Decis
 const mlModelsItem: NavItem = { id: 'ml-models', label: 'ML Models', eyebrow: 'Machine Learning', description: 'Detailed ML models with outputs, interpretation and graph examples.', icon: 'ML' }
 const mlGraphAtlasItem: NavItem = { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'Interpret', description: 'Machine learning charts: how to build, use and interpret them.', icon: 'GA' }
 
-const navCatalog: NavItem[] = [...navItems, globalSearchItem, materialInventoryItem, courseAreaMapItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
+const navCatalog: NavItem[] = [...navItems, globalSearchItem, materialInventoryItem, courseAreaMapItem, evidenceExpansionItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
 
 export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
@@ -75,6 +77,7 @@ export function App() {
           {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
           {activeView === 'material-inventory' && <MaterialInventoryPage focusId={focusId} />}
           {activeView === 'course-area-map' && <CourseAreaMapPage focusId={focusId} />}
+          {activeView === 'evidence-expansion' && <EvidenceExpansionPage focusId={focusId} />}
           {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'study-paths' && <StudyPathsPage assetProgress={assetProgress} onOpenAsset={openAsset} pathPrefs={pathPrefs} />}
