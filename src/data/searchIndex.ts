@@ -1,6 +1,7 @@
 import { knowledgeAssetRegistry } from './knowledgeAssetRegistry'
 import { outputAtlas, formulas, models, businessCases } from './knowledge'
 import { extraOutputAtlas, extraModels } from './phase3Knowledge'
+import { sprint25Outputs, sprint25Formulas } from './referenceExpansionSprint25'
 import { expansionBacklog } from './assetExpansionSystem'
 import { studyPaths } from './studyPaths'
 import { materialRecords } from './materialInventory'
@@ -21,7 +22,8 @@ export interface SearchResultItem {
   assetId?: string
 }
 
-const allOutputs = [...outputAtlas, ...extraOutputAtlas]
+const allOutputs = [...outputAtlas, ...extraOutputAtlas, ...sprint25Outputs]
+const allFormulas = [...formulas, ...sprint25Formulas]
 const allModels = [...models, ...extraModels]
 
 export const globalSearchIndex: SearchResultItem[] = [
@@ -90,13 +92,13 @@ export const globalSearchIndex: SearchResultItem[] = [
     id: output.id,
     title: output.title,
     kind: 'Output' as const,
-    area: 'Data Science',
+    area: output.category === 'Finance' ? 'Finance' : 'Data Science',
     category: output.category,
     summary: output.whatItIs,
     tags: [...output.usedIn, ...output.relatedConcepts, ...output.relatedCases],
     targetView: 'output-atlas' as const
   })),
-  ...formulas.map((formula) => ({
+  ...allFormulas.map((formula) => ({
     id: formula.id,
     title: formula.title,
     kind: 'Formula' as const,
