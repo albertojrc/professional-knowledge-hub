@@ -11,6 +11,7 @@ import './styles/libraryFilterOS.css'
 import './styles/progressOS.css'
 import './styles/studyDashboardOS.css'
 import './styles/studyPathsOS.css'
+import './styles/pathActionsOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
