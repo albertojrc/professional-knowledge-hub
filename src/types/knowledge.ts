@@ -2,6 +2,7 @@ export type ViewId =
   | 'dashboard'
   | 'global-search'
   | 'material-inventory'
+  | 'course-area-map'
   | 'knowledge-library'
   | 'study-paths'
   | 'learning-session'
