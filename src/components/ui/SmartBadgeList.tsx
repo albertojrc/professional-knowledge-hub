@@ -1,4 +1,4 @@
-import { getKnowledgeTooltip } from '../../data/knowledgeTooltips'
+import { getTooltipDefinition } from '../../data/knowledgeTooltipRegistry'
 
 interface SmartBadgeListProps {
   items: string[]
@@ -9,7 +9,7 @@ export function SmartBadgeList({ items, tone = 'blue' }: SmartBadgeListProps) {
   return (
     <div className="badge-list smart-badge-list">
       {items.map((item) => {
-        const tooltip = getKnowledgeTooltip(item)
+        const tooltip = getTooltipDefinition(item)
         return (
           <span className={`badge badge-${tone} smart-badge`} key={item} tabIndex={0}>
             {item}
