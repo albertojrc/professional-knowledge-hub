@@ -1,5 +1,6 @@
 import { knowledgeAssets } from '../data/knowledgeAssets'
 import { BadgeList } from '../components/ui/BadgeList'
+import { SmartBadgeList } from '../components/ui/SmartBadgeList'
 import { ReadingGuide } from '../components/ui/ReadingGuide'
 import { MlMiniChart, type MlChartType } from '../components/charts/MlMiniChart'
 
@@ -93,6 +94,16 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset }: Knowl
             <ul className="clean-list">{asset.interpretation.map((item) => <li key={item}>{item}</li>)}</ul>
           </section>
 
+          <section className="lesson-block output-learning-block">
+            <div className="lesson-block-title"><span>6</span><h2>Outputs, metrics and assumptions</h2></div>
+            <p>Hover or focus each capsule to understand what it means, what good looks like and how to improve it.</p>
+            <div className="three-column-soft">
+              <div><h3>Metrics</h3><SmartBadgeList items={asset.metrics} tone="green" /></div>
+              <div><h3>Assumptions</h3><SmartBadgeList items={asset.assumptions} tone="amber" /></div>
+              <div><h3>Outputs</h3><SmartBadgeList items={asset.outputs} tone="blue" /></div>
+            </div>
+          </section>
+
           <section className="two-column">
             <div className="lesson-block"><h2>Business applications</h2><BadgeList items={asset.businessApplications} tone="blue" /></div>
             <div className="lesson-block"><h2>Banking applications</h2><BadgeList items={asset.bankingApplications} tone="amber" /></div>
@@ -134,11 +145,11 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset }: Knowl
 
           <div className="output-panel-card">
             <h3>Metrics</h3>
-            <BadgeList items={asset.metrics} tone="green" />
+            <SmartBadgeList items={asset.metrics} tone="green" />
             <h3>Assumptions</h3>
-            <BadgeList items={asset.assumptions} tone="amber" />
+            <SmartBadgeList items={asset.assumptions} tone="amber" />
             <h3>Outputs</h3>
-            <BadgeList items={asset.outputs} tone="blue" />
+            <SmartBadgeList items={asset.outputs} tone="blue" />
           </div>
 
           <div className="output-panel-card">
