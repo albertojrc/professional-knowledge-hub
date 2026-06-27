@@ -1,5 +1,6 @@
 export type ViewId =
   | 'dashboard'
+  | 'global-search'
   | 'knowledge-library'
   | 'knowledge-factory'
   | 'data-science'
