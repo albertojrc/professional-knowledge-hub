@@ -61,7 +61,7 @@ export function App() {
       <div className="app-main">
         <TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} />
         <main className="content-shell">
-          {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} />}
+          {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
           {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
