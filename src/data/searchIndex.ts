@@ -3,8 +3,9 @@ import { outputAtlas, formulas, models, businessCases } from './knowledge'
 import { extraOutputAtlas, extraModels } from './phase3Knowledge'
 import { expansionBacklog } from './assetExpansionSystem'
 import { studyPaths } from './studyPaths'
+import { materialRecords } from './materialInventory'
 
-export type SearchResultKind = 'Knowledge Asset' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
+export type SearchResultKind = 'Knowledge Asset' | 'Material' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
 
 export interface SearchResultItem {
   id: string
@@ -14,7 +15,7 @@ export interface SearchResultItem {
   category: string
   summary: string
   tags: string[]
-  targetView: 'knowledge-library' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
+  targetView: 'knowledge-library' | 'material-inventory' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
   assetId?: string
 }
 
@@ -32,6 +33,16 @@ export const globalSearchIndex: SearchResultItem[] = [
     tags: [asset.type, asset.difficulty, ...asset.metrics, ...asset.outputs, ...asset.graphs, ...asset.businessApplications, ...asset.bankingApplications, ...asset.relatedAssets],
     targetView: 'knowledge-library' as const,
     assetId: asset.id
+  })),
+  ...materialRecords.map((material) => ({
+    id: material.id,
+    title: material.title,
+    kind: 'Material' as const,
+    area: material.area,
+    category: material.status,
+    summary: material.description,
+    tags: [material.program, material.materialType, material.locationLabel, material.priority, ...material.knownTopics, ...material.targetAssets, ...material.gapsToCheck],
+    targetView: 'material-inventory' as const
   })),
   ...studyPaths.map((path) => ({
     id: path.id,
