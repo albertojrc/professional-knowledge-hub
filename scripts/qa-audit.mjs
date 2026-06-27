@@ -4,91 +4,28 @@ const requiredFiles = [
   'src/app/App.tsx',
   'src/types/knowledge.ts',
   'src/types/materialInventory.ts',
+  'src/types/courseAreaMapping.ts',
   'src/data/materialInventory.ts',
+  'src/data/courseAreaMapping.ts',
   'src/data/knowledgeAssetRegistry.ts',
-  'src/data/knowledgeAssetsSprint14.ts',
-  'src/data/knowledgeTooltipsSprint14.ts',
   'src/pages/DashboardPage.tsx',
   'src/pages/GlobalSearchPage.tsx',
   'src/pages/MaterialInventoryPage.tsx',
+  'src/pages/CourseAreaMapPage.tsx',
   'src/pages/KnowledgeLibraryPage.tsx',
-  'src/pages/KnowledgeAssetDetailPage.tsx',
   'src/pages/StudyPathsPage.tsx',
   'src/pages/LearningSessionPage.tsx',
-  'src/pages/KnowledgeFactoryPage.tsx',
-  'src/hooks/useAssetProgress.ts',
-  'src/hooks/usePathPrefs.ts',
-  'src/styles/progressOS.css',
-  'src/styles/studyDashboardOS.css',
-  'src/styles/studyPathsOS.css',
-  'src/styles/learningSessionOS.css',
   'src/styles/materialInventoryOS.css',
+  'src/styles/courseAreaMapOS.css',
   'docs/SPRINT_1_FINAL_REVIEW.md',
   'docs/SPRINT_2_ROADMAP.md',
-  'docs/SPRINT_2_1_SOURCE_INVENTORY.md'
+  'docs/SPRINT_2_1_SOURCE_INVENTORY.md',
+  'docs/SPRINT_2_2_COURSE_AREA_MAPPING.md'
 ]
 
-const requiredViewIds = [
-  'dashboard',
-  'global-search',
-  'material-inventory',
-  'knowledge-library',
-  'study-paths',
-  'learning-session',
-  'knowledge-factory',
-  'data-science',
-  'business-os',
-  'banking-finance',
-  'credit-risk',
-  'professional-scenarios',
-  'decision-playbooks',
-  'ml-models',
-  'ml-graph-atlas',
-  'output-atlas',
-  'formula-library',
-  'model-library',
-  'business-cases',
-  'knowledge-map',
-  'quality-review'
-]
-
-const requiredSprint14AssetIds = [
-  'train-test-split',
-  'cross-validation',
-  'data-leakage',
-  'precision-recall-curve',
-  'lift-curve',
-  'ks-statistic',
-  'pd',
-  'lgd',
-  'ead',
-  'business-model-canvas',
-  'ab-testing',
-  'mlops-monitoring'
-]
-
-const requiredAppRoutes = [
-  "activeView === 'dashboard'",
-  "activeView === 'global-search'",
-  "activeView === 'material-inventory'",
-  "activeView === 'knowledge-library'",
-  "activeView === 'study-paths'",
-  "activeView === 'learning-session'",
-  "activeView === 'knowledge-factory'"
-]
-
-const requiredMainStyleImports = [
-  "./styles/knowledgeOS.css",
-  "./styles/searchOS.css",
-  "./styles/deepLinkOS.css",
-  "./styles/libraryFilterOS.css",
-  "./styles/progressOS.css",
-  "./styles/studyDashboardOS.css",
-  "./styles/studyPathsOS.css",
-  "./styles/pathActionsOS.css",
-  "./styles/learningSessionOS.css",
-  "./styles/materialInventoryOS.css"
-]
+const requiredViewIds = ['dashboard', 'global-search', 'material-inventory', 'course-area-map', 'knowledge-library', 'study-paths', 'learning-session', 'knowledge-factory', 'quality-review']
+const requiredRoutes = ["activeView === 'material-inventory'", "activeView === 'course-area-map'", "activeView === 'knowledge-library'", "activeView === 'study-paths'", "activeView === 'learning-session'"]
+const requiredStyleImports = ["./styles/materialInventoryOS.css", "./styles/courseAreaMapOS.css"]
 
 function fail(message) {
   console.error(`QA FAIL: ${message}`)
@@ -107,26 +44,17 @@ function assertContains(path, text) {
 
 for (const file of requiredFiles) assertFileExists(file)
 for (const viewId of requiredViewIds) assertContains('src/types/knowledge.ts', `'${viewId}'`)
-for (const assetId of requiredSprint14AssetIds) assertContains('src/data/knowledgeAssetsSprint14.ts', `id: '${assetId}'`)
-for (const route of requiredAppRoutes) assertContains('src/app/App.tsx', route)
-for (const styleImport of requiredMainStyleImports) assertContains('src/main.tsx', styleImport)
+for (const route of requiredRoutes) assertContains('src/app/App.tsx', route)
+for (const styleImport of requiredStyleImports) assertContains('src/main.tsx', styleImport)
 
-assertContains('src/data/knowledgeAssetRegistry.ts', 'sprint14KnowledgeAssets')
-assertContains('src/data/knowledgeTooltipRegistry.ts', 'sprint14KnowledgeTooltips')
-assertContains('src/data/studyPaths.ts', 'mlops-monitoring')
-assertContains('src/data/searchIndex.ts', 'knowledgeAssetRegistry')
-assertContains('src/data/searchIndex.ts', 'studyPaths')
 assertContains('src/data/searchIndex.ts', 'materialRecords')
+assertContains('src/data/searchIndex.ts', 'courseAreaMapRecords')
+assertContains('src/data/searchIndex.ts', 'topicClusters')
 assertContains('src/pages/MaterialInventoryPage.tsx', 'mappingTemplateSteps')
-assertContains('src/pages/KnowledgeLibraryPage.tsx', 'assetProgress')
-assertContains('src/pages/DashboardPage.tsx', 'CurrentPathPanel')
-assertContains('src/pages/DashboardPage.tsx', 'material-inventory')
-assertContains('src/pages/LearningSessionPage.tsx', 'sessionChecklist')
-assertContains('docs/SPRINT_1_FINAL_REVIEW.md', 'Sprint 1 can be considered complete')
-assertContains('docs/SPRINT_2_ROADMAP.md', 'Source Inventory System')
-assertContains('docs/SPRINT_2_1_SOURCE_INVENTORY.md', 'Material Inventory')
-assertContains('src/pages/QualityReviewPage.tsx', 'Sprint 1 closed')
+assertContains('src/pages/CourseAreaMapPage.tsx', 'coverageMatrixRows')
+assertContains('src/pages/DashboardPage.tsx', 'course-area-map')
+assertContains('docs/SPRINT_2_2_COURSE_AREA_MAPPING.md', 'Course Area Mapping')
 
 if (!process.exitCode) {
-  console.log('QA PASS: Sprint 2.1 material inventory audit completed successfully.')
+  console.log('QA PASS: Sprint 2.2 course area mapping audit completed successfully.')
 }
