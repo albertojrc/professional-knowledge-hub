@@ -18,6 +18,7 @@ interface DashboardPageProps {
 
 const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across concepts, formulas, outputs, models, cases and backlog items.', icon: 'SE' }
 const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable professional concepts with theory, interpretation, outputs, business use and banking applications.', icon: 'KB' }
+const studyPathsItem: NavItem = { id: 'study-paths', label: 'Study Paths', eyebrow: 'Learning Tracks', description: 'Role-based professional paths like Credit Risk Analyst, ML for Banking, Finance & Strategy.', icon: 'SP' }
 const businessOsItem: NavItem = { id: 'business-os', label: 'Business OS', eyebrow: 'Core Area', description: 'Strategy, finance, marketing, operations and economics connected to decisions.', icon: 'BS' }
 const professionalScenariosItem: NavItem = { id: 'professional-scenarios', label: 'Professional Scenarios', eyebrow: 'Apply', description: 'End-to-end workflows from business problem to monitored decision.', icon: 'SC' }
 const decisionPlaybooksItem: NavItem = { id: 'decision-playbooks', label: 'Decision Playbooks', eyebrow: 'Decide', description: 'Convert analytical outputs into professional actions, evidence and monitoring.', icon: 'DP' }
@@ -32,6 +33,7 @@ const operatingSystemCards = [
 const primaryNavigation: NavItem[] = [
   globalSearchItem,
   knowledgeLibraryItem,
+  studyPathsItem,
   businessOsItem,
   professionalScenariosItem,
   decisionPlaybooksItem,
@@ -51,9 +53,9 @@ export function DashboardPage({ onNavigate, onOpenAsset, assetProgress }: Dashbo
           <h1>Your personal study command center for business, data science and banking.</h1>
           <p>This dashboard now reflects your real learning progress across the Knowledge Library.</p>
           <div className="badge-list">
+            <button className="primary-button" onClick={() => onNavigate('study-paths')} type="button">Open Study Paths</button>
             <button className="primary-button" onClick={() => onNavigate('global-search')} type="button">Open Global Search</button>
             <button className="primary-button" onClick={() => onNavigate('knowledge-library')} type="button">Open Knowledge Library</button>
-            <button className="primary-button" onClick={() => onNavigate('data-science')} type="button">Open Data Science OS</button>
           </div>
         </div>
         <div className="study-score-card">
@@ -72,54 +74,19 @@ export function DashboardPage({ onNavigate, onOpenAsset, assetProgress }: Dashbo
       </section>
 
       <section className="study-dashboard-two-column">
-        <div className="manual-panel">
-          <span className="eyebrow">Continue Studying</span>
-          <h2>Pick up where you left off</h2>
-          <StudyAssetList assets={studyData.continueStudying} emptyText="No assets are marked as Studying yet." onOpenAsset={onOpenAsset} />
-        </div>
-
-        <div className="manual-panel">
-          <span className="eyebrow">Recommended Next</span>
-          <h2>Suggested next assets</h2>
-          <StudyAssetList assets={studyData.recommendedNext} emptyText="Everything has been started. Nice momentum." onOpenAsset={onOpenAsset} />
-        </div>
+        <div className="manual-panel"><span className="eyebrow">Continue Studying</span><h2>Pick up where you left off</h2><StudyAssetList assets={studyData.continueStudying} emptyText="No assets are marked as Studying yet." onOpenAsset={onOpenAsset} /></div>
+        <div className="manual-panel"><span className="eyebrow">Recommended Next</span><h2>Suggested next assets</h2><StudyAssetList assets={studyData.recommendedNext} emptyText="Everything has been started. Nice momentum." onOpenAsset={onOpenAsset} /></div>
       </section>
 
-      <section className="manual-panel">
-        <span className="eyebrow">Area Progress</span>
-        <h2>Progress by professional domain</h2>
-        <div className="area-progress-grid">
-          {studyData.areaBreakdown.map((item) => (
-            <article className="area-progress-card" key={item.area}>
-              <div><strong>{item.area}</strong><span>{item.done} / {item.total} reviewed or mastered</span></div>
-              <div className="study-score-bar"><i style={{ width: `${item.progress}%` }} /></div>
-              <b>{item.progress}%</b>
-            </article>
-          ))}
-        </div>
-      </section>
+      <section className="manual-panel"><span className="eyebrow">Area Progress</span><h2>Progress by professional domain</h2><div className="area-progress-grid">{studyData.areaBreakdown.map((item) => <article className="area-progress-card" key={item.area}><div><strong>{item.area}</strong><span>{item.done} / {item.total} reviewed or mastered</span></div><div className="study-score-bar"><i style={{ width: `${item.progress}%` }} /></div><b>{item.progress}%</b></article>)}</div></section>
 
-      <div className="dashboard-grid">
-        {operatingSystemCards.map((card) => <article className="feature-card" key={card.title}><span className="eyebrow">Learning Logic</span><h3>{card.title}</h3><p>{card.description}</p><div className="mini-result good">{card.example}</div></article>)}
-      </div>
+      <div className="dashboard-grid">{operatingSystemCards.map((card) => <article className="feature-card" key={card.title}><span className="eyebrow">Learning Logic</span><h3>{card.title}</h3><p>{card.description}</p><div className="mini-result good">{card.example}</div></article>)}</div>
 
-      <section className="manual-panel">
-        <span className="eyebrow">Main Project Flow</span>
-        <h2>From business question to monitored decision</h2>
-        <KnowledgeChain nodes={['Business Question', 'Data Sources', 'SQL ABT', 'Data Quality', 'EDA', 'Features', 'Model / Analysis', 'Output Interpretation', 'Business Decision', 'Monitoring']} />
-        <p>Every major page in the Hub should answer where it belongs in this chain and what action it enables.</p>
-      </section>
+      <section className="manual-panel"><span className="eyebrow">Main Project Flow</span><h2>From business question to monitored decision</h2><KnowledgeChain nodes={['Business Question', 'Data Sources', 'SQL ABT', 'Data Quality', 'EDA', 'Features', 'Model / Analysis', 'Output Interpretation', 'Business Decision', 'Monitoring']} /><p>Every major page in the Hub should answer where it belongs in this chain and what action it enables.</p></section>
 
-      <div className="dashboard-grid">
-        {primaryNavigation.map((item) => <button className="feature-card navigation-card" key={item.id} onClick={() => onNavigate(item.id)} type="button"><span className="card-icon">{item.icon}</span><span className="eyebrow">{item.eyebrow}</span><h3>{item.label}</h3><p>{item.description}</p></button>)}
-      </div>
+      <div className="dashboard-grid">{primaryNavigation.map((item) => <button className="feature-card navigation-card" key={item.id} onClick={() => onNavigate(item.id)} type="button"><span className="card-icon">{item.icon}</span><span className="eyebrow">{item.eyebrow}</span><h3>{item.label}</h3><p>{item.description}</p></button>)}</div>
 
-      <section className="manual-panel">
-        <span className="eyebrow">Knowledge Map Preview</span>
-        <h2>{knowledgeChains[0].title}</h2>
-        <KnowledgeChain nodes={knowledgeChains[0].nodes} />
-        <p>{knowledgeChains[0].professionalUse}</p>
-      </section>
+      <section className="manual-panel"><span className="eyebrow">Knowledge Map Preview</span><h2>{knowledgeChains[0].title}</h2><KnowledgeChain nodes={knowledgeChains[0].nodes} /><p>{knowledgeChains[0].professionalUse}</p></section>
     </section>
   )
 }
@@ -129,12 +96,7 @@ function StudyAssetList({ assets, emptyText, onOpenAsset }: { assets: Array<Know
 
   return (
     <div className="study-asset-list">
-      {assets.map((asset) => (
-        <button className="study-asset-row" key={asset.id} onClick={() => onOpenAsset(asset.id)} type="button">
-          <span className="asset-icon small">{asset.icon}</span>
-          <div><strong>{asset.title}</strong><span>{asset.area} · {asset.category} · {asset.status}</span></div>
-        </button>
-      ))}
+      {assets.map((asset) => <button className="study-asset-row" key={asset.id} onClick={() => onOpenAsset(asset.id)} type="button"><span className="asset-icon small">{asset.icon}</span><div><strong>{asset.title}</strong><span>{asset.area} · {asset.category} · {asset.status}</span></div></button>)}
     </div>
   )
 }
