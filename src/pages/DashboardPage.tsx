@@ -6,6 +6,7 @@ interface DashboardPageProps {
   onNavigate: (view: ViewId) => void
 }
 
+const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across concepts, formulas, outputs, models, cases and backlog items.', icon: 'SE' }
 const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable professional concepts with theory, interpretation, outputs, business use and banking applications.', icon: 'KB' }
 const businessOsItem: NavItem = { id: 'business-os', label: 'Business OS', eyebrow: 'Core Area', description: 'Strategy, finance, marketing, operations and economics connected to decisions.', icon: 'BS' }
 const professionalScenariosItem: NavItem = { id: 'professional-scenarios', label: 'Professional Scenarios', eyebrow: 'Apply', description: 'End-to-end workflows from business problem to monitored decision.', icon: 'SC' }
@@ -22,10 +23,11 @@ const statusCards = [
   { label: 'Architecture', value: 'Knowledge Assets', note: 'Sprint 1 is moving the Hub to reusable concept objects.' },
   { label: 'Content Depth', value: 'Growing', note: 'Master content becomes the core, but not the limit.' },
   { label: 'UX/UI', value: 'Academy Style', note: 'Concept pages now follow a course-like structure.' },
-  { label: 'QA', value: 'Configured', note: 'Build, lint and checklist are documented.' }
+  { label: 'Search', value: 'Global Index', note: 'Sprint 1.4 adds cross-hub discovery and filtering.' }
 ]
 
 const primaryNavigation: NavItem[] = [
+  globalSearchItem,
   knowledgeLibraryItem,
   businessOsItem,
   professionalScenariosItem,
@@ -41,9 +43,9 @@ export function DashboardPage({ onNavigate }: DashboardPageProps) {
         <h1>Know what it is, when to use it, how to use it, and what decision it supports.</h1>
         <p>This Hub is becoming a professional knowledge operating system for business, data science and banking.</p>
         <div className="badge-list">
+          <button className="primary-button" onClick={() => onNavigate('global-search')} type="button">Open Global Search</button>
           <button className="primary-button" onClick={() => onNavigate('knowledge-library')} type="button">Open Knowledge Library</button>
           <button className="primary-button" onClick={() => onNavigate('data-science')} type="button">Open Data Science OS</button>
-          <button className="primary-button" onClick={() => onNavigate('professional-scenarios')} type="button">Open Scenarios</button>
         </div>
       </div>
 
