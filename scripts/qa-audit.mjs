@@ -4,6 +4,8 @@ const requiredFiles = [
   'src/app/App.tsx',
   'src/types/knowledge.ts',
   'src/data/knowledgeAssetRegistry.ts',
+  'src/data/knowledgeAssetsSprint14.ts',
+  'src/data/knowledgeTooltipsSprint14.ts',
   'src/pages/DashboardPage.tsx',
   'src/pages/GlobalSearchPage.tsx',
   'src/pages/KnowledgeLibraryPage.tsx',
@@ -40,6 +42,21 @@ const requiredViewIds = [
   'business-cases',
   'knowledge-map',
   'quality-review'
+]
+
+const requiredSprint14AssetIds = [
+  'train-test-split',
+  'cross-validation',
+  'data-leakage',
+  'precision-recall-curve',
+  'lift-curve',
+  'ks-statistic',
+  'pd',
+  'lgd',
+  'ead',
+  'business-model-canvas',
+  'ab-testing',
+  'mlops-monitoring'
 ]
 
 const requiredAppRoutes = [
@@ -80,9 +97,13 @@ function assertContains(path, text) {
 
 for (const file of requiredFiles) assertFileExists(file)
 for (const viewId of requiredViewIds) assertContains('src/types/knowledge.ts', `'${viewId}'`)
+for (const assetId of requiredSprint14AssetIds) assertContains('src/data/knowledgeAssetsSprint14.ts', `id: '${assetId}'`)
 for (const route of requiredAppRoutes) assertContains('src/app/App.tsx', route)
 for (const styleImport of requiredMainStyleImports) assertContains('src/main.tsx', styleImport)
 
+assertContains('src/data/knowledgeAssetRegistry.ts', 'sprint14KnowledgeAssets')
+assertContains('src/data/knowledgeTooltipRegistry.ts', 'sprint14KnowledgeTooltips')
+assertContains('src/data/studyPaths.ts', 'mlops-monitoring')
 assertContains('src/data/searchIndex.ts', 'knowledgeAssetRegistry')
 assertContains('src/data/searchIndex.ts', 'studyPaths')
 assertContains('src/pages/KnowledgeLibraryPage.tsx', 'assetProgress')
@@ -90,5 +111,5 @@ assertContains('src/pages/DashboardPage.tsx', 'CurrentPathPanel')
 assertContains('src/pages/LearningSessionPage.tsx', 'sessionChecklist')
 
 if (!process.exitCode) {
-  console.log('QA PASS: Sprint 1 architecture audit completed successfully.')
+  console.log('QA PASS: Sprint 1 architecture and Sprint 1.14 content audit completed successfully.')
 }
