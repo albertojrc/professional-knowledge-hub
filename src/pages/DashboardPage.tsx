@@ -1,9 +1,19 @@
+import type { AssetProgressStatus } from '../types/learningProgress'
 import type { NavItem, ViewId } from '../types/knowledge'
+import type { KnowledgeAsset } from '../types/knowledgeAsset'
 import { navItems, knowledgeChains } from '../data/knowledge'
+import { getStudyDashboardData } from '../data/studyDashboard'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
+
+interface AssetProgressApi {
+  summary: { mastered: number; reviewed: number; studying: number; averageProgress: number }
+  getAssetStatus: (assetId: string) => AssetProgressStatus
+}
 
 interface DashboardPageProps {
   onNavigate: (view: ViewId) => void
+  onOpenAsset: (assetId: string) => void
+  assetProgress: AssetProgressApi
 }
 
 const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across concepts, formulas, outputs, models, cases and backlog items.', icon: 'SE' }
@@ -19,13 +29,6 @@ const operatingSystemCards = [
   { title: 'What decision does it support?', description: 'Translate analysis into business action, risk control, investment choice or operational change.', example: 'Approve, reject, monitor, reprice, redesign, automate, invest or escalate.' }
 ]
 
-const statusCards = [
-  { label: 'Architecture', value: 'Knowledge Assets', note: 'Sprint 1 is moving the Hub to reusable concept objects.' },
-  { label: 'Content Depth', value: 'Growing', note: 'Master content becomes the core, but not the limit.' },
-  { label: 'UX/UI', value: 'Academy Style', note: 'Concept pages now follow a course-like structure.' },
-  { label: 'Search', value: 'Global Index', note: 'Sprint 1.4 adds cross-hub discovery and filtering.' }
-]
-
 const primaryNavigation: NavItem[] = [
   globalSearchItem,
   knowledgeLibraryItem,
@@ -35,23 +38,66 @@ const primaryNavigation: NavItem[] = [
   ...navItems.filter((item) => ['data-science', 'banking-finance', 'credit-risk', 'output-atlas', 'model-library', 'business-cases', 'knowledge-map'].includes(item.id))
 ]
 
-export function DashboardPage({ onNavigate }: DashboardPageProps) {
+export function DashboardPage({ onNavigate, onOpenAsset, assetProgress }: DashboardPageProps) {
+  const studyData = getStudyDashboardData(assetProgress)
+  const completedCount = studyData.reviewed.length + studyData.mastered.length
+  const completionRate = studyData.total ? Math.round((completedCount / studyData.total) * 100) : 0
+
   return (
     <section className="page-stack">
-      <div className="hero-panel">
-        <span className="eyebrow">Professional Knowledge Operating System</span>
-        <h1>Know what it is, when to use it, how to use it, and what decision it supports.</h1>
-        <p>This Hub is becoming a professional knowledge operating system for business, data science and banking.</p>
-        <div className="badge-list">
-          <button className="primary-button" onClick={() => onNavigate('global-search')} type="button">Open Global Search</button>
-          <button className="primary-button" onClick={() => onNavigate('knowledge-library')} type="button">Open Knowledge Library</button>
-          <button className="primary-button" onClick={() => onNavigate('data-science')} type="button">Open Data Science OS</button>
+      <div className="hero-panel personal-dashboard-hero">
+        <div>
+          <span className="eyebrow">Professional Knowledge Operating System</span>
+          <h1>Your personal study command center for business, data science and banking.</h1>
+          <p>This dashboard now reflects your real learning progress across the Knowledge Library.</p>
+          <div className="badge-list">
+            <button className="primary-button" onClick={() => onNavigate('global-search')} type="button">Open Global Search</button>
+            <button className="primary-button" onClick={() => onNavigate('knowledge-library')} type="button">Open Knowledge Library</button>
+            <button className="primary-button" onClick={() => onNavigate('data-science')} type="button">Open Data Science OS</button>
+          </div>
+        </div>
+        <div className="study-score-card">
+          <span className="eyebrow">Completion Rate</span>
+          <strong>{completionRate}%</strong>
+          <div className="study-score-bar"><i style={{ width: `${completionRate}%` }} /></div>
+          <p>{completedCount} reviewed or mastered out of {studyData.total} assets.</p>
         </div>
       </div>
 
-      <div className="dashboard-grid">
-        {statusCards.map((card) => <article className="feature-card" key={card.label}><span className="eyebrow">Project Status</span><h3>{card.label}</h3><div className="mini-result good">{card.value}</div><p>{card.note}</p></article>)}
-      </div>
+      <section className="study-dashboard-grid">
+        <article className="study-stat-card"><span className="eyebrow">Current</span><strong>{studyData.studying.length}</strong><p>assets in study mode</p></article>
+        <article className="study-stat-card"><span className="eyebrow">Reviewed</span><strong>{studyData.reviewed.length}</strong><p>assets reviewed</p></article>
+        <article className="study-stat-card"><span className="eyebrow">Mastered</span><strong>{studyData.mastered.length}</strong><p>assets mastered</p></article>
+        <article className="study-stat-card"><span className="eyebrow">Pending</span><strong>{studyData.notStarted.length}</strong><p>assets not started</p></article>
+      </section>
+
+      <section className="study-dashboard-two-column">
+        <div className="manual-panel">
+          <span className="eyebrow">Continue Studying</span>
+          <h2>Pick up where you left off</h2>
+          <StudyAssetList assets={studyData.continueStudying} emptyText="No assets are marked as Studying yet." onOpenAsset={onOpenAsset} />
+        </div>
+
+        <div className="manual-panel">
+          <span className="eyebrow">Recommended Next</span>
+          <h2>Suggested next assets</h2>
+          <StudyAssetList assets={studyData.recommendedNext} emptyText="Everything has been started. Nice momentum." onOpenAsset={onOpenAsset} />
+        </div>
+      </section>
+
+      <section className="manual-panel">
+        <span className="eyebrow">Area Progress</span>
+        <h2>Progress by professional domain</h2>
+        <div className="area-progress-grid">
+          {studyData.areaBreakdown.map((item) => (
+            <article className="area-progress-card" key={item.area}>
+              <div><strong>{item.area}</strong><span>{item.done} / {item.total} reviewed or mastered</span></div>
+              <div className="study-score-bar"><i style={{ width: `${item.progress}%` }} /></div>
+              <b>{item.progress}%</b>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <div className="dashboard-grid">
         {operatingSystemCards.map((card) => <article className="feature-card" key={card.title}><span className="eyebrow">Learning Logic</span><h3>{card.title}</h3><p>{card.description}</p><div className="mini-result good">{card.example}</div></article>)}
@@ -75,5 +121,20 @@ export function DashboardPage({ onNavigate }: DashboardPageProps) {
         <p>{knowledgeChains[0].professionalUse}</p>
       </section>
     </section>
+  )
+}
+
+function StudyAssetList({ assets, emptyText, onOpenAsset }: { assets: Array<KnowledgeAsset & { status: AssetProgressStatus }>; emptyText: string; onOpenAsset: (assetId: string) => void }) {
+  if (!assets.length) return <div className="empty-library-state"><p>{emptyText}</p></div>
+
+  return (
+    <div className="study-asset-list">
+      {assets.map((asset) => (
+        <button className="study-asset-row" key={asset.id} onClick={() => onOpenAsset(asset.id)} type="button">
+          <span className="asset-icon small">{asset.icon}</span>
+          <div><strong>{asset.title}</strong><span>{asset.area} · {asset.category} · {asset.status}</span></div>
+        </button>
+      ))}
+    </div>
   )
 }
