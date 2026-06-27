@@ -1,5 +1,5 @@
 import type { KnowledgeAsset } from '../types/knowledgeAsset'
-import { knowledgeAssets } from '../data/knowledgeAssets'
+import { knowledgeAssetRegistry } from '../data/knowledgeAssetRegistry'
 import { BadgeList } from '../components/ui/BadgeList'
 
 interface KnowledgeLibraryPageProps {
@@ -20,7 +20,8 @@ export function KnowledgeLibraryPage({ onOpenAsset }: KnowledgeLibraryPageProps)
         </p>
         <div className="badge-list">
           <button className="primary-button" onClick={() => onOpenAsset('linear-regression')} type="button">Open Linear Regression</button>
-          <button className="primary-button" onClick={() => onOpenAsset('credit-risk-scoring')} type="button">Open Credit Risk</button>
+          <button className="primary-button" onClick={() => onOpenAsset('xgboost')} type="button">Open XGBoost</button>
+          <button className="primary-button" onClick={() => onOpenAsset('expected-loss')} type="button">Open Expected Loss</button>
         </div>
       </div>
 
@@ -29,7 +30,7 @@ export function KnowledgeLibraryPage({ onOpenAsset }: KnowledgeLibraryPageProps)
         <h2>Explore knowledge by professional area</h2>
         <div className="academy-area-grid">
           {areas.map((area) => {
-            const count = knowledgeAssets.filter((asset) => asset.area === area).length
+            const count = knowledgeAssetRegistry.filter((asset) => asset.area === area).length
             return (
               <div className="academy-area-card" key={area}>
                 <strong>{area}</strong>
@@ -42,9 +43,9 @@ export function KnowledgeLibraryPage({ onOpenAsset }: KnowledgeLibraryPageProps)
 
       <section className="manual-panel">
         <span className="eyebrow">Knowledge Assets</span>
-        <h2>Reusable professional concepts</h2>
+        <h2>{knowledgeAssetRegistry.length} reusable professional concepts</h2>
         <div className="asset-grid">
-          {knowledgeAssets.map((asset) => (
+          {knowledgeAssetRegistry.map((asset) => (
             <AssetCard asset={asset} key={asset.id} onOpen={() => onOpenAsset(asset.id)} />
           ))}
         </div>
