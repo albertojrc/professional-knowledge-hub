@@ -1,5 +1,6 @@
 import { formulas, models } from '../data/knowledge'
 import { extraModels } from '../data/phase3Knowledge'
+import { sprint25Formulas } from '../data/referenceExpansionSprint25'
 import { BadgeList } from '../components/ui/BadgeList'
 import { ReadingGuide } from '../components/ui/ReadingGuide'
 
@@ -13,7 +14,8 @@ export function ReferencePage({ type, query, focusId }: ReferencePageProps) {
   const normalizedQuery = query.trim().toLowerCase()
 
   if (type === 'formulas') {
-    const visibleFormulas = formulas
+    const allFormulas = [...formulas, ...sprint25Formulas]
+    const visibleFormulas = allFormulas
       .filter((formula) => !normalizedQuery || `${formula.title} ${formula.area} ${formula.formula} ${formula.interpretation}`.toLowerCase().includes(normalizedQuery))
       .sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.title.localeCompare(b.title)))
 
