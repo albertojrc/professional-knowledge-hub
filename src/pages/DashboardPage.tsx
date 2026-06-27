@@ -20,6 +20,7 @@ interface DashboardPageProps {
   pathPrefs: PathPrefsApi
 }
 
+const materialInventoryItem: NavItem = { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Source System', description: 'Inventory class materials and map them to topics, assets, gaps and professional areas.', icon: 'MI' }
 const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across concepts, formulas, outputs, models, cases and backlog items.', icon: 'SE' }
 const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable professional concepts with theory, interpretation, outputs, business use and banking applications.', icon: 'KB' }
 const studyPathsItem: NavItem = { id: 'study-paths', label: 'Study Paths', eyebrow: 'Learning Tracks', description: 'Role-based professional paths like Credit Risk Analyst, ML for Banking, Finance & Strategy.', icon: 'SP' }
@@ -35,7 +36,7 @@ const operatingSystemCards = [
   { title: 'What decision does it support?', description: 'Translate analysis into business action, risk control, investment choice or operational change.', example: 'Approve, reject, monitor, reprice, redesign, automate, invest or escalate.' }
 ]
 
-const primaryNavigation: NavItem[] = [globalSearchItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, ...navItems.filter((item) => ['data-science', 'banking-finance', 'credit-risk', 'output-atlas', 'model-library', 'business-cases', 'knowledge-map'].includes(item.id))]
+const primaryNavigation: NavItem[] = [materialInventoryItem, globalSearchItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, ...navItems.filter((item) => ['data-science', 'banking-finance', 'credit-risk', 'output-atlas', 'model-library', 'business-cases', 'knowledge-map'].includes(item.id))]
 
 export function DashboardPage({ onNavigate, onOpenAsset, assetProgress, pathPrefs }: DashboardPageProps) {
   const studyData = getStudyDashboardData(assetProgress)
@@ -48,8 +49,8 @@ export function DashboardPage({ onNavigate, onOpenAsset, assetProgress, pathPref
         <div>
           <span className="eyebrow">Professional Knowledge Operating System</span>
           <h1>Your personal study command center for business, data science and banking.</h1>
-          <p>This dashboard now reflects your real learning progress across the Knowledge Library and Study Paths.</p>
-          <div className="badge-list"><button className="primary-button" onClick={() => onNavigate('learning-session')} type="button">Start Learning Session</button><button className="primary-button" onClick={() => onNavigate('study-paths')} type="button">Open Study Paths</button><button className="primary-button" onClick={() => onNavigate('knowledge-library')} type="button">Open Knowledge Library</button></div>
+          <p>Sprint 2 starts the source-based phase: mapping real class materials into the Hub.</p>
+          <div className="badge-list"><button className="primary-button" onClick={() => onNavigate('material-inventory')} type="button">Open Material Inventory</button><button className="primary-button" onClick={() => onNavigate('learning-session')} type="button">Start Learning Session</button><button className="primary-button" onClick={() => onNavigate('knowledge-library')} type="button">Open Knowledge Library</button></div>
         </div>
         <div className="study-score-card"><span className="eyebrow">Completion Rate</span><strong>{completionRate}%</strong><div className="study-score-bar"><i style={{ width: `${completionRate}%` }} /></div><p>{completedCount} reviewed or mastered out of {studyData.total} assets.</p></div>
       </div>
@@ -59,7 +60,7 @@ export function DashboardPage({ onNavigate, onOpenAsset, assetProgress, pathPref
       <section className="study-dashboard-two-column"><div className="manual-panel"><span className="eyebrow">Continue Studying</span><h2>Pick up where you left off</h2><StudyAssetList assets={studyData.continueStudying} emptyText="No assets are marked as Studying yet." onOpenAsset={onOpenAsset} /></div><div className="manual-panel"><span className="eyebrow">Recommended Next</span><h2>Suggested next assets</h2><StudyAssetList assets={studyData.recommendedNext} emptyText="Everything has been started. Nice momentum." onOpenAsset={onOpenAsset} /></div></section>
       <section className="manual-panel"><span className="eyebrow">Area Progress</span><h2>Progress by professional domain</h2><div className="area-progress-grid">{studyData.areaBreakdown.map((item) => <article className="area-progress-card" key={item.area}><div><strong>{item.area}</strong><span>{item.done} / {item.total} reviewed or mastered</span></div><div className="study-score-bar"><i style={{ width: `${item.progress}%` }} /></div><b>{item.progress}%</b></article>)}</div></section>
       <div className="dashboard-grid">{operatingSystemCards.map((card) => <article className="feature-card" key={card.title}><span className="eyebrow">Learning Logic</span><h3>{card.title}</h3><p>{card.description}</p><div className="mini-result good">{card.example}</div></article>)}</div>
-      <section className="manual-panel"><span className="eyebrow">Main Project Flow</span><h2>From business question to monitored decision</h2><KnowledgeChain nodes={['Business Question', 'Data Sources', 'SQL ABT', 'Data Quality', 'EDA', 'Features', 'Model / Analysis', 'Output Interpretation', 'Business Decision', 'Monitoring']} /><p>Every major page in the Hub should answer where it belongs in this chain and what action it enables.</p></section>
+      <section className="manual-panel"><span className="eyebrow">Sprint 2 Flow</span><h2>From class material to professional knowledge asset</h2><KnowledgeChain nodes={['Material Inventory', 'Topic Extraction', 'Course Area Mapping', 'Asset Mapping', 'Output / Formula / Model Links', 'Business Use', 'Source Coverage QA']} /><p>Every class document should eventually be traceable to concepts, outputs, formulas, models, cases and professional decisions.</p></section>
       <div className="dashboard-grid">{primaryNavigation.map((item) => <button className="feature-card navigation-card" key={item.id} onClick={() => onNavigate(item.id)} type="button"><span className="card-icon">{item.icon}</span><span className="eyebrow">{item.eyebrow}</span><h3>{item.label}</h3><p>{item.description}</p></button>)}</div>
       <section className="manual-panel"><span className="eyebrow">Knowledge Map Preview</span><h2>{knowledgeChains[0].title}</h2><KnowledgeChain nodes={knowledgeChains[0].nodes} /><p>{knowledgeChains[0].professionalUse}</p></section>
     </section>
