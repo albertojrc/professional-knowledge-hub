@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
 import { outputAtlas } from '../data/knowledge'
 import { extraOutputAtlas } from '../data/phase3Knowledge'
+import { sprint25Outputs } from '../data/referenceExpansionSprint25'
 import { BadgeList } from '../components/ui/BadgeList'
 import { ReadingGuide } from '../components/ui/ReadingGuide'
 
-const allOutputAtlas = [...outputAtlas, ...extraOutputAtlas]
+const allOutputAtlas = [...outputAtlas, ...extraOutputAtlas, ...sprint25Outputs]
 
 interface OutputAtlasPageProps {
   focusId?: string | null
