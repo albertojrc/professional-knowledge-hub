@@ -5,27 +5,32 @@ const requiredFiles = [
   'src/types/knowledge.ts',
   'src/types/materialInventory.ts',
   'src/types/courseAreaMapping.ts',
+  'src/types/evidenceExpansion.ts',
   'src/data/materialInventory.ts',
   'src/data/courseAreaMapping.ts',
+  'src/data/evidenceExpansion.ts',
   'src/data/knowledgeAssetRegistry.ts',
   'src/pages/DashboardPage.tsx',
   'src/pages/GlobalSearchPage.tsx',
   'src/pages/MaterialInventoryPage.tsx',
   'src/pages/CourseAreaMapPage.tsx',
+  'src/pages/EvidenceExpansionPage.tsx',
   'src/pages/KnowledgeLibraryPage.tsx',
   'src/pages/StudyPathsPage.tsx',
   'src/pages/LearningSessionPage.tsx',
   'src/styles/materialInventoryOS.css',
   'src/styles/courseAreaMapOS.css',
+  'src/styles/evidenceExpansionOS.css',
   'docs/SPRINT_1_FINAL_REVIEW.md',
   'docs/SPRINT_2_ROADMAP.md',
   'docs/SPRINT_2_1_SOURCE_INVENTORY.md',
-  'docs/SPRINT_2_2_COURSE_AREA_MAPPING.md'
+  'docs/SPRINT_2_2_COURSE_AREA_MAPPING.md',
+  'docs/SPRINT_2_3_EVIDENCE_EXPANSION.md'
 ]
 
-const requiredViewIds = ['dashboard', 'global-search', 'material-inventory', 'course-area-map', 'knowledge-library', 'study-paths', 'learning-session', 'knowledge-factory', 'quality-review']
-const requiredRoutes = ["activeView === 'material-inventory'", "activeView === 'course-area-map'", "activeView === 'knowledge-library'", "activeView === 'study-paths'", "activeView === 'learning-session'"]
-const requiredStyleImports = ["./styles/materialInventoryOS.css", "./styles/courseAreaMapOS.css"]
+const requiredViewIds = ['dashboard', 'global-search', 'material-inventory', 'course-area-map', 'evidence-expansion', 'knowledge-library', 'study-paths', 'learning-session', 'knowledge-factory', 'quality-review']
+const requiredRoutes = ["activeView === 'material-inventory'", "activeView === 'course-area-map'", "activeView === 'evidence-expansion'", "activeView === 'knowledge-library'", "activeView === 'study-paths'", "activeView === 'learning-session'"]
+const requiredStyleImports = ["./styles/materialInventoryOS.css", "./styles/courseAreaMapOS.css", "./styles/evidenceExpansionOS.css"]
 
 function fail(message) {
   console.error(`QA FAIL: ${message}`)
@@ -50,11 +55,13 @@ for (const styleImport of requiredStyleImports) assertContains('src/main.tsx', s
 assertContains('src/data/searchIndex.ts', 'materialRecords')
 assertContains('src/data/searchIndex.ts', 'courseAreaMapRecords')
 assertContains('src/data/searchIndex.ts', 'topicClusters')
+assertContains('src/data/searchIndex.ts', 'evidenceExpansionCandidates')
 assertContains('src/pages/MaterialInventoryPage.tsx', 'mappingTemplateSteps')
 assertContains('src/pages/CourseAreaMapPage.tsx', 'coverageMatrixRows')
-assertContains('src/pages/DashboardPage.tsx', 'course-area-map')
-assertContains('docs/SPRINT_2_2_COURSE_AREA_MAPPING.md', 'Course Area Mapping')
+assertContains('src/pages/EvidenceExpansionPage.tsx', 'evidenceExpansionSummary')
+assertContains('src/pages/DashboardPage.tsx', 'evidence-expansion')
+assertContains('docs/SPRINT_2_3_EVIDENCE_EXPANSION.md', 'Evidence-Based Asset Expansion')
 
 if (!process.exitCode) {
-  console.log('QA PASS: Sprint 2.2 course area mapping audit completed successfully.')
+  console.log('QA PASS: Sprint 2.3 evidence expansion audit completed successfully.')
 }
