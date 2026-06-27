@@ -15,6 +15,7 @@ import './styles/pathActionsOS.css'
 import './styles/learningSessionOS.css'
 import './styles/materialInventoryOS.css'
 import './styles/courseAreaMapOS.css'
+import './styles/evidenceExpansionOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
