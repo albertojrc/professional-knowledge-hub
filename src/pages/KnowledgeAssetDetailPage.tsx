@@ -1,4 +1,5 @@
 import { knowledgeAssetRegistry } from '../data/knowledgeAssetRegistry'
+import { getSourceAwareAssetMeta } from '../data/sourceAwareAssets'
 import type { AssetProgressStatus } from '../types/learningProgress'
 import { BadgeList } from '../components/ui/BadgeList'
 import { SmartBadgeList } from '../components/ui/SmartBadgeList'
@@ -23,6 +24,7 @@ const lessonSections = ['Overview', 'Use', 'Interpret', 'Outputs', 'Applications
 export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetProgress }: KnowledgeAssetDetailPageProps) {
   const asset = knowledgeAssetRegistry.find((item) => item.id === assetId) ?? knowledgeAssetRegistry[0]
   const related = asset.relatedAssets.map((id) => knowledgeAssetRegistry.find((item) => item.id === id)).filter(Boolean)
+  const sourceMeta = getSourceAwareAssetMeta(asset.id)
   const mainGraph = asset.graphs[0]
   const status = assetProgress.getAssetStatus(asset.id)
 
@@ -38,8 +40,16 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
         <article className="concept-main lesson-paper">
           <header className="concept-hero lesson-hero">
             <span className="asset-icon large">{asset.icon}</span>
-            <div><span className="eyebrow">{asset.type} · {asset.difficulty}</span><h1>{asset.title}</h1><p>{asset.summary}</p><BadgeList items={[asset.area, asset.category]} tone="blue" /></div>
+            <div><span className="eyebrow">{asset.type} · {asset.difficulty}</span><h1>{asset.title}</h1><p>{asset.summary}</p><BadgeList items={[asset.area, asset.category, sourceMeta?.evidenceLabel ?? 'Professional synthesis']} tone="blue" /></div>
           </header>
+
+          {sourceMeta && (
+            <section className="lesson-block source-evidence-block">
+              <div className="lesson-block-title"><span>EV</span><h2>Evidence status</h2></div>
+              <p><strong>{sourceMeta.evidenceLabel}.</strong> {sourceMeta.evidenceExplanation}</p>
+              <BadgeList items={[...sourceMeta.linkedModuleIds, ...sourceMeta.linkedMaterialIds]} tone="purple" />
+            </section>
+          )}
 
           <nav className="lesson-section-tabs" aria-label="Concept sections">{lessonSections.map((section, index) => <span key={section}>{index + 1}. {section}</span>)}</nav>
 
@@ -77,6 +87,7 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
 
         <aside className="concept-output-panel">
           <div className="output-panel-card progress-panel"><span className="eyebrow">Study Tracker</span><h2>{asset.title}</h2><AssetProgressControl status={status} onChange={(nextStatus) => assetProgress.setAssetStatus(asset.id, nextStatus)} /></div>
+          {sourceMeta && <div className="output-panel-card source-evidence-card"><span className="eyebrow">Evidence Status</span><h3>{sourceMeta.evidenceLabel}</h3><p>{sourceMeta.evidenceExplanation}</p></div>}
           <div className="output-panel-card"><span className="eyebrow">Output View</span><h2>{mainGraph ?? 'Professional Output'}</h2>{mainGraph ? <MlMiniChart title={mainGraph} type={graphToType(mainGraph)} /> : <p>Outputs will appear here as the asset expands.</p>}</div>
           <div className="output-panel-card success-panel"><h3>Interpretation checklist</h3><ul><li>What does the output show?</li><li>Is the metric aligned with the business problem?</li><li>What decision becomes possible?</li></ul></div>
           <div className="output-panel-card"><h3>Metrics</h3><SmartBadgeList items={asset.metrics} tone="green" /><h3>Assumptions</h3><SmartBadgeList items={asset.assumptions} tone="amber" /><h3>Outputs</h3><SmartBadgeList items={asset.outputs} tone="blue" /></div>
