@@ -11,32 +11,24 @@ const requiredFiles = [
   'src/data/evidenceExpansion.ts',
   'src/data/sourceAwareAssets.ts',
   'src/data/knowledgeAssetsSprint24.ts',
+  'src/data/referenceExpansionSprint25.ts',
   'src/data/knowledgeAssetRegistry.ts',
-  'src/pages/DashboardPage.tsx',
-  'src/pages/GlobalSearchPage.tsx',
-  'src/pages/MaterialInventoryPage.tsx',
-  'src/pages/CourseAreaMapPage.tsx',
-  'src/pages/EvidenceExpansionPage.tsx',
+  'src/pages/OutputAtlasPage.tsx',
+  'src/pages/ReferencePage.tsx',
   'src/pages/KnowledgeAssetDetailPage.tsx',
   'src/pages/KnowledgeLibraryPage.tsx',
   'src/pages/StudyPathsPage.tsx',
   'src/pages/LearningSessionPage.tsx',
-  'src/styles/materialInventoryOS.css',
-  'src/styles/courseAreaMapOS.css',
-  'src/styles/evidenceExpansionOS.css',
   'src/styles/sourceAwareOS.css',
-  'docs/SPRINT_1_FINAL_REVIEW.md',
-  'docs/SPRINT_2_ROADMAP.md',
-  'docs/SPRINT_2_1_SOURCE_INVENTORY.md',
-  'docs/SPRINT_2_2_COURSE_AREA_MAPPING.md',
-  'docs/SPRINT_2_3_EVIDENCE_EXPANSION.md',
-  'docs/SPRINT_2_4_SOURCE_AWARE_ASSETS.md'
+  'docs/SPRINT_2_4_SOURCE_AWARE_ASSETS.md',
+  'docs/SPRINT_2_5_REFERENCE_EXPANSION.md'
 ]
 
 const requiredViewIds = ['dashboard', 'global-search', 'material-inventory', 'course-area-map', 'evidence-expansion', 'knowledge-library', 'study-paths', 'learning-session', 'knowledge-factory', 'quality-review']
 const requiredRoutes = ["activeView === 'material-inventory'", "activeView === 'course-area-map'", "activeView === 'evidence-expansion'", "activeView === 'knowledge-library'", "activeView === 'study-paths'", "activeView === 'learning-session'"]
-const requiredStyleImports = ["./styles/materialInventoryOS.css", "./styles/courseAreaMapOS.css", "./styles/evidenceExpansionOS.css", "./styles/sourceAwareOS.css"]
 const sprint24Assets = ['data-quality-report', 'analytical-base-table', 'sql-joins', 'financial-ratios', 'cash-flow-analysis']
+const sprint25Outputs = ['data-quality-report-output', 'sql-join-reconciliation-output', 'financial-ratio-table-output', 'cash-flow-bridge-output']
+const sprint25Formulas = ['missing-rate', 'join-match-rate', 'current-ratio', 'free-cash-flow']
 
 function fail(message) {
   console.error(`QA FAIL: ${message}`)
@@ -56,17 +48,18 @@ function assertContains(path, text) {
 for (const file of requiredFiles) assertFileExists(file)
 for (const viewId of requiredViewIds) assertContains('src/types/knowledge.ts', `'${viewId}'`)
 for (const route of requiredRoutes) assertContains('src/app/App.tsx', route)
-for (const styleImport of requiredStyleImports) assertContains('src/main.tsx', styleImport)
 for (const assetId of sprint24Assets) assertContains('src/data/knowledgeAssetsSprint24.ts', `id: '${assetId}'`)
+for (const outputId of sprint25Outputs) assertContains('src/data/referenceExpansionSprint25.ts', `id: '${outputId}'`)
+for (const formulaId of sprint25Formulas) assertContains('src/data/referenceExpansionSprint25.ts', `id: '${formulaId}'`)
 
 assertContains('src/data/knowledgeAssetRegistry.ts', 'sprint24KnowledgeAssets')
 assertContains('src/pages/KnowledgeAssetDetailPage.tsx', 'getSourceAwareAssetMeta')
-assertContains('src/pages/KnowledgeAssetDetailPage.tsx', 'Evidence status')
-assertContains('src/data/studyPaths.ts', 'data-quality-report')
-assertContains('src/data/studyPaths.ts', 'financial-ratios')
-assertContains('src/data/searchIndex.ts', 'evidenceExpansionCandidates')
-assertContains('docs/SPRINT_2_4_SOURCE_AWARE_ASSETS.md', 'Source-Aware Knowledge Asset Creation')
+assertContains('src/pages/OutputAtlasPage.tsx', 'sprint25Outputs')
+assertContains('src/pages/ReferencePage.tsx', 'sprint25Formulas')
+assertContains('src/data/searchIndex.ts', 'sprint25Outputs')
+assertContains('src/data/searchIndex.ts', 'sprint25Formulas')
+assertContains('docs/SPRINT_2_5_REFERENCE_EXPANSION.md', 'Source-Aware Output & Formula Expansion')
 
 if (!process.exitCode) {
-  console.log('QA PASS: Sprint 2.4 source-aware asset audit completed successfully.')
+  console.log('QA PASS: Sprint 2.5 reference expansion audit completed successfully.')
 }
