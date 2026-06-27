@@ -3,6 +3,7 @@ export type ViewId =
   | 'global-search'
   | 'knowledge-library'
   | 'study-paths'
+  | 'learning-session'
   | 'knowledge-factory'
   | 'data-science'
   | 'business-os'
