@@ -18,7 +18,9 @@ const requiredFiles = [
   'src/styles/progressOS.css',
   'src/styles/studyDashboardOS.css',
   'src/styles/studyPathsOS.css',
-  'src/styles/learningSessionOS.css'
+  'src/styles/learningSessionOS.css',
+  'docs/SPRINT_1_FINAL_REVIEW.md',
+  'docs/SPRINT_2_ROADMAP.md'
 ]
 
 const requiredViewIds = [
@@ -109,7 +111,10 @@ assertContains('src/data/searchIndex.ts', 'studyPaths')
 assertContains('src/pages/KnowledgeLibraryPage.tsx', 'assetProgress')
 assertContains('src/pages/DashboardPage.tsx', 'CurrentPathPanel')
 assertContains('src/pages/LearningSessionPage.tsx', 'sessionChecklist')
+assertContains('docs/SPRINT_1_FINAL_REVIEW.md', 'Sprint 1 can be considered complete')
+assertContains('docs/SPRINT_2_ROADMAP.md', 'Source Inventory System')
+assertContains('src/pages/QualityReviewPage.tsx', 'Sprint 1 closed')
 
 if (!process.exitCode) {
-  console.log('QA PASS: Sprint 1 architecture and Sprint 1.14 content audit completed successfully.')
+  console.log('QA PASS: Sprint 1 architecture, content and final closure audit completed successfully.')
 }
