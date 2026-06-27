@@ -1,4 +1,5 @@
 import { assetQualityGates, assetTemplateSections, expansionBacklog, expansionLanes, sourceTiers } from '../data/assetExpansionSystem'
+import { knowledgeAssetRegistry } from '../data/knowledgeAssetRegistry'
 import { BadgeList } from '../components/ui/BadgeList'
 
 interface KnowledgeFactoryPageProps {
@@ -8,14 +9,14 @@ interface KnowledgeFactoryPageProps {
 export function KnowledgeFactoryPage({ focusId }: KnowledgeFactoryPageProps) {
   const p0Items = expansionBacklog.filter((item) => item.priority === 'P0')
   const totalTarget = expansionLanes.reduce((sum, lane) => sum + lane.targetAssets, 0)
-  const totalCurrent = expansionLanes.reduce((sum, lane) => sum + lane.currentAssets, 0)
+  const totalCurrent = knowledgeAssetRegistry.length
   const sortedBacklog = [...expansionBacklog].sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.title.localeCompare(b.title)))
 
   return (
     <section className="page-stack">
       {focusId && <div className="deep-link-banner">Opened from Global Search · focused backlog item</div>}
       <div className="hero-panel academy-hero">
-        <span className="eyebrow">Sprint 1.3 · Knowledge Factory</span>
+        <span className="eyebrow">Sprint 1.6 · Knowledge Factory</span>
         <h1>Expansion system for turning concepts into reusable professional assets.</h1>
         <p>This is the operating layer that controls how new knowledge enters the Hub: source strategy, quality gates, backlog priority and reusable asset structure.</p>
         <div className="badge-list">
@@ -29,14 +30,17 @@ export function KnowledgeFactoryPage({ focusId }: KnowledgeFactoryPageProps) {
         <span className="eyebrow">Expansion Lanes</span>
         <h2>Professional areas to scale</h2>
         <div className="factory-lane-grid">
-          {expansionLanes.map((lane) => (
-            <article className="factory-card" key={lane.id}>
-              <h3>{lane.area}</h3><p>{lane.purpose}</p>
-              <div className="factory-progress"><i style={{ width: `${Math.min(100, (lane.currentAssets / lane.targetAssets) * 100)}%` }} /></div>
-              <strong>{lane.currentAssets} / {lane.targetAssets} assets</strong>
-              <span>{lane.nextMilestone}</span>
-            </article>
-          ))}
+          {expansionLanes.map((lane) => {
+            const laneCount = countLaneAssets(lane.area)
+            return (
+              <article className="factory-card" key={lane.id}>
+                <h3>{lane.area}</h3><p>{lane.purpose}</p>
+                <div className="factory-progress"><i style={{ width: `${Math.min(100, (laneCount / lane.targetAssets) * 100)}%` }} /></div>
+                <strong>{laneCount} / {lane.targetAssets} assets</strong>
+                <span>{lane.nextMilestone}</span>
+              </article>
+            )
+          })}
         </div>
       </section>
 
@@ -88,4 +92,11 @@ export function KnowledgeFactoryPage({ focusId }: KnowledgeFactoryPageProps) {
       </section>
     </section>
   )
+}
+
+function countLaneAssets(area: string) {
+  if (area === 'Machine Learning') {
+    return knowledgeAssetRegistry.filter((asset) => asset.category.includes('Learning') || asset.category.includes('Model') || asset.type === 'Model').length
+  }
+  return knowledgeAssetRegistry.filter((asset) => asset.area === area).length
 }
