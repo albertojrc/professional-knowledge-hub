@@ -7,6 +7,7 @@ interface SidebarProps {
 }
 
 const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across assets, outputs, formulas, models, cases and backlog.', icon: 'SE' }
+const materialInventoryItem: NavItem = { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Source System', description: 'Inventory class materials and map them to topics, assets and gaps.', icon: 'MI' }
 const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable professional concepts across business, data science and banking.', icon: 'KB' }
 const studyPathsItem: NavItem = { id: 'study-paths', label: 'Study Paths', eyebrow: 'Learning Tracks', description: 'Role-based professional learning paths built from assets.', icon: 'SP' }
 const learningSessionItem: NavItem = { id: 'learning-session', label: 'Learning Session', eyebrow: 'Focus Mode', description: 'Guided one-asset-at-a-time study mode for your current path.', icon: 'LS' }
@@ -17,20 +18,21 @@ const decisionPlaybooksItem: NavItem = { id: 'decision-playbooks', label: 'Decis
 const mlModelsItem: NavItem = { id: 'ml-models', label: 'ML Models', eyebrow: 'Machine Learning', description: 'Detailed ML models with outputs, interpretation and graph examples.', icon: 'ML' }
 const mlGraphAtlasItem: NavItem = { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'Interpret', description: 'Machine learning charts: how to build, use and interpret them.', icon: 'CH' }
 
-const navCatalog: NavItem[] = [...navItems, globalSearchItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
+const navCatalog: NavItem[] = [...navItems, globalSearchItem, materialInventoryItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
 
 const groups = [
+  { title: 'Source', ids: ['material-inventory', 'knowledge-factory', 'quality-review'] as ViewId[] },
   { title: 'Study', ids: ['dashboard', 'global-search', 'knowledge-library', 'study-paths', 'learning-session', 'data-science', 'business-os', 'banking-finance', 'credit-risk'] as ViewId[] },
   { title: 'Machine Learning', ids: ['ml-models', 'ml-graph-atlas'] as ViewId[] },
   { title: 'Reference', ids: ['output-atlas', 'formula-library', 'model-library'] as ViewId[] },
-  { title: 'Application', ids: ['professional-scenarios', 'decision-playbooks', 'business-cases', 'knowledge-map', 'knowledge-factory', 'quality-review'] as ViewId[] }
+  { title: 'Application', ids: ['professional-scenarios', 'decision-playbooks', 'business-cases', 'knowledge-map'] as ViewId[] }
 ]
 
 export function Sidebar({ activeView, onChangeView }: SidebarProps) {
   return (
     <aside className="sidebar">
       <div className="brand-panel">
-        <span className="eyebrow">PKOS v1.1</span>
+        <span className="eyebrow">PKOS v2.1</span>
         <h1>Professional Knowledge Hub</h1>
         <p>Data Science + Banking + Finance + Business as a professional second brain.</p>
       </div>
