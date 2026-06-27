@@ -5,8 +5,9 @@ import { expansionBacklog } from './assetExpansionSystem'
 import { studyPaths } from './studyPaths'
 import { materialRecords } from './materialInventory'
 import { courseAreaMapRecords, topicClusters } from './courseAreaMapping'
+import { evidenceExpansionCandidates } from './evidenceExpansion'
 
-export type SearchResultKind = 'Knowledge Asset' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
+export type SearchResultKind = 'Knowledge Asset' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Evidence Candidate' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
 
 export interface SearchResultItem {
   id: string
@@ -16,7 +17,7 @@ export interface SearchResultItem {
   category: string
   summary: string
   tags: string[]
-  targetView: 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
+  targetView: 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
   assetId?: string
 }
 
@@ -64,6 +65,16 @@ export const globalSearchIndex: SearchResultItem[] = [
     summary: cluster.description,
     tags: [...cluster.topics, ...cluster.connectedAssets, ...cluster.professionalOutputs, ...cluster.businessDecisions],
     targetView: 'course-area-map' as const
+  })),
+  ...evidenceExpansionCandidates.map((candidate) => ({
+    id: candidate.id,
+    title: candidate.title,
+    kind: 'Evidence Candidate' as const,
+    area: candidate.area,
+    category: candidate.status,
+    summary: candidate.whyItMatters,
+    tags: [candidate.assetId, candidate.program, ...candidate.linkedModuleIds, ...candidate.linkedMaterialIds, ...candidate.expectedEvidence, ...candidate.validationQuestions, candidate.nextAction],
+    targetView: 'evidence-expansion' as const
   })),
   ...studyPaths.map((path) => ({
     id: path.id,
