@@ -6,15 +6,16 @@ export const studyPaths: StudyPath[] = [
     title: 'Credit Risk Analyst Path',
     subtitle: 'From probability models to expected loss and credit decisioning.',
     level: 'Professional',
-    duration: '3-4 weeks',
-    professionalOutcome: 'Understand how credit scoring, calibration, expected loss and model outputs translate into lending policy.',
+    duration: '4-5 weeks',
+    professionalOutcome: 'Understand how credit scoring, calibration, PD, LGD, EAD, expected loss and model outputs translate into lending policy.',
     targetRole: 'Credit Risk Analyst / Banking Data Analyst',
     icon: 'CR',
-    assetIds: ['logistic-regression', 'credit-risk-scoring', 'calibration-plot', 'expected-loss', 'roc-curve', 'confusion-matrix', 'xgboost'],
+    assetIds: ['logistic-regression', 'credit-risk-scoring', 'pd', 'lgd', 'ead', 'expected-loss', 'roc-curve', 'precision-recall-curve', 'confusion-matrix', 'calibration-plot', 'ks-statistic', 'xgboost'],
     milestones: [
-      { id: 'risk-foundation', title: 'Risk foundations', description: 'Understand binary risk scoring and probability outputs.', assetIds: ['logistic-regression', 'credit-risk-scoring'] },
-      { id: 'risk-validation', title: 'Model validation', description: 'Interpret discrimination, error trade-offs and calibration.', assetIds: ['roc-curve', 'confusion-matrix', 'calibration-plot'] },
-      { id: 'risk-financial-impact', title: 'Financial impact', description: 'Convert risk estimates into expected loss and policy decisions.', assetIds: ['expected-loss', 'xgboost'] }
+      { id: 'risk-foundation', title: 'Risk foundations', description: 'Understand binary risk scoring and probability outputs.', assetIds: ['logistic-regression', 'credit-risk-scoring', 'pd'] },
+      { id: 'risk-components', title: 'Credit loss components', description: 'Connect PD, LGD and EAD to expected loss.', assetIds: ['pd', 'lgd', 'ead', 'expected-loss'] },
+      { id: 'risk-validation', title: 'Model validation', description: 'Interpret discrimination, error trade-offs, calibration and score separation.', assetIds: ['roc-curve', 'precision-recall-curve', 'confusion-matrix', 'calibration-plot', 'ks-statistic'] },
+      { id: 'risk-advanced-models', title: 'Advanced scoring', description: 'Use advanced tabular models with governance and interpretation.', assetIds: ['xgboost'] }
     ]
   },
   {
@@ -22,15 +23,16 @@ export const studyPaths: StudyPath[] = [
     title: 'Machine Learning for Banking Path',
     subtitle: 'Models, outputs and interpretation for regulated financial use cases.',
     level: 'Advanced',
-    duration: '4-5 weeks',
-    professionalOutcome: 'Build a practical mental model of ML methods, graphs and governance needs for banking analytics.',
+    duration: '5-6 weeks',
+    professionalOutcome: 'Build a practical mental model of ML methods, validation, monitoring and governance needs for banking analytics.',
     targetRole: 'ML Analyst / Risk Analytics / Fraud Analytics',
     icon: 'ML',
-    assetIds: ['decision-tree', 'random-forest', 'xgboost', 'logistic-regression', 'confusion-matrix', 'roc-curve', 'calibration-plot', 'feature-engineering'],
+    assetIds: ['train-test-split', 'cross-validation', 'data-leakage', 'decision-tree', 'random-forest', 'xgboost', 'logistic-regression', 'confusion-matrix', 'roc-curve', 'precision-recall-curve', 'calibration-plot', 'feature-engineering', 'mlops-monitoring'],
     milestones: [
+      { id: 'ml-validation-foundation', title: 'Validation foundation', description: 'Build model evaluation discipline before training advanced models.', assetIds: ['train-test-split', 'cross-validation', 'data-leakage'] },
       { id: 'ml-models', title: 'Model families', description: 'Understand interpretable models and ensemble methods.', assetIds: ['decision-tree', 'random-forest', 'xgboost', 'logistic-regression'] },
-      { id: 'ml-evaluation', title: 'Evaluation outputs', description: 'Read model outputs as business decisions.', assetIds: ['confusion-matrix', 'roc-curve', 'calibration-plot'] },
-      { id: 'ml-production-thinking', title: 'Production thinking', description: 'Connect features and models to real banking workflows.', assetIds: ['feature-engineering'] }
+      { id: 'ml-evaluation', title: 'Evaluation outputs', description: 'Read model outputs as business decisions.', assetIds: ['confusion-matrix', 'roc-curve', 'precision-recall-curve', 'calibration-plot'] },
+      { id: 'ml-production-thinking', title: 'Production thinking', description: 'Connect features, models and monitoring to real banking workflows.', assetIds: ['feature-engineering', 'mlops-monitoring'] }
     ]
   },
   {
@@ -38,15 +40,17 @@ export const studyPaths: StudyPath[] = [
     title: 'Data Science Workflow Path',
     subtitle: 'From business question to data, features, model, output and decision.',
     level: 'Foundation',
-    duration: '2-3 weeks',
-    professionalOutcome: 'Understand the end-to-end structure of a serious analytics project.',
+    duration: '3-4 weeks',
+    professionalOutcome: 'Understand the end-to-end structure of a serious analytics project, including validation and experimentation.',
     targetRole: 'Data Analyst / Junior Data Scientist / Analytics Consultant',
     icon: 'DS',
-    assetIds: ['eda', 'feature-engineering', 'linear-regression', 'logistic-regression', 'confusion-matrix', 'roc-curve'],
+    assetIds: ['eda', 'feature-engineering', 'train-test-split', 'cross-validation', 'data-leakage', 'linear-regression', 'logistic-regression', 'confusion-matrix', 'roc-curve', 'precision-recall-curve', 'ab-testing'],
     milestones: [
       { id: 'workflow-diagnosis', title: 'Diagnose the data', description: 'Profile data and understand what can be trusted.', assetIds: ['eda'] },
-      { id: 'workflow-features', title: 'Create signals', description: 'Transform raw data into decision-ready variables.', assetIds: ['feature-engineering'] },
-      { id: 'workflow-models', title: 'Model and evaluate', description: 'Train baseline models and interpret outputs.', assetIds: ['linear-regression', 'logistic-regression', 'confusion-matrix', 'roc-curve'] }
+      { id: 'workflow-features', title: 'Create signals', description: 'Transform raw data into decision-ready variables.', assetIds: ['feature-engineering', 'data-leakage'] },
+      { id: 'workflow-validation', title: 'Validate properly', description: 'Split, validate and compare models honestly.', assetIds: ['train-test-split', 'cross-validation'] },
+      { id: 'workflow-models', title: 'Model and evaluate', description: 'Train baseline models and interpret outputs.', assetIds: ['linear-regression', 'logistic-regression', 'confusion-matrix', 'roc-curve', 'precision-recall-curve'] },
+      { id: 'workflow-experiments', title: 'Experiment and decide', description: 'Use experiments to estimate business impact.', assetIds: ['ab-testing'] }
     ]
   },
   {
@@ -54,15 +58,15 @@ export const studyPaths: StudyPath[] = [
     title: 'Finance & Strategy Analyst Path',
     subtitle: 'Valuation logic, cost of capital and strategic diagnosis.',
     level: 'Intermediate',
-    duration: '3 weeks',
-    professionalOutcome: 'Connect financial formulas with strategy frameworks to support business decisions.',
+    duration: '3-4 weeks',
+    professionalOutcome: 'Connect financial formulas with strategy frameworks to support business decisions and client analysis.',
     targetRole: 'Finance Analyst / Strategy Analyst / Corporate Banking Analyst',
     icon: 'FS',
-    assetIds: ['wacc', 'capm', 'npv', 'porter-five-forces', 'swot', 'pestel'],
+    assetIds: ['wacc', 'capm', 'npv', 'porter-five-forces', 'swot', 'pestel', 'business-model-canvas'],
     milestones: [
       { id: 'finance-capital', title: 'Capital and return', description: 'Estimate required return and discount rates.', assetIds: ['capm', 'wacc'] },
       { id: 'finance-investment', title: 'Investment decisioning', description: 'Translate cash flows into value creation.', assetIds: ['npv'] },
-      { id: 'strategy-context', title: 'Strategic context', description: 'Analyze company and industry environment.', assetIds: ['porter-five-forces', 'swot', 'pestel'] }
+      { id: 'strategy-context', title: 'Strategic context', description: 'Analyze company, industry and business model environment.', assetIds: ['porter-five-forces', 'swot', 'pestel', 'business-model-canvas'] }
     ]
   },
   {
@@ -70,15 +74,16 @@ export const studyPaths: StudyPath[] = [
     title: 'Management Strategy Toolkit',
     subtitle: 'Core frameworks for diagnosing markets, firms and strategic choices.',
     level: 'Foundation',
-    duration: '2 weeks',
+    duration: '2-3 weeks',
     professionalOutcome: 'Use strategy frameworks to structure business problems and turn diagnosis into decisions.',
     targetRole: 'Manager / Consultant / Business Analyst',
     icon: 'ST',
-    assetIds: ['porter-five-forces', 'swot', 'pestel'],
+    assetIds: ['porter-five-forces', 'swot', 'pestel', 'business-model-canvas', 'ab-testing'],
     milestones: [
       { id: 'industry-view', title: 'Industry view', description: 'Analyze competitive pressure and profitability.', assetIds: ['porter-five-forces'] },
-      { id: 'company-view', title: 'Company view', description: 'Organize internal and external diagnosis.', assetIds: ['swot'] },
-      { id: 'macro-view', title: 'Macro view', description: 'Translate external forces into business implications.', assetIds: ['pestel'] }
+      { id: 'company-view', title: 'Company view', description: 'Organize internal and external diagnosis.', assetIds: ['swot', 'business-model-canvas'] },
+      { id: 'macro-view', title: 'Macro view', description: 'Translate external forces into business implications.', assetIds: ['pestel'] },
+      { id: 'test-decisions', title: 'Test decisions', description: 'Use experiments to validate strategic and marketing changes.', assetIds: ['ab-testing'] }
     ]
   }
 ]
