@@ -10,6 +10,7 @@ import { GlobalSearchPage } from '../pages/GlobalSearchPage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
+import { LearningSessionPage } from '../pages/LearningSessionPage'
 import { KnowledgeFactoryPage } from '../pages/KnowledgeFactoryPage'
 import { CoreAreaPage } from '../pages/CoreAreaPage'
 import { DataScienceOperatingSystemPage } from '../pages/DataScienceOperatingSystemPage'
@@ -28,6 +29,7 @@ import { QualityReviewPage } from '../pages/QualityReviewPage'
 const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across assets, outputs, formulas, models, cases and backlog.', icon: 'SE' }
 const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable concepts across business, data science and banking.', icon: 'KB' }
 const studyPathsItem: NavItem = { id: 'study-paths', label: 'Study Paths', eyebrow: 'Learning Tracks', description: 'Role-based professional learning paths built from assets.', icon: 'SP' }
+const learningSessionItem: NavItem = { id: 'learning-session', label: 'Learning Session', eyebrow: 'Focus Mode', description: 'Guided one-asset-at-a-time study mode for your current path.', icon: 'LS' }
 const knowledgeFactoryItem: NavItem = { id: 'knowledge-factory', label: 'Knowledge Factory', eyebrow: 'Expansion System', description: 'Backlog, quality gates and source strategy for scaling the Hub.', icon: 'KF' }
 const businessOsItem: NavItem = { id: 'business-os', label: 'Business OS', eyebrow: 'Core Area', description: 'Strategy, finance, marketing, operations and economics connected to decisions.', icon: 'BS' }
 const professionalScenariosItem: NavItem = { id: 'professional-scenarios', label: 'Professional Scenarios', eyebrow: 'Apply', description: 'End-to-end workflows from business problem to monitored decision.', icon: 'SC' }
@@ -35,7 +37,7 @@ const decisionPlaybooksItem: NavItem = { id: 'decision-playbooks', label: 'Decis
 const mlModelsItem: NavItem = { id: 'ml-models', label: 'ML Models', eyebrow: 'Machine Learning', description: 'Detailed ML models with outputs, interpretation and graph examples.', icon: 'ML' }
 const mlGraphAtlasItem: NavItem = { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'Interpret', description: 'Machine learning charts: how to build, use and interpret them.', icon: 'GA' }
 
-const navCatalog: NavItem[] = [...navItems, globalSearchItem, knowledgeLibraryItem, studyPathsItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
+const navCatalog: NavItem[] = [...navItems, globalSearchItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
 
 export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
@@ -70,6 +72,7 @@ export function App() {
           {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'study-paths' && <StudyPathsPage assetProgress={assetProgress} onOpenAsset={openAsset} pathPrefs={pathPrefs} />}
+          {activeView === 'learning-session' && <LearningSessionPage assetProgress={assetProgress} pathPrefs={pathPrefs} onOpenAsset={openAsset} onNavigate={changeView} />}
           {activeView === 'knowledge-factory' && <KnowledgeFactoryPage focusId={focusId} />}
           {activeView === 'data-science' && <DataScienceOperatingSystemPage />}
           {activeView === 'business-os' && <BusinessOperatingSystemPage />}
