@@ -5,6 +5,7 @@ import './styles/global.css'
 import './styles/mlCharts.css'
 import './styles/lightBlueTheme.css'
 import './styles/knowledgeOS.css'
+import './styles/searchOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
