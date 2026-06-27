@@ -2,6 +2,7 @@ export type ViewId =
   | 'dashboard'
   | 'global-search'
   | 'knowledge-library'
+  | 'study-paths'
   | 'knowledge-factory'
   | 'data-science'
   | 'business-os'
