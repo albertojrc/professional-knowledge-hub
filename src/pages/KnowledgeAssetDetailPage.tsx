@@ -9,116 +9,158 @@ interface KnowledgeAssetDetailPageProps {
   onOpenAsset: (assetId: string) => void
 }
 
+const lessonSections = ['Overview', 'Use', 'Interpret', 'Outputs', 'Applications', 'Practice']
+
 export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset }: KnowledgeAssetDetailPageProps) {
   const asset = knowledgeAssets.find((item) => item.id === assetId) ?? knowledgeAssets[0]
   const related = asset.relatedAssets
     .map((id) => knowledgeAssets.find((item) => item.id === id))
     .filter(Boolean)
+  const mainGraph = asset.graphs[0]
 
   return (
-    <section className="concept-layout">
-      <article className="concept-main">
-        <button className="text-button" onClick={onBack} type="button">← Back to Knowledge Library</button>
+    <section className="concept-learning-page">
+      <div className="lesson-toolbar">
+        <button className="text-button" onClick={onBack} type="button">← Knowledge Library</button>
+        <div className="lesson-breadcrumb">
+          <span>{asset.area}</span><b>›</b><span>{asset.category}</span><b>›</b><strong>{asset.title}</strong>
+        </div>
+        <div className="lesson-progress">
+          <span>Lesson standard</span>
+          <div><i style={{ width: '37%' }} /></div>
+          <strong>37%</strong>
+        </div>
+      </div>
 
-        <header className="concept-hero">
-          <span className="asset-icon large">{asset.icon}</span>
-          <div>
-            <span className="eyebrow">{asset.area} · {asset.category}</span>
-            <h1>{asset.title}</h1>
-            <p>{asset.summary}</p>
-            <BadgeList items={[asset.type, asset.difficulty]} tone="purple" />
-          </div>
-        </header>
+      <div className="concept-two-pane">
+        <article className="concept-main lesson-paper">
+          <header className="concept-hero lesson-hero">
+            <span className="asset-icon large">{asset.icon}</span>
+            <div>
+              <span className="eyebrow">{asset.type} · {asset.difficulty}</span>
+              <h1>{asset.title}</h1>
+              <p>{asset.summary}</p>
+              <BadgeList items={[asset.area, asset.category]} tone="blue" />
+            </div>
+          </header>
 
-        <ReadingGuide
-          title="How to study this concept"
-          steps={[
-            'Start with what it is and why it matters professionally.',
-            'Connect the concept to outputs, metrics, assumptions and interpretation.',
-            'Finish by reviewing business use, banking use, mistakes and related knowledge.'
-          ]}
-        />
+          <nav className="lesson-section-tabs" aria-label="Concept sections">
+            {lessonSections.map((section, index) => <span key={section}>{index + 1}. {section}</span>)}
+          </nav>
 
-        <section className="manual-section section-lead">
-          <span className="section-number">01</span>
-          <div><h2>What is it?</h2><p>{asset.whatItIs}</p></div>
-        </section>
+          <ReadingGuide
+            title="How to study this concept"
+            steps={[
+              'Start with the business intuition before the formula or code.',
+              'Connect the concept to outputs, graphs, metrics and assumptions.',
+              'Finish by translating the concept into business and banking decisions.'
+            ]}
+          />
 
-        <section className="manual-section section-lead result-impact">
-          <span className="section-number">WHY</span>
-          <div><h2>Why does it matter?</h2><p>{asset.whyItMatters}</p></div>
-        </section>
-
-        {asset.formula && (
-          <section className="manual-section">
-            <h2>Formula / Core logic</h2>
-            <pre className="code-block compact">{asset.formula}</pre>
-            {asset.example && <p>{asset.example}</p>}
+          <section className="lesson-block">
+            <div className="lesson-block-title"><span>1</span><h2>What is it?</h2></div>
+            <p>{asset.whatItIs}</p>
           </section>
-        )}
 
-        <section className="manual-section section-lead">
-          <span className="section-number">02</span>
-          <div><h2>When is it used?</h2><BadgeList items={asset.whenToUse} tone="green" /></div>
-        </section>
+          <section className="lesson-block insight-block">
+            <div className="lesson-block-title"><span>2</span><h2>Why does it matter?</h2></div>
+            <p>{asset.whyItMatters}</p>
+          </section>
 
-        <section className="manual-section section-lead">
-          <span className="section-number">03</span>
-          <div><h2>How is it used?</h2><ul>{asset.howToUse.map((item) => <li key={item}>{item}</li>)}</ul></div>
-        </section>
+          {asset.formula && (
+            <section className="formula-card">
+              <div>
+                <span className="eyebrow">Core Logic</span>
+                <h2>Formula / Model expression</h2>
+                <pre>{asset.formula}</pre>
+              </div>
+              {asset.example && <aside><strong>Example</strong><p>{asset.example}</p></aside>}
+            </section>
+          )}
 
-        <section className="manual-section section-lead result-impact">
-          <span className="section-number">READ</span>
-          <div><h2>How is it interpreted?</h2><ul>{asset.interpretation.map((item) => <li key={item}>{item}</li>)}</ul></div>
-        </section>
+          <section className="lesson-block">
+            <div className="lesson-block-title"><span>3</span><h2>When is it used?</h2></div>
+            <BadgeList items={asset.whenToUse} tone="green" />
+          </section>
 
-        <section className="manual-section">
-          <h2>Outputs and graphs</h2>
-          <div className="two-column">
-            <div><h3>Typical outputs</h3><BadgeList items={asset.outputs} tone="blue" /></div>
-            <div><h3>Typical graphs</h3><BadgeList items={asset.graphs} tone="purple" /></div>
-          </div>
-          <div className="ml-chart-grid">
-            {asset.graphs.slice(0, 2).map((graph) => <MlMiniChart key={graph} title={graph} type={graphToType(graph)} />)}
-          </div>
-        </section>
+          <section className="lesson-block">
+            <div className="lesson-block-title"><span>4</span><h2>How is it used?</h2></div>
+            <ol className="step-list">{asset.howToUse.map((item) => <li key={item}>{item}</li>)}</ol>
+          </section>
 
-        <section className="two-column">
-          <div className="manual-section"><h2>Business applications</h2><BadgeList items={asset.businessApplications} tone="blue" /></div>
-          <div className="manual-section"><h2>Banking applications</h2><BadgeList items={asset.bankingApplications} tone="amber" /></div>
-        </section>
+          <section className="lesson-block insight-block">
+            <div className="lesson-block-title"><span>5</span><h2>How is it interpreted?</h2></div>
+            <ul className="clean-list">{asset.interpretation.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
 
-        <section className="manual-section result-bad section-lead">
-          <span className="section-number">AVOID</span>
-          <div><h2>Common mistakes</h2><ul>{asset.commonMistakes.map((item) => <li key={item}>{item}</li>)}</ul></div>
-        </section>
-
-        <section className="manual-section result-good section-lead">
-          <span className="section-number">TIP</span>
-          <div><h2>Professional tip</h2><p>{asset.professionalTip}</p></div>
-        </section>
-
-        {(asset.pythonSnippet || asset.sqlSnippet) && (
           <section className="two-column">
-            {asset.pythonSnippet && <div className="manual-section"><h2>Python</h2><pre className="code-block compact">{asset.pythonSnippet}</pre></div>}
-            {asset.sqlSnippet && <div className="manual-section"><h2>SQL / Data preparation</h2><p>{asset.sqlSnippet}</p></div>}
+            <div className="lesson-block"><h2>Business applications</h2><BadgeList items={asset.businessApplications} tone="blue" /></div>
+            <div className="lesson-block"><h2>Banking applications</h2><BadgeList items={asset.bankingApplications} tone="amber" /></div>
           </section>
-        )}
-      </article>
 
-      <aside className="concept-side panel-card">
-        <span className="eyebrow">Learning Goals</span>
-        <ul>{asset.learningGoals.map((goal) => <li key={goal}>{goal}</li>)}</ul>
-        <h3>Metrics</h3><BadgeList items={asset.metrics} tone="green" />
-        <h3>Assumptions</h3><BadgeList items={asset.assumptions} tone="amber" />
-        <h3>Related Assets</h3>
-        {related.length > 0 ? (
-          <div className="related-stack">
-            {related.map((item) => item && <button className="related-card" key={item.id} onClick={() => onOpenAsset(item.id)} type="button"><strong>{item.title}</strong><span>{item.type} · {item.area}</span></button>)}
+          <section className="lesson-block warning-block">
+            <div className="lesson-block-title"><span>!</span><h2>Common mistakes</h2></div>
+            <ul className="clean-list">{asset.commonMistakes.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+
+          <section className="lesson-block tip-block">
+            <div className="lesson-block-title"><span>✓</span><h2>Professional tip</h2></div>
+            <p>{asset.professionalTip}</p>
+          </section>
+
+          {(asset.pythonSnippet || asset.sqlSnippet) && (
+            <section className="two-column">
+              {asset.pythonSnippet && <div className="lesson-block"><h2>Python</h2><pre className="code-block compact">{asset.pythonSnippet}</pre></div>}
+              {asset.sqlSnippet && <div className="lesson-block"><h2>SQL / Data preparation</h2><p>{asset.sqlSnippet}</p></div>}
+            </section>
+          )}
+        </article>
+
+        <aside className="concept-output-panel">
+          <div className="output-panel-card">
+            <span className="eyebrow">Output View</span>
+            <h2>{mainGraph ?? 'Professional Output'}</h2>
+            {mainGraph ? <MlMiniChart title={mainGraph} type={graphToType(mainGraph)} /> : <p>Outputs will appear here as the asset expands.</p>}
           </div>
-        ) : <p>Related assets will appear as the library expands.</p>}
-        <h3>Source strategy</h3><p>{asset.sourceStrategy}</p>
-      </aside>
+
+          <div className="output-panel-card success-panel">
+            <h3>Interpretation checklist</h3>
+            <ul>
+              <li>What does the output show?</li>
+              <li>Is the metric aligned with the business problem?</li>
+              <li>What decision becomes possible?</li>
+            </ul>
+          </div>
+
+          <div className="output-panel-card">
+            <h3>Metrics</h3>
+            <BadgeList items={asset.metrics} tone="green" />
+            <h3>Assumptions</h3>
+            <BadgeList items={asset.assumptions} tone="amber" />
+            <h3>Outputs</h3>
+            <BadgeList items={asset.outputs} tone="blue" />
+          </div>
+
+          <div className="output-panel-card">
+            <h3>Learning goals</h3>
+            <ul>{asset.learningGoals.map((goal) => <li key={goal}>{goal}</li>)}</ul>
+          </div>
+
+          <div className="output-panel-card">
+            <h3>Related assets</h3>
+            {related.length > 0 ? (
+              <div className="related-stack">
+                {related.map((item) => item && <button className="related-card" key={item.id} onClick={() => onOpenAsset(item.id)} type="button"><strong>{item.title}</strong><span>{item.type} · {item.area}</span></button>)}
+              </div>
+            ) : <p>Related assets will appear as the library expands.</p>}
+          </div>
+
+          <div className="output-panel-card source-panel">
+            <h3>Source strategy</h3>
+            <p>{asset.sourceStrategy}</p>
+          </div>
+        </aside>
+      </div>
     </section>
   )
 }
