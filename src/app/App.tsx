@@ -37,16 +37,19 @@ export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
   const [query, setQuery] = useState('')
   const [activeAssetId, setActiveAssetId] = useState<string | null>(null)
+  const [focusId, setFocusId] = useState<string | null>(null)
 
   const activeItem = useMemo(() => navCatalog.find((item) => item.id === activeView) ?? navCatalog[0], [activeView])
 
   const openAsset = (assetId: string) => {
+    setFocusId(null)
     setActiveAssetId(assetId)
     setActiveView('knowledge-library')
   }
 
-  const changeView = (view: ViewId) => {
+  const changeView = (view: ViewId, nextFocusId: string | null = null) => {
     setActiveAssetId(null)
+    setFocusId(nextFocusId)
     setActiveView(view)
   }
 
@@ -56,22 +59,22 @@ export function App() {
       <div className="app-main">
         <TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} />
         <main className="content-shell">
-          {activeView === 'dashboard' && <DashboardPage onNavigate={setActiveView} />}
+          {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} />}
           {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
           {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} />}
           {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} />}
-          {activeView === 'knowledge-factory' && <KnowledgeFactoryPage />}
+          {activeView === 'knowledge-factory' && <KnowledgeFactoryPage focusId={focusId} />}
           {activeView === 'data-science' && <DataScienceOperatingSystemPage />}
           {activeView === 'business-os' && <BusinessOperatingSystemPage />}
           {activeView === 'ml-models' && <MlModelsPage />}
           {activeView === 'ml-graph-atlas' && <MlGraphAtlasPage />}
           {activeView === 'professional-scenarios' && <ProfessionalScenariosPage />}
           {activeView === 'decision-playbooks' && <DecisionPlaybooksPage />}
-          {activeView === 'banking-finance' && <CoreAreaPage area="Banking & Finance" onNavigate={setActiveView} />}
+          {activeView === 'banking-finance' && <CoreAreaPage area="Banking & Finance" onNavigate={changeView} />}
           {activeView === 'credit-risk' && <CreditRiskPage />}
-          {activeView === 'output-atlas' && <OutputAtlasPage />}
-          {activeView === 'formula-library' && <ReferencePage type="formulas" query={query} />}
-          {activeView === 'model-library' && <ReferencePage type="models" query={query} />}
+          {activeView === 'output-atlas' && <OutputAtlasPage focusId={focusId} />}
+          {activeView === 'formula-library' && <ReferencePage type="formulas" query={query} focusId={focusId} />}
+          {activeView === 'model-library' && <ReferencePage type="models" query={query} focusId={focusId} />}
           {activeView === 'business-cases' && <BusinessCasesPage />}
           {activeView === 'knowledge-map' && <KnowledgeMapPage />}
           {activeView === 'quality-review' && <QualityReviewPage />}
