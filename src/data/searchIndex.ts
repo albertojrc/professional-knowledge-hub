@@ -2,8 +2,9 @@ import { knowledgeAssetRegistry } from './knowledgeAssetRegistry'
 import { outputAtlas, formulas, models, businessCases } from './knowledge'
 import { extraOutputAtlas, extraModels } from './phase3Knowledge'
 import { expansionBacklog } from './assetExpansionSystem'
+import { studyPaths } from './studyPaths'
 
-export type SearchResultKind = 'Knowledge Asset' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item'
+export type SearchResultKind = 'Knowledge Asset' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
 
 export interface SearchResultItem {
   id: string
@@ -13,7 +14,7 @@ export interface SearchResultItem {
   category: string
   summary: string
   tags: string[]
-  targetView: 'knowledge-library' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
+  targetView: 'knowledge-library' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
   assetId?: string
 }
 
@@ -31,6 +32,16 @@ export const globalSearchIndex: SearchResultItem[] = [
     tags: [asset.type, asset.difficulty, ...asset.metrics, ...asset.outputs, ...asset.graphs, ...asset.businessApplications, ...asset.bankingApplications, ...asset.relatedAssets],
     targetView: 'knowledge-library' as const,
     assetId: asset.id
+  })),
+  ...studyPaths.map((path) => ({
+    id: path.id,
+    title: path.title,
+    kind: 'Study Path' as const,
+    area: 'Learning Path',
+    category: path.level,
+    summary: path.professionalOutcome,
+    tags: [path.subtitle, path.targetRole, path.duration, ...path.assetIds, ...path.milestones.flatMap((milestone) => [milestone.title, milestone.description, ...milestone.assetIds])],
+    targetView: 'study-paths' as const
   })),
   ...allOutputs.map((output) => ({
     id: output.id,
