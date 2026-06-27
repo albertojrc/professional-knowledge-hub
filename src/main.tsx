@@ -9,6 +9,7 @@ import './styles/searchOS.css'
 import './styles/deepLinkOS.css'
 import './styles/libraryFilterOS.css'
 import './styles/progressOS.css'
+import './styles/studyDashboardOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
