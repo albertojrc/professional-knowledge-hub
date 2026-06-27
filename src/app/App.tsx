@@ -4,6 +4,8 @@ import { navItems } from '../data/knowledge'
 import { Sidebar } from '../components/layout/Sidebar'
 import { TopBar } from '../components/layout/TopBar'
 import { DashboardPage } from '../pages/DashboardPage'
+import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
+import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { CoreAreaPage } from '../pages/CoreAreaPage'
 import { DataScienceOperatingSystemPage } from '../pages/DataScienceOperatingSystemPage'
 import { BusinessOperatingSystemPage } from '../pages/BusinessOperatingSystemPage'
@@ -18,27 +20,41 @@ import { BusinessCasesPage } from '../pages/BusinessCasesPage'
 import { KnowledgeMapPage } from '../pages/KnowledgeMapPage'
 import { QualityReviewPage } from '../pages/QualityReviewPage'
 
+const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable concepts across business, data science and banking.', icon: 'KB' }
 const businessOsItem: NavItem = { id: 'business-os', label: 'Business OS', eyebrow: 'Core Area', description: 'Strategy, finance, marketing, operations and economics connected to decisions.', icon: 'BS' }
 const professionalScenariosItem: NavItem = { id: 'professional-scenarios', label: 'Professional Scenarios', eyebrow: 'Apply', description: 'End-to-end workflows from business problem to monitored decision.', icon: 'SC' }
 const decisionPlaybooksItem: NavItem = { id: 'decision-playbooks', label: 'Decision Playbooks', eyebrow: 'Decide', description: 'Convert analytical outputs into professional actions, evidence and monitoring.', icon: 'DP' }
 const mlModelsItem: NavItem = { id: 'ml-models', label: 'ML Models', eyebrow: 'Machine Learning', description: 'Detailed ML models with outputs, interpretation and graph examples.', icon: 'ML' }
 const mlGraphAtlasItem: NavItem = { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'Interpret', description: 'Machine learning charts: how to build, use and interpret them.', icon: 'GA' }
 
-const navCatalog: NavItem[] = [...navItems, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
+const navCatalog: NavItem[] = [...navItems, knowledgeLibraryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
 
 export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
   const [query, setQuery] = useState('')
+  const [activeAssetId, setActiveAssetId] = useState<string | null>(null)
 
   const activeItem = useMemo(() => navCatalog.find((item) => item.id === activeView) ?? navCatalog[0], [activeView])
 
+  const openAsset = (assetId: string) => {
+    setActiveAssetId(assetId)
+    setActiveView('knowledge-library')
+  }
+
+  const changeView = (view: ViewId) => {
+    setActiveAssetId(null)
+    setActiveView(view)
+  }
+
   return (
     <div className="app-shell">
-      <Sidebar activeView={activeView} onChangeView={setActiveView} />
+      <Sidebar activeView={activeView} onChangeView={changeView} />
       <div className="app-main">
         <TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} />
         <main className="content-shell">
           {activeView === 'dashboard' && <DashboardPage onNavigate={setActiveView} />}
+          {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} />}
+          {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} />}
           {activeView === 'data-science' && <DataScienceOperatingSystemPage />}
           {activeView === 'business-os' && <BusinessOperatingSystemPage />}
           {activeView === 'ml-models' && <MlModelsPage />}
