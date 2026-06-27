@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { searchAreas, searchCategories, searchKinds, searchKnowledge, type SearchResultItem } from '../data/searchIndex'
 import type { ViewId } from '../types/knowledge'
 
@@ -9,15 +10,10 @@ interface GlobalSearchPageProps {
 }
 
 export function GlobalSearchPage({ query, onQueryChange, onNavigate, onOpenAsset }: GlobalSearchPageProps) {
-  const [kind, area, category] = getFiltersFromQuery(query)
-  const cleanQuery = query.replace(/kind:[^ ]+/g, '').replace(/area:[^ ]+/g, '').replace(/category:[^ ]+/g, '').trim()
-  const results = searchKnowledge(cleanQuery, { kind, area, category })
-
-  const updateFilter = (key: 'kind' | 'area' | 'category', value: string) => {
-    const next = { kind, area, category, [key]: value }
-    const filterText = [next.kind !== 'All' ? `kind:${next.kind}` : '', next.area !== 'All' ? `area:${next.area}` : '', next.category !== 'All' ? `category:${next.category}` : ''].filter(Boolean).join(' ')
-    onQueryChange(`${cleanQuery} ${filterText}`.trim())
-  }
+  const [kind, setKind] = useState('All')
+  const [area, setArea] = useState('All')
+  const [category, setCategory] = useState('All')
+  const results = searchKnowledge(query, { kind, area, category })
 
   const openResult = (item: SearchResultItem) => {
     if (item.assetId) {
@@ -33,15 +29,15 @@ export function GlobalSearchPage({ query, onQueryChange, onNavigate, onOpenAsset
         <span className="eyebrow">Sprint 1.4 · Global Search</span>
         <h1>Search across concepts, outputs, formulas, models, cases and backlog items.</h1>
         <p>Use this as the command center for your second brain. Search by title, metric, assumption, graph, business use, banking use or related concept.</p>
-        <input className="global-search-input" value={cleanQuery} onChange={(event) => onQueryChange(event.target.value)} placeholder="Try: calibration, WACC, residuals, credit risk, Porter, RMSE..." />
+        <input className="global-search-input" value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder="Try: calibration, WACC, residuals, credit risk, Porter, RMSE..." />
       </div>
 
       <section className="manual-panel search-filter-panel">
         <span className="eyebrow">Filters</span>
         <div className="search-filters">
-          <FilterSelect label="Kind" value={kind} values={searchKinds} onChange={(value) => updateFilter('kind', value)} />
-          <FilterSelect label="Area" value={area} values={searchAreas} onChange={(value) => updateFilter('area', value)} />
-          <FilterSelect label="Category" value={category} values={searchCategories} onChange={(value) => updateFilter('category', value)} />
+          <FilterSelect label="Kind" value={kind} values={searchKinds} onChange={setKind} />
+          <FilterSelect label="Area" value={area} values={searchAreas} onChange={setArea} />
+          <FilterSelect label="Category" value={category} values={searchCategories} onChange={setCategory} />
         </div>
       </section>
 
@@ -77,11 +73,4 @@ function FilterSelect({ label, value, values, onChange }: { label: string; value
       </select>
     </label>
   )
-}
-
-function getFiltersFromQuery(query: string) {
-  const kind = query.match(/kind:([^ ]+)/)?.[1] ?? 'All'
-  const area = query.match(/area:([^ ]+)/)?.[1] ?? 'All'
-  const category = query.match(/category:([^ ]+)/)?.[1] ?? 'All'
-  return [kind, area, category]
 }
