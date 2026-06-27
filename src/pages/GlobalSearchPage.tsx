@@ -5,7 +5,7 @@ import type { ViewId } from '../types/knowledge'
 interface GlobalSearchPageProps {
   query: string
   onQueryChange: (query: string) => void
-  onNavigate: (view: ViewId) => void
+  onNavigate: (view: ViewId, focusId?: string | null) => void
   onOpenAsset: (assetId: string) => void
 }
 
@@ -20,15 +20,15 @@ export function GlobalSearchPage({ query, onQueryChange, onNavigate, onOpenAsset
       onOpenAsset(item.assetId)
       return
     }
-    onNavigate(item.targetView)
+    onNavigate(item.targetView, item.id)
   }
 
   return (
     <section className="page-stack">
       <div className="hero-panel search-hero">
-        <span className="eyebrow">Sprint 1.4 · Global Search</span>
+        <span className="eyebrow">Sprint 1.5 · Deep Search</span>
         <h1>Search across concepts, outputs, formulas, models, cases and backlog items.</h1>
-        <p>Use this as the command center for your second brain. Search by title, metric, assumption, graph, business use, banking use or related concept.</p>
+        <p>Results now open the exact asset, output, formula, model or backlog item whenever the destination supports deep linking.</p>
         <input className="global-search-input" value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder="Try: calibration, WACC, residuals, credit risk, Porter, RMSE..." />
       </div>
 
@@ -55,6 +55,7 @@ export function GlobalSearchPage({ query, onQueryChange, onNavigate, onOpenAsset
               <div className="search-result-meta">
                 <span>{item.area}</span>
                 <span>{item.category}</span>
+                <span>Opens focused view</span>
               </div>
             </button>
           ))}
