@@ -3,11 +3,14 @@ import { existsSync, readFileSync } from 'node:fs'
 const requiredFiles = [
   'src/app/App.tsx',
   'src/types/knowledge.ts',
+  'src/types/materialInventory.ts',
+  'src/data/materialInventory.ts',
   'src/data/knowledgeAssetRegistry.ts',
   'src/data/knowledgeAssetsSprint14.ts',
   'src/data/knowledgeTooltipsSprint14.ts',
   'src/pages/DashboardPage.tsx',
   'src/pages/GlobalSearchPage.tsx',
+  'src/pages/MaterialInventoryPage.tsx',
   'src/pages/KnowledgeLibraryPage.tsx',
   'src/pages/KnowledgeAssetDetailPage.tsx',
   'src/pages/StudyPathsPage.tsx',
@@ -19,13 +22,16 @@ const requiredFiles = [
   'src/styles/studyDashboardOS.css',
   'src/styles/studyPathsOS.css',
   'src/styles/learningSessionOS.css',
+  'src/styles/materialInventoryOS.css',
   'docs/SPRINT_1_FINAL_REVIEW.md',
-  'docs/SPRINT_2_ROADMAP.md'
+  'docs/SPRINT_2_ROADMAP.md',
+  'docs/SPRINT_2_1_SOURCE_INVENTORY.md'
 ]
 
 const requiredViewIds = [
   'dashboard',
   'global-search',
+  'material-inventory',
   'knowledge-library',
   'study-paths',
   'learning-session',
@@ -64,6 +70,7 @@ const requiredSprint14AssetIds = [
 const requiredAppRoutes = [
   "activeView === 'dashboard'",
   "activeView === 'global-search'",
+  "activeView === 'material-inventory'",
   "activeView === 'knowledge-library'",
   "activeView === 'study-paths'",
   "activeView === 'learning-session'",
@@ -79,7 +86,8 @@ const requiredMainStyleImports = [
   "./styles/studyDashboardOS.css",
   "./styles/studyPathsOS.css",
   "./styles/pathActionsOS.css",
-  "./styles/learningSessionOS.css"
+  "./styles/learningSessionOS.css",
+  "./styles/materialInventoryOS.css"
 ]
 
 function fail(message) {
@@ -108,13 +116,17 @@ assertContains('src/data/knowledgeTooltipRegistry.ts', 'sprint14KnowledgeTooltip
 assertContains('src/data/studyPaths.ts', 'mlops-monitoring')
 assertContains('src/data/searchIndex.ts', 'knowledgeAssetRegistry')
 assertContains('src/data/searchIndex.ts', 'studyPaths')
+assertContains('src/data/searchIndex.ts', 'materialRecords')
+assertContains('src/pages/MaterialInventoryPage.tsx', 'mappingTemplateSteps')
 assertContains('src/pages/KnowledgeLibraryPage.tsx', 'assetProgress')
 assertContains('src/pages/DashboardPage.tsx', 'CurrentPathPanel')
+assertContains('src/pages/DashboardPage.tsx', 'material-inventory')
 assertContains('src/pages/LearningSessionPage.tsx', 'sessionChecklist')
 assertContains('docs/SPRINT_1_FINAL_REVIEW.md', 'Sprint 1 can be considered complete')
 assertContains('docs/SPRINT_2_ROADMAP.md', 'Source Inventory System')
+assertContains('docs/SPRINT_2_1_SOURCE_INVENTORY.md', 'Material Inventory')
 assertContains('src/pages/QualityReviewPage.tsx', 'Sprint 1 closed')
 
 if (!process.exitCode) {
-  console.log('QA PASS: Sprint 1 architecture, content and final closure audit completed successfully.')
+  console.log('QA PASS: Sprint 2.1 material inventory audit completed successfully.')
 }
