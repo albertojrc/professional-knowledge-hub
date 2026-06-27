@@ -16,6 +16,7 @@ import './styles/learningSessionOS.css'
 import './styles/materialInventoryOS.css'
 import './styles/courseAreaMapOS.css'
 import './styles/evidenceExpansionOS.css'
+import './styles/sourceAwareOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
