@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { NavItem, ViewId } from '../types/knowledge'
 import { navItems } from '../data/knowledge'
+import { useAssetProgress } from '../hooks/useAssetProgress'
 import { Sidebar } from '../components/layout/Sidebar'
 import { TopBar } from '../components/layout/TopBar'
 import { DashboardPage } from '../pages/DashboardPage'
@@ -38,6 +39,7 @@ export function App() {
   const [query, setQuery] = useState('')
   const [activeAssetId, setActiveAssetId] = useState<string | null>(null)
   const [focusId, setFocusId] = useState<string | null>(null)
+  const assetProgress = useAssetProgress()
 
   const activeItem = useMemo(() => navCatalog.find((item) => item.id === activeView) ?? navCatalog[0], [activeView])
 
@@ -61,8 +63,8 @@ export function App() {
         <main className="content-shell">
           {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} />}
           {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
-          {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} />}
-          {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} />}
+          {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
+          {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'knowledge-factory' && <KnowledgeFactoryPage focusId={focusId} />}
           {activeView === 'data-science' && <DataScienceOperatingSystemPage />}
           {activeView === 'business-os' && <BusinessOperatingSystemPage />}
