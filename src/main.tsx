@@ -13,6 +13,7 @@ import './styles/studyDashboardOS.css'
 import './styles/studyPathsOS.css'
 import './styles/pathActionsOS.css'
 import './styles/learningSessionOS.css'
+import './styles/materialInventoryOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
