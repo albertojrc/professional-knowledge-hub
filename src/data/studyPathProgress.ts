@@ -1,4 +1,5 @@
 import { knowledgeAssetRegistry } from './knowledgeAssetRegistry'
+import type { KnowledgeAsset } from '../types/knowledgeAsset'
 import type { StudyPath } from '../types/studyPath'
 import type { AssetProgressStatus } from '../types/learningProgress'
 import { assetProgressWeight } from '../types/learningProgress'
@@ -7,10 +8,14 @@ interface ProgressReader {
   getAssetStatus: (assetId: string) => AssetProgressStatus
 }
 
-export function getPathAssets(path: StudyPath) {
+function isKnowledgeAsset(asset: KnowledgeAsset | undefined): asset is KnowledgeAsset {
+  return Boolean(asset)
+}
+
+export function getPathAssets(path: StudyPath): KnowledgeAsset[] {
   return path.assetIds
     .map((assetId) => knowledgeAssetRegistry.find((asset) => asset.id === assetId))
-    .filter(Boolean)
+    .filter(isKnowledgeAsset)
 }
 
 export function getStudyPathProgress(path: StudyPath, progress: ProgressReader) {
