@@ -1,30 +1,37 @@
 import { knowledgeAssetRegistry } from '../data/knowledgeAssetRegistry'
+import type { AssetProgressStatus } from '../types/learningProgress'
 import { BadgeList } from '../components/ui/BadgeList'
 import { SmartBadgeList } from '../components/ui/SmartBadgeList'
 import { ReadingGuide } from '../components/ui/ReadingGuide'
+import { AssetProgressControl } from '../components/ui/AssetProgressControl'
 import { MlMiniChart, type MlChartType } from '../components/charts/MlMiniChart'
+
+interface AssetProgressApi {
+  getAssetStatus: (assetId: string) => AssetProgressStatus
+  setAssetStatus: (assetId: string, status: AssetProgressStatus) => void
+}
 
 interface KnowledgeAssetDetailPageProps {
   assetId: string
   onBack: () => void
   onOpenAsset: (assetId: string) => void
+  assetProgress: AssetProgressApi
 }
 
 const lessonSections = ['Overview', 'Use', 'Interpret', 'Outputs', 'Applications', 'Practice']
 
-export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset }: KnowledgeAssetDetailPageProps) {
+export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetProgress }: KnowledgeAssetDetailPageProps) {
   const asset = knowledgeAssetRegistry.find((item) => item.id === assetId) ?? knowledgeAssetRegistry[0]
-  const related = asset.relatedAssets
-    .map((id) => knowledgeAssetRegistry.find((item) => item.id === id))
-    .filter(Boolean)
+  const related = asset.relatedAssets.map((id) => knowledgeAssetRegistry.find((item) => item.id === id)).filter(Boolean)
   const mainGraph = asset.graphs[0]
+  const status = assetProgress.getAssetStatus(asset.id)
 
   return (
     <section className="concept-learning-page">
       <div className="lesson-toolbar">
         <button className="text-button" onClick={onBack} type="button">← Knowledge Library</button>
         <div className="lesson-breadcrumb"><span>{asset.area}</span><b>›</b><span>{asset.category}</span><b>›</b><strong>{asset.title}</strong></div>
-        <div className="lesson-progress"><span>Lesson standard</span><div><i style={{ width: '37%' }} /></div><strong>37%</strong></div>
+        <div className="lesson-progress"><span>Learning status</span><div><i className={`status-${status.toLowerCase().replaceAll(' ', '-')}`} /></div><strong>{status}</strong></div>
       </div>
 
       <div className="concept-two-pane">
@@ -69,6 +76,7 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset }: Knowl
         </article>
 
         <aside className="concept-output-panel">
+          <div className="output-panel-card progress-panel"><span className="eyebrow">Study Tracker</span><h2>{asset.title}</h2><AssetProgressControl status={status} onChange={(nextStatus) => assetProgress.setAssetStatus(asset.id, nextStatus)} /></div>
           <div className="output-panel-card"><span className="eyebrow">Output View</span><h2>{mainGraph ?? 'Professional Output'}</h2>{mainGraph ? <MlMiniChart title={mainGraph} type={graphToType(mainGraph)} /> : <p>Outputs will appear here as the asset expands.</p>}</div>
           <div className="output-panel-card success-panel"><h3>Interpretation checklist</h3><ul><li>What does the output show?</li><li>Is the metric aligned with the business problem?</li><li>What decision becomes possible?</li></ul></div>
           <div className="output-panel-card"><h3>Metrics</h3><SmartBadgeList items={asset.metrics} tone="green" /><h3>Assumptions</h3><SmartBadgeList items={asset.assumptions} tone="amber" /><h3>Outputs</h3><SmartBadgeList items={asset.outputs} tone="blue" /></div>
