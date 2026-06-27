@@ -75,7 +75,7 @@ export function App() {
           {activeView === 'output-atlas' && <OutputAtlasPage focusId={focusId} />}
           {activeView === 'formula-library' && <ReferencePage type="formulas" query={query} focusId={focusId} />}
           {activeView === 'model-library' && <ReferencePage type="models" query={query} focusId={focusId} />}
-          {activeView === 'business-cases' && <BusinessCasesPage />}
+          {activeView === 'business-cases' && <BusinessCasesPage focusId={focusId} />}
           {activeView === 'knowledge-map' && <KnowledgeMapPage />}
           {activeView === 'quality-review' && <QualityReviewPage />}
         </main>
