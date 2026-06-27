@@ -12,6 +12,7 @@ import './styles/progressOS.css'
 import './styles/studyDashboardOS.css'
 import './styles/studyPathsOS.css'
 import './styles/pathActionsOS.css'
+import './styles/learningSessionOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
