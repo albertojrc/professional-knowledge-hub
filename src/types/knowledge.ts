@@ -1,5 +1,6 @@
 export type ViewId =
   | 'dashboard'
+  | 'knowledge-library'
   | 'data-science'
   | 'business-os'
   | 'banking-finance'
