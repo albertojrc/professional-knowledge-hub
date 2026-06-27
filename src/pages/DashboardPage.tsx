@@ -4,16 +4,20 @@ import type { KnowledgeAsset } from '../types/knowledgeAsset'
 import { navItems, knowledgeChains } from '../data/knowledge'
 import { getStudyDashboardData } from '../data/studyDashboard'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
+import { CurrentPathPanel } from '../components/study/CurrentPathPanel'
 
 interface AssetProgressApi {
   summary: { mastered: number; reviewed: number; studying: number; averageProgress: number }
   getAssetStatus: (assetId: string) => AssetProgressStatus
 }
 
+interface PathPrefsApi { prefs: { activePathId: string | null; pinnedPathIds: string[] } }
+
 interface DashboardPageProps {
   onNavigate: (view: ViewId) => void
   onOpenAsset: (assetId: string) => void
   assetProgress: AssetProgressApi
+  pathPrefs: PathPrefsApi
 }
 
 const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across concepts, formulas, outputs, models, cases and backlog items.', icon: 'SE' }
@@ -40,7 +44,7 @@ const primaryNavigation: NavItem[] = [
   ...navItems.filter((item) => ['data-science', 'banking-finance', 'credit-risk', 'output-atlas', 'model-library', 'business-cases', 'knowledge-map'].includes(item.id))
 ]
 
-export function DashboardPage({ onNavigate, onOpenAsset, assetProgress }: DashboardPageProps) {
+export function DashboardPage({ onNavigate, onOpenAsset, assetProgress, pathPrefs }: DashboardPageProps) {
   const studyData = getStudyDashboardData(assetProgress)
   const completedCount = studyData.reviewed.length + studyData.mastered.length
   const completionRate = studyData.total ? Math.round((completedCount / studyData.total) * 100) : 0
@@ -51,41 +55,30 @@ export function DashboardPage({ onNavigate, onOpenAsset, assetProgress }: Dashbo
         <div>
           <span className="eyebrow">Professional Knowledge Operating System</span>
           <h1>Your personal study command center for business, data science and banking.</h1>
-          <p>This dashboard now reflects your real learning progress across the Knowledge Library.</p>
+          <p>This dashboard now reflects your real learning progress across the Knowledge Library and Study Paths.</p>
           <div className="badge-list">
             <button className="primary-button" onClick={() => onNavigate('study-paths')} type="button">Open Study Paths</button>
             <button className="primary-button" onClick={() => onNavigate('global-search')} type="button">Open Global Search</button>
             <button className="primary-button" onClick={() => onNavigate('knowledge-library')} type="button">Open Knowledge Library</button>
           </div>
         </div>
-        <div className="study-score-card">
-          <span className="eyebrow">Completion Rate</span>
-          <strong>{completionRate}%</strong>
-          <div className="study-score-bar"><i style={{ width: `${completionRate}%` }} /></div>
-          <p>{completedCount} reviewed or mastered out of {studyData.total} assets.</p>
-        </div>
+        <div className="study-score-card"><span className="eyebrow">Completion Rate</span><strong>{completionRate}%</strong><div className="study-score-bar"><i style={{ width: `${completionRate}%` }} /></div><p>{completedCount} reviewed or mastered out of {studyData.total} assets.</p></div>
       </div>
+
+      <CurrentPathPanel activePathId={pathPrefs.prefs.activePathId} getAssetStatus={assetProgress.getAssetStatus} onOpenAsset={onOpenAsset} onOpenStudyPaths={() => onNavigate('study-paths')} />
 
       <section className="study-dashboard-grid">
         <article className="study-stat-card"><span className="eyebrow">Current</span><strong>{studyData.studying.length}</strong><p>assets in study mode</p></article>
         <article className="study-stat-card"><span className="eyebrow">Reviewed</span><strong>{studyData.reviewed.length}</strong><p>assets reviewed</p></article>
         <article className="study-stat-card"><span className="eyebrow">Mastered</span><strong>{studyData.mastered.length}</strong><p>assets mastered</p></article>
-        <article className="study-stat-card"><span className="eyebrow">Pending</span><strong>{studyData.notStarted.length}</strong><p>assets not started</p></article>
+        <article className="study-stat-card"><span className="eyebrow">Pinned Paths</span><strong>{pathPrefs.prefs.pinnedPathIds.length}</strong><p>paths pinned</p></article>
       </section>
 
-      <section className="study-dashboard-two-column">
-        <div className="manual-panel"><span className="eyebrow">Continue Studying</span><h2>Pick up where you left off</h2><StudyAssetList assets={studyData.continueStudying} emptyText="No assets are marked as Studying yet." onOpenAsset={onOpenAsset} /></div>
-        <div className="manual-panel"><span className="eyebrow">Recommended Next</span><h2>Suggested next assets</h2><StudyAssetList assets={studyData.recommendedNext} emptyText="Everything has been started. Nice momentum." onOpenAsset={onOpenAsset} /></div>
-      </section>
-
+      <section className="study-dashboard-two-column"><div className="manual-panel"><span className="eyebrow">Continue Studying</span><h2>Pick up where you left off</h2><StudyAssetList assets={studyData.continueStudying} emptyText="No assets are marked as Studying yet." onOpenAsset={onOpenAsset} /></div><div className="manual-panel"><span className="eyebrow">Recommended Next</span><h2>Suggested next assets</h2><StudyAssetList assets={studyData.recommendedNext} emptyText="Everything has been started. Nice momentum." onOpenAsset={onOpenAsset} /></div></section>
       <section className="manual-panel"><span className="eyebrow">Area Progress</span><h2>Progress by professional domain</h2><div className="area-progress-grid">{studyData.areaBreakdown.map((item) => <article className="area-progress-card" key={item.area}><div><strong>{item.area}</strong><span>{item.done} / {item.total} reviewed or mastered</span></div><div className="study-score-bar"><i style={{ width: `${item.progress}%` }} /></div><b>{item.progress}%</b></article>)}</div></section>
-
       <div className="dashboard-grid">{operatingSystemCards.map((card) => <article className="feature-card" key={card.title}><span className="eyebrow">Learning Logic</span><h3>{card.title}</h3><p>{card.description}</p><div className="mini-result good">{card.example}</div></article>)}</div>
-
       <section className="manual-panel"><span className="eyebrow">Main Project Flow</span><h2>From business question to monitored decision</h2><KnowledgeChain nodes={['Business Question', 'Data Sources', 'SQL ABT', 'Data Quality', 'EDA', 'Features', 'Model / Analysis', 'Output Interpretation', 'Business Decision', 'Monitoring']} /><p>Every major page in the Hub should answer where it belongs in this chain and what action it enables.</p></section>
-
       <div className="dashboard-grid">{primaryNavigation.map((item) => <button className="feature-card navigation-card" key={item.id} onClick={() => onNavigate(item.id)} type="button"><span className="card-icon">{item.icon}</span><span className="eyebrow">{item.eyebrow}</span><h3>{item.label}</h3><p>{item.description}</p></button>)}</div>
-
       <section className="manual-panel"><span className="eyebrow">Knowledge Map Preview</span><h2>{knowledgeChains[0].title}</h2><KnowledgeChain nodes={knowledgeChains[0].nodes} /><p>{knowledgeChains[0].professionalUse}</p></section>
     </section>
   )
@@ -93,10 +86,5 @@ export function DashboardPage({ onNavigate, onOpenAsset, assetProgress }: Dashbo
 
 function StudyAssetList({ assets, emptyText, onOpenAsset }: { assets: Array<KnowledgeAsset & { status: AssetProgressStatus }>; emptyText: string; onOpenAsset: (assetId: string) => void }) {
   if (!assets.length) return <div className="empty-library-state"><p>{emptyText}</p></div>
-
-  return (
-    <div className="study-asset-list">
-      {assets.map((asset) => <button className="study-asset-row" key={asset.id} onClick={() => onOpenAsset(asset.id)} type="button"><span className="asset-icon small">{asset.icon}</span><div><strong>{asset.title}</strong><span>{asset.area} · {asset.category} · {asset.status}</span></div></button>)}
-    </div>
-  )
+  return <div className="study-asset-list">{assets.map((asset) => <button className="study-asset-row" key={asset.id} onClick={() => onOpenAsset(asset.id)} type="button"><span className="asset-icon small">{asset.icon}</span><div><strong>{asset.title}</strong><span>{asset.area} · {asset.category} · {asset.status}</span></div></button>)}</div>
 }
