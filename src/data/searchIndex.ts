@@ -4,8 +4,9 @@ import { extraOutputAtlas, extraModels } from './phase3Knowledge'
 import { expansionBacklog } from './assetExpansionSystem'
 import { studyPaths } from './studyPaths'
 import { materialRecords } from './materialInventory'
+import { courseAreaMapRecords, topicClusters } from './courseAreaMapping'
 
-export type SearchResultKind = 'Knowledge Asset' | 'Material' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
+export type SearchResultKind = 'Knowledge Asset' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
 
 export interface SearchResultItem {
   id: string
@@ -15,7 +16,7 @@ export interface SearchResultItem {
   category: string
   summary: string
   tags: string[]
-  targetView: 'knowledge-library' | 'material-inventory' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
+  targetView: 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
   assetId?: string
 }
 
@@ -43,6 +44,26 @@ export const globalSearchIndex: SearchResultItem[] = [
     summary: material.description,
     tags: [material.program, material.materialType, material.locationLabel, material.priority, ...material.knownTopics, ...material.targetAssets, ...material.gapsToCheck],
     targetView: 'material-inventory' as const
+  })),
+  ...courseAreaMapRecords.map((record) => ({
+    id: record.id,
+    title: record.title,
+    kind: 'Course Area' as const,
+    area: record.area,
+    category: record.currentCoverage,
+    summary: record.professionalPurpose,
+    tags: [record.bankingRelevance, record.dataRelevance, record.targetCoverage, ...record.programs, ...record.sourceModuleIds, ...record.keyTopics, ...record.existingAssets, ...record.recommendedAssets, ...record.sourceGaps],
+    targetView: 'course-area-map' as const
+  })),
+  ...topicClusters.map((cluster) => ({
+    id: cluster.id,
+    title: cluster.title,
+    kind: 'Topic Cluster' as const,
+    area: cluster.area,
+    category: 'Topic Cluster',
+    summary: cluster.description,
+    tags: [...cluster.topics, ...cluster.connectedAssets, ...cluster.professionalOutputs, ...cluster.businessDecisions],
+    targetView: 'course-area-map' as const
   })),
   ...studyPaths.map((path) => ({
     id: path.id,
