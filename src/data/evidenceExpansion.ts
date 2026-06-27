@@ -1,0 +1,151 @@
+import type { EvidenceExpansionCandidate, EvidenceExpansionSummary } from '../types/evidenceExpansion'
+
+export const evidenceExpansionCandidates: EvidenceExpansionCandidate[] = [
+  {
+    id: 'evidence-data-quality-report',
+    assetId: 'data-quality-report',
+    title: 'Data Quality Report',
+    area: 'Data Science',
+    program: 'Master in Big Data / Data Science',
+    status: 'Class evidence candidate',
+    linkedModuleIds: ['mbd-data-science', 'mbd-data-engineering-bi'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'Every analytics or banking model depends on trustworthy input data. This asset should become a bridge between raw data, EDA and decision reliability.',
+    expectedEvidence: ['Data preparation slides', 'Notebook quality checks', 'Assignments with missing values or outliers', 'Dashboard or dataset documentation'],
+    validationQuestions: ['Do the class materials include missing value analysis?', 'Are outliers, duplicates or consistency checks shown?', 'Is there a data quality output or report in any assignment?'],
+    nextAction: 'Inspect data science and BI materials and extract all data quality checks into a formal asset.'
+  },
+  {
+    id: 'evidence-analytical-base-table',
+    assetId: 'analytical-base-table',
+    title: 'Analytical Base Table',
+    area: 'SQL / Databases',
+    program: 'Master in Big Data / Data Science',
+    status: 'Class evidence candidate',
+    linkedModuleIds: ['mbd-data-engineering-bi', 'mbd-data-science'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'The ABT connects SQL, feature engineering and model training. It is essential for professional analytics workflows in banking.',
+    expectedEvidence: ['SQL exercises', 'Feature tables', 'Dataset preparation notebooks', 'Modeling assignments'],
+    validationQuestions: ['Do materials show a final modeling dataset?', 'Are SQL joins or aggregations used to build features?', 'Is there a clear observation-level table?'],
+    nextAction: 'Inspect SQL and notebook materials and define the ABT pattern used in class.'
+  },
+  {
+    id: 'evidence-sql-joins',
+    assetId: 'sql-joins',
+    title: 'SQL Joins',
+    area: 'SQL / Databases',
+    program: 'Master in Big Data / Data Science',
+    status: 'Class evidence candidate',
+    linkedModuleIds: ['mbd-data-engineering-bi'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'SQL joins are a foundation for combining customer, transaction, product and risk data in banking analytics.',
+    expectedEvidence: ['SQL scripts', 'Database exercises', 'Entity relationship examples', 'Query assignments'],
+    validationQuestions: ['Which join types are covered?', 'Are there examples of one-to-many joins?', 'Are join mistakes or duplication issues discussed?'],
+    nextAction: 'Extract SQL join examples and map them to analytics and banking use cases.'
+  },
+  {
+    id: 'evidence-financial-ratios',
+    assetId: 'financial-ratios',
+    title: 'Financial Ratios',
+    area: 'Finance',
+    program: 'Master in Management',
+    status: 'Class evidence candidate',
+    linkedModuleIds: ['mim-finance-economics'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'Financial ratios support credit analysis, corporate finance, management diagnosis and banking decisions.',
+    expectedEvidence: ['Finance slides', 'Ratio exercises', 'Financial statement cases', 'Valuation assignments'],
+    validationQuestions: ['Which ratios are explicitly taught?', 'Are liquidity, leverage, profitability and coverage ratios included?', 'Are ratio interpretation examples present?'],
+    nextAction: 'Map all finance ratio formulas and interpretation rules from class materials.'
+  },
+  {
+    id: 'evidence-cash-flow-analysis',
+    assetId: 'cash-flow-analysis',
+    title: 'Cash Flow Analysis',
+    area: 'Finance',
+    program: 'Master in Management',
+    status: 'Class evidence candidate',
+    linkedModuleIds: ['mim-finance-economics'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'Cash flow analysis connects accounting, valuation and credit capacity. It is central for banking and corporate finance decisions.',
+    expectedEvidence: ['Cash flow statements', 'DCF exercises', 'Corporate finance cases', 'Financial analysis assignments'],
+    validationQuestions: ['Do materials distinguish profit from cash flow?', 'Are operating, investing and financing flows covered?', 'Are cash flow bridges or DCF outputs used?'],
+    nextAction: 'Extract cash flow concepts and connect them to valuation and credit decisioning.'
+  },
+  {
+    id: 'evidence-macro-scenario-analysis',
+    assetId: 'macro-scenario-analysis',
+    title: 'Macro Scenario Analysis',
+    area: 'Economics',
+    program: 'Master in Management',
+    status: 'Class evidence candidate',
+    linkedModuleIds: ['mim-finance-economics', 'banking-analytics'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'Macro scenarios connect economics to banking risk, stress testing, credit demand and business decisions.',
+    expectedEvidence: ['Economics slides', 'Macro indicators', 'Scenario exercises', 'Banking or risk cases'],
+    validationQuestions: ['Are GDP, inflation, rates or FX covered?', 'Are macro scenarios linked to business decisions?', 'Are stress or sensitivity cases included?'],
+    nextAction: 'Map macro concepts and connect them to risk, finance and management decisions.'
+  },
+  {
+    id: 'evidence-fraud-detection',
+    assetId: 'fraud-detection',
+    title: 'Fraud Detection',
+    area: 'Banking',
+    program: 'Cross-Program',
+    status: 'Recommended complement',
+    linkedModuleIds: ['banking-analytics', 'mbd-data-science'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'Fraud detection is a high-value banking analytics use case connecting imbalanced classification, alert prioritization and operational review.',
+    expectedEvidence: ['Classification examples', 'Imbalanced data exercises', 'Banking analytics cases'],
+    validationQuestions: ['Do class materials explicitly cover fraud?', 'If not, which ML evaluation outputs can support fraud as a complementary case?', 'Are PR curves, lift or alert queues covered?'],
+    nextAction: 'Check whether fraud is present in the materials. If not, keep it as a recommended banking complement.'
+  },
+  {
+    id: 'evidence-aml-kyc',
+    assetId: 'aml-kyc',
+    title: 'AML/KYC Analytics',
+    area: 'Banking',
+    program: 'Cross-Program',
+    status: 'Recommended complement',
+    linkedModuleIds: ['banking-analytics', 'mbd-data-science'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'AML/KYC connects banking regulation, graph thinking, alert triage and explainable analytics.',
+    expectedEvidence: ['Banking cases', 'Graph analytics', 'Compliance or risk references', 'Classification examples'],
+    validationQuestions: ['Is AML/KYC explicitly mentioned?', 'Are compliance analytics or graph models covered?', 'Can it be connected to existing fraud/risk outputs?'],
+    nextAction: 'Validate whether AML/KYC appears in course material. Otherwise keep as professional complement.'
+  },
+  {
+    id: 'evidence-customer-segmentation',
+    assetId: 'customer-segmentation',
+    title: 'Customer Segmentation',
+    area: 'Marketing',
+    program: 'Cross-Program',
+    status: 'Class evidence candidate',
+    linkedModuleIds: ['mim-strategy-management', 'mbd-data-science'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'Segmentation connects marketing, clustering, customer analytics and business strategy.',
+    expectedEvidence: ['Marketing slides', 'Clustering notebooks', 'Customer analytics assignments', 'Strategy cases'],
+    validationQuestions: ['Are segmentation frameworks covered?', 'Are clustering models used?', 'Are customer groups connected to decisions or campaigns?'],
+    nextAction: 'Inspect marketing and ML materials to determine whether segmentation is source-backed.'
+  },
+  {
+    id: 'evidence-operations-dashboard',
+    assetId: 'operations-dashboard',
+    title: 'Operations Dashboard',
+    area: 'Operations',
+    program: 'Master in Management',
+    status: 'Needs review',
+    linkedModuleIds: ['mim-strategy-management'],
+    linkedMaterialIds: ['dual-degree-folder'],
+    whyItMatters: 'Operations dashboards connect KPIs, capacity, bottlenecks and service performance to management action.',
+    expectedEvidence: ['Operations notes', 'Dashboard assignments', 'Process cases', 'Performance management slides'],
+    validationQuestions: ['Do operations materials exist?', 'Are KPIs, capacity or process metrics covered?', 'Are dashboards or performance reports included?'],
+    nextAction: 'Confirm whether operations material exists in the folder before creating this asset.'
+  }
+]
+
+export const evidenceExpansionSummary: EvidenceExpansionSummary = {
+  totalCandidates: evidenceExpansionCandidates.length,
+  classCandidates: evidenceExpansionCandidates.filter((item) => item.status === 'Class evidence candidate').length,
+  recommendedComplements: evidenceExpansionCandidates.filter((item) => item.status === 'Recommended complement').length,
+  needsReview: evidenceExpansionCandidates.filter((item) => item.status === 'Needs review').length
+}
