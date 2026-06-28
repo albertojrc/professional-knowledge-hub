@@ -5,6 +5,7 @@ export type ViewId =
   | 'course-area-map'
   | 'evidence-expansion'
   | 'source-coverage-qa'
+  | 'source-review-prep'
   | 'knowledge-library'
   | 'study-paths'
   | 'learning-session'
