@@ -16,6 +16,7 @@ import { studyModuleSearchEntries } from './studyModuleSearch'
 import { certificationSearchEntries } from './certificationSearch'
 import { bankingCreditRiskSearchEntries } from './bankingCreditRiskSearch'
 import { dataScienceAnalyticsSearchEntries } from './dataScienceAnalyticsSearch'
+import { financeValuationSearchEntries } from './financeValuationSearch'
 
 export type SearchResultKind = 'Knowledge Asset' | 'Study Module' | 'Study Lesson' | 'Certification Track' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Evidence Candidate' | 'Source Coverage' | 'Source Review' | 'Source Execution' | 'Governance Page' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
 
@@ -27,7 +28,7 @@ export interface SearchResultItem {
   category: string
   summary: string
   tags: string[]
-  targetView: 'study-modules' | 'data-science-analytics-study' | 'banking-credit-risk-study' | 'professional-certifications' | 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'source-review-execution' | 'source-command-center' | 'academic-review-workspace' | 'academic-file-registry' | 'phase-2-handoff' | 'route-qa' | 'source-governance-summary' | 'source-pack-guide' | 'source-batch-planner' | 'review-form-template' | 'review-result-registry' | 'promotion-queue' | 'controlled-update-log' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
+  targetView: 'study-modules' | 'data-science-analytics-study' | 'finance-valuation-study' | 'banking-credit-risk-study' | 'professional-certifications' | 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'source-review-execution' | 'source-command-center' | 'academic-review-workspace' | 'academic-file-registry' | 'phase-2-handoff' | 'route-qa' | 'source-governance-summary' | 'source-pack-guide' | 'source-batch-planner' | 'review-form-template' | 'review-result-registry' | 'promotion-queue' | 'controlled-update-log' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
   assetId?: string
 }
 
@@ -39,6 +40,7 @@ const allBusinessCases = [...businessCases, ...sprint26BusinessCases]
 export const globalSearchIndex: SearchResultItem[] = [
   ...studyModuleSearchEntries,
   ...dataScienceAnalyticsSearchEntries,
+  ...financeValuationSearchEntries,
   ...bankingCreditRiskSearchEntries,
   ...certificationSearchEntries,
   ...sourceGovernanceSearchEntries,
