@@ -8,6 +8,7 @@ import { TopBar } from '../components/layout/TopBar'
 import { DashboardPage } from '../pages/DashboardPage'
 import { GlobalSearchPage } from '../pages/GlobalSearchPage'
 import { StudyModuleHubPage } from '../pages/StudyModuleHubPage'
+import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
 import { AcademicSourceRegistryPage } from '../pages/AcademicSourceRegistryPage'
 import { RouteQAPage } from '../pages/RouteQAPage'
@@ -52,6 +53,7 @@ import { QualityReviewPage } from '../pages/QualityReviewPage'
 const extraNav: NavItem[] = [
   { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search the Hub.', icon: 'SE' },
   { id: 'study-modules', label: 'Study Modules', eyebrow: 'Study', description: 'Main learning modules.', icon: 'SM' },
+  { id: 'professional-certifications', label: 'Professional Certifications', eyebrow: 'Study', description: 'CFA, BMC, BFF and Bloomberg workflows.', icon: 'PC' },
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Evidence & QA', description: 'Executive source control.', icon: 'CC' },
   { id: 'academic-review-workspace', label: 'Academic Review Workspace', eyebrow: 'Evidence & QA', description: 'Phase 3 academic review.', icon: 'AR' },
   { id: 'academic-file-registry', label: 'Academic File Registry', eyebrow: 'Evidence & QA', description: 'Discovered academic files.', icon: 'AF' },
@@ -103,6 +105,7 @@ export function App() {
       {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} pathPrefs={pathPrefs} />}
       {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
       {activeView === 'study-modules' && <StudyModuleHubPage focusId={focusId} />}
+      {activeView === 'professional-certifications' && <ProfessionalCertificationsPage focusId={focusId} />}
       {activeView === 'source-command-center' && <SourceCommandCenterPage />}
       {activeView === 'academic-review-workspace' && <AcademicReviewWorkspacePage focusId={focusId} />}
       {activeView === 'academic-file-registry' && <AcademicSourceRegistryPage focusId={focusId} />}
