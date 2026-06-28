@@ -28,6 +28,7 @@ import './styles/sourceDecisionOS.css'
 import './styles/sourceGovernanceOS.css'
 import './styles/sourcePackOS.css'
 import './styles/sourceBatchOS.css'
+import './styles/reviewFormOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
