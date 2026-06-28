@@ -7,6 +7,7 @@ import { Sidebar } from '../components/layout/Sidebar'
 import { TopBar } from '../components/layout/TopBar'
 import { DashboardPage } from '../pages/DashboardPage'
 import { GlobalSearchPage } from '../pages/GlobalSearchPage'
+import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
 import { RouteQAPage } from '../pages/RouteQAPage'
 import { Phase2HandoffPage } from '../pages/Phase2HandoffPage'
 import { MaterialInventoryPage } from '../pages/MaterialInventoryPage'
@@ -49,6 +50,7 @@ import { QualityReviewPage } from '../pages/QualityReviewPage'
 const extraNav: NavItem[] = [
   { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search the Hub.', icon: 'SE' },
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Source', description: 'Executive source control.', icon: 'CC' },
+  { id: 'academic-review-workspace', label: 'Academic Review Workspace', eyebrow: 'Source', description: 'Phase 3 academic review.', icon: 'AR' },
   { id: 'phase-2-handoff', label: 'Phase 2 Handoff', eyebrow: 'Source', description: 'Governance closure and next phase.', icon: 'PH' },
   { id: 'route-qa', label: 'Route QA', eyebrow: 'Source', description: 'Route and build readiness.', icon: 'RQ' },
   { id: 'source-governance-summary', label: 'Source Governance', eyebrow: 'Source', description: 'Executive governance summary.', icon: 'SG' },
@@ -97,6 +99,7 @@ export function App() {
       {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} pathPrefs={pathPrefs} />}
       {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
       {activeView === 'source-command-center' && <SourceCommandCenterPage />}
+      {activeView === 'academic-review-workspace' && <AcademicReviewWorkspacePage focusId={focusId} />}
       {activeView === 'phase-2-handoff' && <Phase2HandoffPage />}
       {activeView === 'route-qa' && <RouteQAPage />}
       {activeView === 'source-governance-summary' && <SourceGovernanceSummaryPage />}
