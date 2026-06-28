@@ -11,6 +11,7 @@ import { MaterialInventoryPage } from '../pages/MaterialInventoryPage'
 import { CourseAreaMapPage } from '../pages/CourseAreaMapPage'
 import { EvidenceExpansionPage } from '../pages/EvidenceExpansionPage'
 import { SourceCoverageQAPage } from '../pages/SourceCoverageQAPage'
+import { SourceReviewPrepPage } from '../pages/SourceReviewPrepPage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
@@ -30,22 +31,25 @@ import { BusinessCasesPage } from '../pages/BusinessCasesPage'
 import { KnowledgeMapPage } from '../pages/KnowledgeMapPage'
 import { QualityReviewPage } from '../pages/QualityReviewPage'
 
-const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across assets, outputs, formulas, models, cases and backlog.', icon: 'SE' }
-const materialInventoryItem: NavItem = { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Source System', description: 'Inventory class materials and map them to topics, assets and gaps.', icon: 'MI' }
-const courseAreaMapItem: NavItem = { id: 'course-area-map', label: 'Course Area Map', eyebrow: 'Source Mapping', description: 'Map courses and materials into professional knowledge areas.', icon: 'CM' }
-const evidenceExpansionItem: NavItem = { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Asset Queue', description: 'Validate candidate assets before source labels change.', icon: 'EV' }
-const sourceCoverageItem: NavItem = { id: 'source-coverage-qa', label: 'Source Coverage QA', eyebrow: 'Evidence Audit', description: 'Audit pending, candidate and complementary knowledge records.', icon: 'QA' }
-const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable concepts across business, data science and banking.', icon: 'KB' }
-const studyPathsItem: NavItem = { id: 'study-paths', label: 'Study Paths', eyebrow: 'Learning Tracks', description: 'Role-based professional learning paths built from assets.', icon: 'SP' }
-const learningSessionItem: NavItem = { id: 'learning-session', label: 'Learning Session', eyebrow: 'Focus Mode', description: 'Guided one-asset-at-a-time study mode for your current path.', icon: 'LS' }
-const knowledgeFactoryItem: NavItem = { id: 'knowledge-factory', label: 'Knowledge Factory', eyebrow: 'Expansion System', description: 'Backlog, quality gates and source strategy for scaling the Hub.', icon: 'KF' }
-const businessOsItem: NavItem = { id: 'business-os', label: 'Business OS', eyebrow: 'Core Area', description: 'Strategy, finance, marketing, operations and economics connected to decisions.', icon: 'BS' }
-const professionalScenariosItem: NavItem = { id: 'professional-scenarios', label: 'Professional Scenarios', eyebrow: 'Apply', description: 'End-to-end workflows from business problem to monitored decision.', icon: 'SC' }
-const decisionPlaybooksItem: NavItem = { id: 'decision-playbooks', label: 'Decision Playbooks', eyebrow: 'Decide', description: 'Convert analytical outputs into professional actions, evidence and monitoring.', icon: 'DP' }
-const mlModelsItem: NavItem = { id: 'ml-models', label: 'ML Models', eyebrow: 'Machine Learning', description: 'Detailed ML models with outputs, interpretation and graph examples.', icon: 'ML' }
-const mlGraphAtlasItem: NavItem = { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'Interpret', description: 'Machine learning charts: how to build, use and interpret them.', icon: 'GA' }
+const extraNav: NavItem[] = [
+  { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search the Hub.', icon: 'SE' },
+  { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Source', description: 'Source inventory.', icon: 'MI' },
+  { id: 'course-area-map', label: 'Course Area Map', eyebrow: 'Source', description: 'Area mapping.', icon: 'CM' },
+  { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Source', description: 'Candidate queue.', icon: 'EV' },
+  { id: 'source-coverage-qa', label: 'Source Coverage QA', eyebrow: 'Source', description: 'Coverage audit.', icon: 'QA' },
+  { id: 'source-review-prep', label: 'Source Review Prep', eyebrow: 'Source', description: 'Review queue.', icon: 'SR' },
+  { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Study', description: 'Asset library.', icon: 'KB' },
+  { id: 'study-paths', label: 'Study Paths', eyebrow: 'Study', description: 'Learning paths.', icon: 'SP' },
+  { id: 'learning-session', label: 'Learning Session', eyebrow: 'Study', description: 'Focus mode.', icon: 'LS' },
+  { id: 'knowledge-factory', label: 'Knowledge Factory', eyebrow: 'Source', description: 'Expansion system.', icon: 'KF' },
+  { id: 'business-os', label: 'Business OS', eyebrow: 'Core', description: 'Business operating system.', icon: 'BS' },
+  { id: 'professional-scenarios', label: 'Professional Scenarios', eyebrow: 'Apply', description: 'Scenarios.', icon: 'SC' },
+  { id: 'decision-playbooks', label: 'Decision Playbooks', eyebrow: 'Apply', description: 'Decision playbooks.', icon: 'DP' },
+  { id: 'ml-models', label: 'ML Models', eyebrow: 'ML', description: 'Model library.', icon: 'ML' },
+  { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'ML', description: 'Graph atlas.', icon: 'GA' }
+]
 
-const navCatalog: NavItem[] = [...navItems, globalSearchItem, materialInventoryItem, courseAreaMapItem, evidenceExpansionItem, sourceCoverageItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
+const navCatalog: NavItem[] = [...navItems, ...extraNav]
 
 export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
@@ -54,9 +58,7 @@ export function App() {
   const [focusId, setFocusId] = useState<string | null>(null)
   const assetProgress = useAssetProgress()
   const pathPrefs = usePathPrefs()
-
   const activeItem = useMemo(() => navCatalog.find((item) => item.id === activeView) ?? navCatalog[0], [activeView])
-
   const openAsset = (assetId: string) => { setFocusId(null); setActiveAssetId(assetId); setActiveView('knowledge-library') }
   const changeView = (view: ViewId, nextFocusId: string | null = null) => { setActiveAssetId(null); setFocusId(nextFocusId); setActiveView(view) }
 
@@ -72,6 +74,7 @@ export function App() {
           {activeView === 'course-area-map' && <CourseAreaMapPage focusId={focusId} />}
           {activeView === 'evidence-expansion' && <EvidenceExpansionPage focusId={focusId} />}
           {activeView === 'source-coverage-qa' && <SourceCoverageQAPage focusId={focusId} />}
+          {activeView === 'source-review-prep' && <SourceReviewPrepPage focusId={focusId} />}
           {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'study-paths' && <StudyPathsPage assetProgress={assetProgress} onOpenAsset={openAsset} pathPrefs={pathPrefs} />}
