@@ -23,6 +23,7 @@ import './styles/sourcePrepOS.css'
 import './styles/sourceExecutionOS.css'
 import './styles/courseEvidenceOS.css'
 import './styles/sourceIntakeOS.css'
+import './styles/intakeCoverageOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
