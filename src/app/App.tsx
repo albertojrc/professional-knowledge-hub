@@ -9,6 +9,7 @@ import { DashboardPage } from '../pages/DashboardPage'
 import { GlobalSearchPage } from '../pages/GlobalSearchPage'
 import { StudyModuleHubPage } from '../pages/StudyModuleHubPage'
 import { DataScienceAnalyticsStudyPage } from '../pages/DataScienceAnalyticsStudyPage'
+import { FinanceValuationStudyPage } from '../pages/FinanceValuationStudyPage'
 import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { BankingCreditRiskStudyPage } from '../pages/BankingCreditRiskStudyPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
@@ -56,6 +57,7 @@ const extraNav: NavItem[] = [
   { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search the Hub.', icon: 'SE' },
   { id: 'study-modules', label: 'Study Modules', eyebrow: 'Study', description: 'Main learning modules.', icon: 'SM' },
   { id: 'data-science-analytics-study', label: 'Data Science & Analytics Study', eyebrow: 'Study', description: 'Analytics study module.', icon: 'DA' },
+  { id: 'finance-valuation-study', label: 'Finance & Valuation Study', eyebrow: 'Study', description: 'Finance and valuation module.', icon: 'FV' },
   { id: 'professional-certifications', label: 'Professional Certifications', eyebrow: 'Study', description: 'CFA, BMC, BFF and Bloomberg workflows.', icon: 'PC' },
   { id: 'banking-credit-risk-study', label: 'Banking & Credit Risk Study', eyebrow: 'Study', description: 'Credit scoring study module.', icon: 'BR' },
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Evidence & QA', description: 'Executive source control.', icon: 'CC' },
@@ -110,6 +112,7 @@ export function App() {
       {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
       {activeView === 'study-modules' && <StudyModuleHubPage focusId={focusId} />}
       {activeView === 'data-science-analytics-study' && <DataScienceAnalyticsStudyPage focusId={focusId} />}
+      {activeView === 'finance-valuation-study' && <FinanceValuationStudyPage focusId={focusId} />}
       {activeView === 'professional-certifications' && <ProfessionalCertificationsPage focusId={focusId} />}
       {activeView === 'banking-credit-risk-study' && <BankingCreditRiskStudyPage focusId={focusId} />}
       {activeView === 'source-command-center' && <SourceCommandCenterPage />}
