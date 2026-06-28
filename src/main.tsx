@@ -29,6 +29,7 @@ import './styles/sourceGovernanceOS.css'
 import './styles/sourcePackOS.css'
 import './styles/sourceBatchOS.css'
 import './styles/reviewFormOS.css'
+import './styles/reviewResultOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
