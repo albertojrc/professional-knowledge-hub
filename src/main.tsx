@@ -33,6 +33,7 @@ import './styles/reviewResultOS.css'
 import './styles/promotionQueueOS.css'
 import './styles/controlledUpdateLogOS.css'
 import './styles/sourceCommandCenterOS.css'
+import './styles/routeQAOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
