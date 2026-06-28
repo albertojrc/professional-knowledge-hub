@@ -17,6 +17,7 @@ import './styles/materialInventoryOS.css'
 import './styles/courseAreaMapOS.css'
 import './styles/evidenceExpansionOS.css'
 import './styles/sourceAwareOS.css'
+import './styles/professionalGraphOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
