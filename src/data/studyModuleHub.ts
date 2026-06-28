@@ -24,12 +24,12 @@ export const studyModuleCards: StudyModuleCard[] = [
     description: 'Credit scoring, PD/LGD/EAD, expected loss, banking decisions and credit risk model interpretation.',
     studyGoal: 'Understand how banks use data and models to approve, reject, price and monitor credit risk.',
     sourceMaterials: ['RetailCreditScoring', 'Credit Scoring and Best Practices in Banking', 'Risk and Fraud Analytics Syllabus'],
-    learningObjects: ['credit-risk-scoring', 'pd', 'lgd', 'ead', 'expected-loss', 'calibration-plot'],
-    formulas: ['expected-loss', 'pd', 'lgd', 'ead'],
-    outputs: ['calibration-plot', 'classification-report', 'lift-curve', 'ks-statistic'],
+    learningObjects: ['credit-scoring-foundations', 'pd-lgd-ead-expected-loss', 'credit-model-validation', 'lending-data-abt', 'credit-decision-policy'],
+    formulas: ['expected-loss', 'pd', 'lgd', 'ead', 'ks-statistic'],
+    outputs: ['calibration-plot', 'classification-report', 'lift-curve', 'ks-statistic', 'score band table'],
     cases: ['credit-risk-data-quality-review', 'credit-scoring-abt', 'cash-flow-credit-approval'],
-    practice: ['explain a credit scoring decision', 'interpret model ranking', 'identify approval risk controls'],
-    linkedViews: ['banking-finance', 'credit-risk', 'academic-file-registry', 'business-cases']
+    practice: ['explain a credit scoring decision', 'interpret model ranking', 'design a score-band policy'],
+    linkedViews: ['banking-credit-risk-study', 'credit-risk', 'academic-file-registry', 'business-cases']
   },
   {
     id: 'module-finance-valuation',
@@ -104,7 +104,7 @@ export const studyModuleCards: StudyModuleCard[] = [
     outputs: ['market-monitor', 'economic-calendar', 'security-analysis-screen'],
     cases: ['investment-analysis-case', 'market-news-analysis'],
     practice: ['certificate-style quizzes', 'terminal workflows', 'market interpretation drills'],
-    linkedViews: ['study-paths', 'formula-library', 'model-library']
+    linkedViews: ['professional-certifications', 'study-paths', 'formula-library', 'model-library']
   }
 ]
 
