@@ -5,6 +5,7 @@ interface SidebarProps { activeView: ViewId; onChangeView: (view: ViewId) => voi
 
 const sourceNav: NavItem[] = [
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Executive Control', description: 'Governance command center.', icon: 'CC' },
+  { id: 'phase-2-handoff', label: 'Phase 2 Handoff', eyebrow: 'Phase Closure', description: 'Governance handoff.', icon: 'PH' },
   { id: 'route-qa', label: 'Route QA', eyebrow: 'Build Hardening', description: 'Route and build readiness.', icon: 'RQ' },
   { id: 'source-governance-summary', label: 'Source Governance', eyebrow: 'Executive Summary', description: 'Source maturity.', icon: 'SG' },
   { id: 'source-pack-guide', label: 'Source Pack Guide', eyebrow: 'Pack Plan', description: 'High-value source packs.', icon: 'PK' },
@@ -39,7 +40,7 @@ const studyNav: NavItem[] = [
 
 const navCatalog: NavItem[] = [...navItems, ...sourceNav, ...studyNav]
 const groups = [
-  { title: 'Source', ids: ['source-command-center', 'route-qa', 'source-governance-summary', 'source-pack-guide', 'source-batch-planner', 'review-form-template', 'review-result-registry', 'promotion-queue', 'controlled-update-log', 'material-inventory', 'course-area-map', 'evidence-expansion', 'source-coverage-qa', 'source-review-prep', 'source-review-execution', 'course-evidence', 'source-intake', 'intake-coverage-map', 'source-decision-board', 'knowledge-factory', 'quality-review'] as ViewId[] },
+  { title: 'Source', ids: ['source-command-center', 'phase-2-handoff', 'route-qa', 'source-governance-summary', 'source-pack-guide', 'source-batch-planner', 'review-form-template', 'review-result-registry', 'promotion-queue', 'controlled-update-log', 'material-inventory', 'course-area-map', 'evidence-expansion', 'source-coverage-qa', 'source-review-prep', 'source-review-execution', 'course-evidence', 'source-intake', 'intake-coverage-map', 'source-decision-board', 'knowledge-factory', 'quality-review'] as ViewId[] },
   { title: 'Study', ids: ['dashboard', 'global-search', 'knowledge-library', 'study-paths', 'learning-session', 'data-science', 'business-os', 'banking-finance', 'credit-risk'] as ViewId[] },
   { title: 'Machine Learning', ids: ['ml-models', 'ml-graph-atlas'] as ViewId[] },
   { title: 'Reference', ids: ['output-atlas', 'formula-library', 'model-library'] as ViewId[] },
@@ -47,5 +48,5 @@ const groups = [
 ]
 
 export function Sidebar({ activeView, onChangeView }: SidebarProps) {
-  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v2.24</span><h1>Professional Knowledge Hub</h1><p>Data Science + Banking + Finance + Business as a professional second brain.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
+  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v2.25</span><h1>Professional Knowledge Hub</h1><p>Data Science + Banking + Finance + Business as a professional second brain.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
 }
