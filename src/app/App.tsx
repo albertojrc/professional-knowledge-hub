@@ -13,6 +13,7 @@ import { EvidenceExpansionPage } from '../pages/EvidenceExpansionPage'
 import { SourceCoverageQAPage } from '../pages/SourceCoverageQAPage'
 import { SourceReviewPrepPage } from '../pages/SourceReviewPrepPage'
 import { SourceReviewExecutionPage } from '../pages/SourceReviewExecutionPage'
+import { CourseEvidencePage } from '../pages/CourseEvidencePage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
@@ -40,6 +41,7 @@ const extraNav: NavItem[] = [
   { id: 'source-coverage-qa', label: 'Source Coverage QA', eyebrow: 'Source', description: 'Coverage audit.', icon: 'QA' },
   { id: 'source-review-prep', label: 'Source Review Prep', eyebrow: 'Source', description: 'Review queue.', icon: 'SR' },
   { id: 'source-review-execution', label: 'Source Review Execution', eyebrow: 'Source', description: 'Review results.', icon: 'EX' },
+  { id: 'course-evidence', label: 'Course Evidence', eyebrow: 'Source', description: 'Evidence extraction.', icon: 'CE' },
   { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Study', description: 'Asset library.', icon: 'KB' },
   { id: 'study-paths', label: 'Study Paths', eyebrow: 'Study', description: 'Learning paths.', icon: 'SP' },
   { id: 'learning-session', label: 'Learning Session', eyebrow: 'Study', description: 'Focus mode.', icon: 'LS' },
@@ -65,40 +67,35 @@ export function App() {
   const changeView = (view: ViewId, nextFocusId: string | null = null) => { setActiveAssetId(null); setFocusId(nextFocusId); setActiveView(view) }
 
   return (
-    <div className="app-shell">
-      <Sidebar activeView={activeView} onChangeView={changeView} />
-      <div className="app-main">
-        <TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} />
-        <main className="content-shell">
-          {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} pathPrefs={pathPrefs} />}
-          {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
-          {activeView === 'material-inventory' && <MaterialInventoryPage focusId={focusId} />}
-          {activeView === 'course-area-map' && <CourseAreaMapPage focusId={focusId} />}
-          {activeView === 'evidence-expansion' && <EvidenceExpansionPage focusId={focusId} />}
-          {activeView === 'source-coverage-qa' && <SourceCoverageQAPage focusId={focusId} />}
-          {activeView === 'source-review-prep' && <SourceReviewPrepPage focusId={focusId} />}
-          {activeView === 'source-review-execution' && <SourceReviewExecutionPage focusId={focusId} />}
-          {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
-          {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
-          {activeView === 'study-paths' && <StudyPathsPage assetProgress={assetProgress} onOpenAsset={openAsset} pathPrefs={pathPrefs} />}
-          {activeView === 'learning-session' && <LearningSessionPage assetProgress={assetProgress} pathPrefs={pathPrefs} onOpenAsset={openAsset} onNavigate={changeView} />}
-          {activeView === 'knowledge-factory' && <KnowledgeFactoryPage focusId={focusId} />}
-          {activeView === 'data-science' && <DataScienceOperatingSystemPage />}
-          {activeView === 'business-os' && <BusinessOperatingSystemPage />}
-          {activeView === 'ml-models' && <MlModelsPage />}
-          {activeView === 'ml-graph-atlas' && <MlGraphAtlasPage />}
-          {activeView === 'professional-scenarios' && <ProfessionalScenariosPage />}
-          {activeView === 'decision-playbooks' && <DecisionPlaybooksPage />}
-          {activeView === 'banking-finance' && <CoreAreaPage area="Banking & Finance" onNavigate={changeView} />}
-          {activeView === 'credit-risk' && <CreditRiskPage />}
-          {activeView === 'output-atlas' && <OutputAtlasPage focusId={focusId} />}
-          {activeView === 'formula-library' && <ReferencePage type="formulas" query={query} focusId={focusId} />}
-          {activeView === 'model-library' && <ReferencePage type="models" query={query} focusId={focusId} />}
-          {activeView === 'business-cases' && <BusinessCasesPage focusId={focusId} />}
-          {activeView === 'knowledge-map' && <KnowledgeMapPage />}
-          {activeView === 'quality-review' && <QualityReviewPage />}
-        </main>
-      </div>
-    </div>
+    <div className="app-shell"><Sidebar activeView={activeView} onChangeView={changeView} /><div className="app-main"><TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} /><main className="content-shell">
+      {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} pathPrefs={pathPrefs} />}
+      {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
+      {activeView === 'material-inventory' && <MaterialInventoryPage focusId={focusId} />}
+      {activeView === 'course-area-map' && <CourseAreaMapPage focusId={focusId} />}
+      {activeView === 'evidence-expansion' && <EvidenceExpansionPage focusId={focusId} />}
+      {activeView === 'source-coverage-qa' && <SourceCoverageQAPage focusId={focusId} />}
+      {activeView === 'source-review-prep' && <SourceReviewPrepPage focusId={focusId} />}
+      {activeView === 'source-review-execution' && <SourceReviewExecutionPage focusId={focusId} />}
+      {activeView === 'course-evidence' && <CourseEvidencePage focusId={focusId} />}
+      {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
+      {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
+      {activeView === 'study-paths' && <StudyPathsPage assetProgress={assetProgress} onOpenAsset={openAsset} pathPrefs={pathPrefs} />}
+      {activeView === 'learning-session' && <LearningSessionPage assetProgress={assetProgress} pathPrefs={pathPrefs} onOpenAsset={openAsset} onNavigate={changeView} />}
+      {activeView === 'knowledge-factory' && <KnowledgeFactoryPage focusId={focusId} />}
+      {activeView === 'data-science' && <DataScienceOperatingSystemPage />}
+      {activeView === 'business-os' && <BusinessOperatingSystemPage />}
+      {activeView === 'ml-models' && <MlModelsPage />}
+      {activeView === 'ml-graph-atlas' && <MlGraphAtlasPage />}
+      {activeView === 'professional-scenarios' && <ProfessionalScenariosPage />}
+      {activeView === 'decision-playbooks' && <DecisionPlaybooksPage />}
+      {activeView === 'banking-finance' && <CoreAreaPage area="Banking & Finance" onNavigate={changeView} />}
+      {activeView === 'credit-risk' && <CreditRiskPage />}
+      {activeView === 'output-atlas' && <OutputAtlasPage focusId={focusId} />}
+      {activeView === 'formula-library' && <ReferencePage type="formulas" query={query} focusId={focusId} />}
+      {activeView === 'model-library' && <ReferencePage type="models" query={query} focusId={focusId} />}
+      {activeView === 'business-cases' && <BusinessCasesPage focusId={focusId} />}
+      {activeView === 'knowledge-map' && <KnowledgeMapPage />}
+      {activeView === 'quality-review' && <QualityReviewPage />}
+    </main></div></div>
   )
 }
