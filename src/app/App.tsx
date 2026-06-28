@@ -12,6 +12,7 @@ import { CourseAreaMapPage } from '../pages/CourseAreaMapPage'
 import { EvidenceExpansionPage } from '../pages/EvidenceExpansionPage'
 import { SourceCoverageQAPage } from '../pages/SourceCoverageQAPage'
 import { SourceReviewPrepPage } from '../pages/SourceReviewPrepPage'
+import { SourceReviewExecutionPage } from '../pages/SourceReviewExecutionPage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
@@ -38,6 +39,7 @@ const extraNav: NavItem[] = [
   { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Source', description: 'Candidate queue.', icon: 'EV' },
   { id: 'source-coverage-qa', label: 'Source Coverage QA', eyebrow: 'Source', description: 'Coverage audit.', icon: 'QA' },
   { id: 'source-review-prep', label: 'Source Review Prep', eyebrow: 'Source', description: 'Review queue.', icon: 'SR' },
+  { id: 'source-review-execution', label: 'Source Review Execution', eyebrow: 'Source', description: 'Review results.', icon: 'EX' },
   { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Study', description: 'Asset library.', icon: 'KB' },
   { id: 'study-paths', label: 'Study Paths', eyebrow: 'Study', description: 'Learning paths.', icon: 'SP' },
   { id: 'learning-session', label: 'Learning Session', eyebrow: 'Study', description: 'Focus mode.', icon: 'LS' },
@@ -75,6 +77,7 @@ export function App() {
           {activeView === 'evidence-expansion' && <EvidenceExpansionPage focusId={focusId} />}
           {activeView === 'source-coverage-qa' && <SourceCoverageQAPage focusId={focusId} />}
           {activeView === 'source-review-prep' && <SourceReviewPrepPage focusId={focusId} />}
+          {activeView === 'source-review-execution' && <SourceReviewExecutionPage focusId={focusId} />}
           {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
           {activeView === 'study-paths' && <StudyPathsPage assetProgress={assetProgress} onOpenAsset={openAsset} pathPrefs={pathPrefs} />}
