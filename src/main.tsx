@@ -34,6 +34,7 @@ import './styles/promotionQueueOS.css'
 import './styles/controlledUpdateLogOS.css'
 import './styles/sourceCommandCenterOS.css'
 import './styles/routeQAOS.css'
+import './styles/phaseHandoffOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
