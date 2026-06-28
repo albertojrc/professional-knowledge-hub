@@ -11,6 +11,7 @@ const sourceCoverageItem: NavItem = { id: 'source-coverage-qa', label: 'Source C
 const sourceReviewItem: NavItem = { id: 'source-review-prep', label: 'Source Review Prep', eyebrow: 'File Review', description: 'Review prep.', icon: 'SR' }
 const sourceExecutionItem: NavItem = { id: 'source-review-execution', label: 'Source Review Execution', eyebrow: 'Evidence Results', description: 'First source review results.', icon: 'EX' }
 const courseEvidenceItem: NavItem = { id: 'course-evidence', label: 'Course Evidence', eyebrow: 'Extraction', description: 'Extracted signals and missing course proof.', icon: 'CE' }
+const sourceIntakeItem: NavItem = { id: 'source-intake', label: 'Source Intake', eyebrow: 'Missing Files', description: 'Prioritized list of missing course files.', icon: 'IN' }
 const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Asset library.', icon: 'KB' }
 const studyPathsItem: NavItem = { id: 'study-paths', label: 'Study Paths', eyebrow: 'Learning Tracks', description: 'Study paths.', icon: 'SP' }
 const learningSessionItem: NavItem = { id: 'learning-session', label: 'Learning Session', eyebrow: 'Focus Mode', description: 'Focus mode.', icon: 'LS' }
@@ -21,9 +22,9 @@ const decisionPlaybooksItem: NavItem = { id: 'decision-playbooks', label: 'Decis
 const mlModelsItem: NavItem = { id: 'ml-models', label: 'ML Models', eyebrow: 'Machine Learning', description: 'ML models.', icon: 'ML' }
 const mlGraphAtlasItem: NavItem = { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'Interpret', description: 'ML charts.', icon: 'CH' }
 
-const navCatalog: NavItem[] = [...navItems, globalSearchItem, materialInventoryItem, courseAreaMapItem, evidenceExpansionItem, sourceCoverageItem, sourceReviewItem, sourceExecutionItem, courseEvidenceItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
+const navCatalog: NavItem[] = [...navItems, globalSearchItem, materialInventoryItem, courseAreaMapItem, evidenceExpansionItem, sourceCoverageItem, sourceReviewItem, sourceExecutionItem, courseEvidenceItem, sourceIntakeItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
 const groups = [
-  { title: 'Source', ids: ['material-inventory', 'course-area-map', 'evidence-expansion', 'source-coverage-qa', 'source-review-prep', 'source-review-execution', 'course-evidence', 'knowledge-factory', 'quality-review'] as ViewId[] },
+  { title: 'Source', ids: ['material-inventory', 'course-area-map', 'evidence-expansion', 'source-coverage-qa', 'source-review-prep', 'source-review-execution', 'course-evidence', 'source-intake', 'knowledge-factory', 'quality-review'] as ViewId[] },
   { title: 'Study', ids: ['dashboard', 'global-search', 'knowledge-library', 'study-paths', 'learning-session', 'data-science', 'business-os', 'banking-finance', 'credit-risk'] as ViewId[] },
   { title: 'Machine Learning', ids: ['ml-models', 'ml-graph-atlas'] as ViewId[] },
   { title: 'Reference', ids: ['output-atlas', 'formula-library', 'model-library'] as ViewId[] },
@@ -31,5 +32,5 @@ const groups = [
 ]
 
 export function Sidebar({ activeView, onChangeView }: SidebarProps) {
-  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v2.11</span><h1>Professional Knowledge Hub</h1><p>Data Science + Banking + Finance + Business as a professional second brain.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
+  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v2.12</span><h1>Professional Knowledge Hub</h1><p>Data Science + Banking + Finance + Business as a professional second brain.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
 }
