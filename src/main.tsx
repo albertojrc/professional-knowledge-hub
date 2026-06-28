@@ -30,6 +30,7 @@ import './styles/sourcePackOS.css'
 import './styles/sourceBatchOS.css'
 import './styles/reviewFormOS.css'
 import './styles/reviewResultOS.css'
+import './styles/promotionQueueOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
