@@ -4,6 +4,7 @@ export type ViewId =
   | 'material-inventory'
   | 'course-area-map'
   | 'evidence-expansion'
+  | 'source-coverage-qa'
   | 'knowledge-library'
   | 'study-paths'
   | 'learning-session'
