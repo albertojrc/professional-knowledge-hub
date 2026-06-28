@@ -16,6 +16,7 @@ import { SourceReviewExecutionPage } from '../pages/SourceReviewExecutionPage'
 import { CourseEvidencePage } from '../pages/CourseEvidencePage'
 import { SourceIntakePage } from '../pages/SourceIntakePage'
 import { IntakeCoverageMapPage } from '../pages/IntakeCoverageMapPage'
+import { SourceDecisionBoardPage } from '../pages/SourceDecisionBoardPage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
@@ -46,6 +47,7 @@ const extraNav: NavItem[] = [
   { id: 'course-evidence', label: 'Course Evidence', eyebrow: 'Source', description: 'Evidence extraction.', icon: 'CE' },
   { id: 'source-intake', label: 'Source Intake', eyebrow: 'Source', description: 'Missing files.', icon: 'IN' },
   { id: 'intake-coverage-map', label: 'Intake Coverage Map', eyebrow: 'Source', description: 'Traceability map.', icon: 'IC' },
+  { id: 'source-decision-board', label: 'Source Decision Board', eyebrow: 'Source', description: 'Upgrade decisions.', icon: 'SD' },
   { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Study', description: 'Asset library.', icon: 'KB' },
   { id: 'study-paths', label: 'Study Paths', eyebrow: 'Study', description: 'Learning paths.', icon: 'SP' },
   { id: 'learning-session', label: 'Learning Session', eyebrow: 'Study', description: 'Focus mode.', icon: 'LS' },
@@ -83,6 +85,7 @@ export function App() {
       {activeView === 'course-evidence' && <CourseEvidencePage focusId={focusId} />}
       {activeView === 'source-intake' && <SourceIntakePage focusId={focusId} />}
       {activeView === 'intake-coverage-map' && <IntakeCoverageMapPage focusId={focusId} />}
+      {activeView === 'source-decision-board' && <SourceDecisionBoardPage focusId={focusId} />}
       {activeView === 'knowledge-library' && !activeAssetId && <KnowledgeLibraryPage onOpenAsset={openAsset} assetProgress={assetProgress} />}
       {activeView === 'knowledge-library' && activeAssetId && <KnowledgeAssetDetailPage assetId={activeAssetId} onBack={() => setActiveAssetId(null)} onOpenAsset={openAsset} assetProgress={assetProgress} />}
       {activeView === 'study-paths' && <StudyPathsPage assetProgress={assetProgress} onOpenAsset={openAsset} pathPrefs={pathPrefs} />}
