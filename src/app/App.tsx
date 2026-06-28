@@ -19,6 +19,7 @@ import { IntakeCoverageMapPage } from '../pages/IntakeCoverageMapPage'
 import { SourceDecisionBoardPage } from '../pages/SourceDecisionBoardPage'
 import { SourceGovernanceSummaryPage } from '../pages/SourceGovernanceSummaryPage'
 import { SourcePackGuidePage } from '../pages/SourcePackGuidePage'
+import { SourceBatchPlannerPage } from '../pages/SourceBatchPlannerPage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
@@ -42,6 +43,7 @@ const extraNav: NavItem[] = [
   { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search the Hub.', icon: 'SE' },
   { id: 'source-governance-summary', label: 'Source Governance', eyebrow: 'Source', description: 'Executive governance summary.', icon: 'SG' },
   { id: 'source-pack-guide', label: 'Source Pack Guide', eyebrow: 'Source', description: 'Pack plan.', icon: 'PK' },
+  { id: 'source-batch-planner', label: 'Source Batch Planner', eyebrow: 'Source', description: 'Review batches.', icon: 'BP' },
   { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Source', description: 'Source inventory.', icon: 'MI' },
   { id: 'course-area-map', label: 'Course Area Map', eyebrow: 'Source', description: 'Area mapping.', icon: 'CM' },
   { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Source', description: 'Candidate queue.', icon: 'EV' },
@@ -82,6 +84,7 @@ export function App() {
       {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
       {activeView === 'source-governance-summary' && <SourceGovernanceSummaryPage />}
       {activeView === 'source-pack-guide' && <SourcePackGuidePage focusId={focusId} />}
+      {activeView === 'source-batch-planner' && <SourceBatchPlannerPage focusId={focusId} />}
       {activeView === 'material-inventory' && <MaterialInventoryPage focusId={focusId} />}
       {activeView === 'course-area-map' && <CourseAreaMapPage focusId={focusId} />}
       {activeView === 'evidence-expansion' && <EvidenceExpansionPage focusId={focusId} />}
