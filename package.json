@@ -16,7 +16,8 @@
     "qa:sprint212": "node scripts/qa-sprint-2-12.mjs",
     "qa:sprint213": "node scripts/check-213.mjs",
     "qa:sprint214": "node scripts/check-214.mjs",
-    "validate": "npm run qa:audit && npm run qa:sprint29 && npm run qa:sprint210 && npm run qa:sprint211 && npm run qa:sprint212 && npm run qa:sprint213 && npm run qa:sprint214 && npm run lint && npm run build"
+    "qa:sprint215": "node scripts/check-215.mjs",
+    "validate": "npm run qa:audit && npm run qa:sprint29 && npm run qa:sprint210 && npm run qa:sprint211 && npm run qa:sprint212 && npm run qa:sprint213 && npm run qa:sprint214 && npm run qa:sprint215 && npm run lint && npm run build"
   },
   "dependencies": {
     "@vitejs/plugin-react": "4.3.4",
