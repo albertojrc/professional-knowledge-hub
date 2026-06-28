@@ -1,4 +1,5 @@
 import { businessCases } from '../data/knowledge'
+import { sprint26BusinessCases } from '../data/businessCasesSprint26'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
 import { BadgeList } from '../components/ui/BadgeList'
 
@@ -6,8 +7,10 @@ interface BusinessCasesPageProps {
   focusId?: string | null
 }
 
+const allBusinessCases = [...businessCases, ...sprint26BusinessCases]
+
 export function BusinessCasesPage({ focusId }: BusinessCasesPageProps) {
-  const sortedCases = [...businessCases].sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.title.localeCompare(b.title)))
+  const sortedCases = [...allBusinessCases].sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.title.localeCompare(b.title)))
 
   return (
     <section className="page-stack">
@@ -34,6 +37,7 @@ export function BusinessCasesPage({ focusId }: BusinessCasesPageProps) {
 
           <div className="manual-section result-impact"><h3>Decision</h3><p>{item.decision}</p></div>
           <div className="manual-section result-bad"><h3>Governance</h3><p>{item.governance}</p></div>
+          <div className="manual-section"><h3>Related modules</h3><BadgeList items={item.relatedModules} tone="amber" /></div>
         </article>
       ))}
     </section>
