@@ -1,0 +1,110 @@
+import type { ControlledUpdateLogItem, ControlledUpdateLogSummary } from '../types/controlledUpdateLog'
+
+export const controlledUpdateLogItems: ControlledUpdateLogItem[] = [
+  {
+    id: 'log-governance-quality-deferred',
+    title: 'Governance QA wording deferred for final wording review',
+    promotionId: 'promo-governance-quality-update',
+    outcome: 'Deferred',
+    impact: 'Governance only',
+    risk: 'Low',
+    decisionDate: 'Pending',
+    decisionOwner: 'PKOS review process',
+    decisionRationale: 'Governance evidence is valid, but final wording should be reviewed before changing Quality Review language.',
+    updatesApplied: [],
+    updatesRejected: [],
+    followUpActions: ['review QA wording', 'confirm governance-only scope', 'keep academic claims blocked'],
+    affectedObjects: ['quality-review', 'source-governance-summary', 'source-coverage-qa'],
+    auditNotes: ['No academic source-backed status is changed by this log item.']
+  },
+  {
+    id: 'log-index-metadata-waiting',
+    title: 'Index shell metadata waiting for final metadata decision',
+    promotionId: 'promo-index-metadata-update',
+    outcome: 'Waiting for evidence',
+    impact: 'Metadata only',
+    risk: 'Low',
+    decisionDate: 'Pending',
+    decisionOwner: 'PKOS review process',
+    decisionRationale: 'The shell can be recorded as platform metadata, but it should not be treated as course content.',
+    updatesApplied: [],
+    updatesRejected: ['academic evidence upgrade'],
+    followUpActions: ['keep index shell as metadata only', 'do not use it for academic validation'],
+    affectedObjects: ['material-inventory', 'source-review-execution', 'course-evidence'],
+    auditNotes: ['Technical shell contains no formulas, models or cases.']
+  },
+  {
+    id: 'log-data-quality-sent-back',
+    title: 'Data Quality Report promotion sent back to decision board',
+    promotionId: 'promo-data-quality-blocked',
+    outcome: 'Sent back to decision board',
+    impact: 'Academic content',
+    risk: 'High',
+    decisionDate: 'Pending',
+    decisionOwner: 'Source Decision Board',
+    decisionRationale: 'The promotion is blocked because Data Science course files have not been reviewed.',
+    updatesApplied: [],
+    updatesRejected: ['source-backed upgrade'],
+    followUpActions: ['complete Data Science core batch', 'record review result', 'resubmit promotion'],
+    affectedObjects: ['data-quality-report', 'eda', 'feature-engineering'],
+    auditNotes: ['Keep candidate status until visible course evidence is recorded.']
+  },
+  {
+    id: 'log-sql-abt-sent-back',
+    title: 'SQL and ABT promotion sent back to decision board',
+    promotionId: 'promo-sql-abt-blocked',
+    outcome: 'Sent back to decision board',
+    impact: 'Academic content',
+    risk: 'High',
+    decisionDate: 'Pending',
+    decisionOwner: 'Source Decision Board',
+    decisionRationale: 'SQL and ABT assets require notebooks or exercises before any upgrade can be applied.',
+    updatesApplied: [],
+    updatesRejected: ['source-backed SQL upgrade', 'source-backed ABT upgrade'],
+    followUpActions: ['review SQL batch', 'capture join examples', 'capture row reconciliation output'],
+    affectedObjects: ['sql-joins', 'analytical-base-table', 'sql-join-reconciliation-output'],
+    auditNotes: ['No SQL query evidence has been captured yet.']
+  },
+  {
+    id: 'log-finance-deferred',
+    title: 'Finance formula promotion deferred',
+    promotionId: 'promo-finance-blocked',
+    outcome: 'Deferred',
+    impact: 'Academic content',
+    risk: 'High',
+    decisionDate: 'Pending',
+    decisionOwner: 'Source Decision Board',
+    decisionRationale: 'Finance formulas need course slides, worked examples or Excel models before promotion.',
+    updatesApplied: [],
+    updatesRejected: ['formula source-backed upgrade'],
+    followUpActions: ['review finance valuation batch', 'capture formula evidence', 'resubmit promotion queue item'],
+    affectedObjects: ['financial-ratios', 'cash-flow-analysis', 'wacc', 'npv', 'free-cash-flow'],
+    auditNotes: ['Formula library remains professional synthesis until reviewed.']
+  },
+  {
+    id: 'log-business-case-waiting',
+    title: 'Business case promotion waiting for assignment evidence',
+    promotionId: 'promo-business-cases-blocked',
+    outcome: 'Waiting for evidence',
+    impact: 'Academic content',
+    risk: 'Medium',
+    decisionDate: 'Pending',
+    decisionOwner: 'PKOS review process',
+    decisionRationale: 'Business cases need assignment, case or dataset evidence before source-backed wording can be used.',
+    updatesApplied: [],
+    updatesRejected: ['business case source-backed claim'],
+    followUpActions: ['review assignments and datasets batch', 'capture case context', 'map to business case library'],
+    affectedObjects: ['credit-risk-data-quality-review', 'credit-scoring-abt', 'sme-financial-ratio-review'],
+    auditNotes: ['Business cases remain professional synthesis unless course cases are reviewed.']
+  }
+]
+
+export const controlledUpdateLogSummary: ControlledUpdateLogSummary = {
+  total: controlledUpdateLogItems.length,
+  applied: controlledUpdateLogItems.filter((item) => item.outcome === 'Applied').length,
+  rejected: controlledUpdateLogItems.filter((item) => item.outcome === 'Rejected').length,
+  deferred: controlledUpdateLogItems.filter((item) => item.outcome === 'Deferred').length,
+  waitingForEvidence: controlledUpdateLogItems.filter((item) => item.outcome === 'Waiting for evidence').length,
+  sentBack: controlledUpdateLogItems.filter((item) => item.outcome === 'Sent back to decision board').length,
+  highRisk: controlledUpdateLogItems.filter((item) => item.risk === 'High').length
+}
