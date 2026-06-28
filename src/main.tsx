@@ -35,6 +35,7 @@ import './styles/controlledUpdateLogOS.css'
 import './styles/sourceCommandCenterOS.css'
 import './styles/routeQAOS.css'
 import './styles/phaseHandoffOS.css'
+import './styles/academicReviewOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
