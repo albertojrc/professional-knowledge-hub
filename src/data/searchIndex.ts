@@ -2,6 +2,7 @@ import { knowledgeAssetRegistry } from './knowledgeAssetRegistry'
 import { outputAtlas, formulas, models, businessCases } from './knowledge'
 import { extraOutputAtlas, extraModels } from './phase3Knowledge'
 import { sprint25Outputs, sprint25Formulas } from './referenceExpansionSprint25'
+import { sprint26BusinessCases } from './businessCasesSprint26'
 import { expansionBacklog } from './assetExpansionSystem'
 import { studyPaths } from './studyPaths'
 import { materialRecords } from './materialInventory'
@@ -25,6 +26,7 @@ export interface SearchResultItem {
 const allOutputs = [...outputAtlas, ...extraOutputAtlas, ...sprint25Outputs]
 const allFormulas = [...formulas, ...sprint25Formulas]
 const allModels = [...models, ...extraModels]
+const allBusinessCases = [...businessCases, ...sprint26BusinessCases]
 
 export const globalSearchIndex: SearchResultItem[] = [
   ...knowledgeAssetRegistry.map((asset) => ({
@@ -118,14 +120,14 @@ export const globalSearchIndex: SearchResultItem[] = [
     tags: [model.inputs, model.outputs, model.interpretation, ...model.applications],
     targetView: 'model-library' as const
   })),
-  ...businessCases.map((businessCase) => ({
+  ...allBusinessCases.map((businessCase) => ({
     id: businessCase.id,
     title: businessCase.title,
     kind: 'Business Case' as const,
     area: businessCase.area,
     category: 'Business Case',
     summary: businessCase.businessQuestion,
-    tags: [...businessCase.dataRequired, ...businessCase.workflow, ...businessCase.tools, ...businessCase.outputs, businessCase.decision],
+    tags: [...businessCase.dataRequired, ...businessCase.workflow, ...businessCase.tools, ...businessCase.outputs, businessCase.decision, ...businessCase.relatedModules],
     targetView: 'business-cases' as const
   })),
   ...expansionBacklog.map((item) => ({
