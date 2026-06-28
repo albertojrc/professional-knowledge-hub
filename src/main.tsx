@@ -32,6 +32,7 @@ import './styles/reviewFormOS.css'
 import './styles/reviewResultOS.css'
 import './styles/promotionQueueOS.css'
 import './styles/controlledUpdateLogOS.css'
+import './styles/sourceCommandCenterOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
