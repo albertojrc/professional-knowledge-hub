@@ -1,0 +1,29 @@
+import { useMemo, useState } from 'react'
+import { reviewResultRecords, reviewResultSummary } from '../data/reviewResultRegistry'
+import type { ReviewResultRecord } from '../types/reviewResult'
+import { BadgeList } from '../components/ui/BadgeList'
+import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
+
+interface ReviewResultRegistryPageProps { focusId?: string | null }
+const allValue = 'All'
+const statusOptions = [allValue, ...Array.from(new Set(reviewResultRecords.map((item) => item.status))).sort()]
+const recommendationOptions = [allValue, ...Array.from(new Set(reviewResultRecords.map((item) => item.recommendation))).sort()]
+
+export function ReviewResultRegistryPage({ focusId }: ReviewResultRegistryPageProps) {
+  const [status, setStatus] = useState(allValue)
+  const [recommendation, setRecommendation] = useState(allValue)
+  const [query, setQuery] = useState('')
+  const records = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return reviewResultRecords.filter((item) => status === allValue || item.status === status).filter((item) => recommendation === allValue || item.recommendation === recommendation).filter((item) => !q || [item.title, item.batchId, item.materialReviewed, item.status, item.recommendation, ...item.metadata, ...item.topicsFound, ...item.formulasFound, ...item.outputsFound, ...item.casesFound, ...item.decisionNotes, ...item.linkedObjects, ...item.coverageUpdates, ...item.decisionBoardUpdates, ...item.risks, item.nextAction].join(' ').toLowerCase().includes(q)).sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.title.localeCompare(b.title)))
+  }, [focusId, query, recommendation, status])
+  return <section className="page-stack">{focusId && <div className="deep-link-banner">Opened from Global Search · focused review result</div>}<div className="hero-panel review-result-hero"><div><span className="eyebrow">Sprint 2.19 · Review Result Registry</span><h1>Store completed review results before decision approval.</h1><p>This registry keeps reviewed material, found evidence, linked objects, risks and upgrade recommendations in one place.</p></div><div className="review-result-score-card"><span className="eyebrow">Result Registry</span><strong>{reviewResultSummary.total}</strong><p>{reviewResultSummary.reviewed} reviewed · {reviewResultSummary.readyForDecision} ready for decision</p><div className="inventory-mini-stats"><span>{reviewResultSummary.sourceBackedReady} ready upgrades</span><span>{reviewResultSummary.needsMoreEvidence} need evidence</span></div></div></div><section className="manual-panel result-bad"><span className="eyebrow">Governance Rule</span><h2>No registry item upgrades source status automatically</h2><KnowledgeChain nodes={['Review Form', 'Review Result', 'Coverage Update', 'Decision Board', 'Source-backed Approval']} /></section><section className="manual-panel inventory-filter-panel"><div className="library-filter-header"><div><span className="eyebrow">Registry Filters</span><h2>{records.length} of {reviewResultRecords.length} records visible</h2></div><button className="text-button" onClick={() => { setStatus(allValue); setRecommendation(allValue); setQuery('') }} type="button">Clear filters</button></div><input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search material, topics, formulas, outputs, risks or decisions..." /><div className="library-filter-grid"><ResultSelect label="Status" value={status} values={statusOptions} onChange={setStatus} /><ResultSelect label="Recommendation" value={recommendation} values={recommendationOptions} onChange={setRecommendation} /></div></section><section className="manual-panel"><span className="eyebrow">Review Results</span><h2>Evidence and recommendation records</h2><div className="review-result-grid">{records.map((record) => <ResultCard key={record.id} record={record} focused={record.id === focusId} />)}</div></section></section>
+}
+
+function ResultCard({ record, focused }: { record: ReviewResultRecord; focused: boolean }) {
+  return <article className={`review-result-card ${focused ? 'focused-result-card' : ''}`}><div className="review-result-card-top"><span className="eyebrow">{record.batchId}</span><span className={`review-result-pill status-${record.status.toLowerCase().replaceAll(' ', '-')}`}>{record.status}</span></div><h3>{record.title}</h3><p>{record.materialReviewed}</p><div className="mini-result warning">Recommendation: {record.recommendation}</div><h4>Metadata</h4><BadgeList items={record.metadata} tone="blue" /><h4>Topics found</h4><BadgeList items={record.topicsFound.length ? record.topicsFound : ['No academic topics found']} tone="green" /><h4>Formulas / outputs / cases</h4><BadgeList items={[...record.formulasFound, ...record.outputsFound, ...record.casesFound].length ? [...record.formulasFound, ...record.outputsFound, ...record.casesFound] : ['No formulas, outputs or cases found']} tone="purple" /><h4>Decision notes</h4><ul>{record.decisionNotes.map((note) => <li key={note}>{note}</li>)}</ul><h4>Linked objects</h4><BadgeList items={record.linkedObjects} tone="blue" /><h4>Coverage and decision updates</h4><BadgeList items={[...record.coverageUpdates, ...record.decisionBoardUpdates]} tone="amber" /><h4>Risks</h4><ul>{record.risks.map((risk) => <li key={risk}>{risk}</li>)}</ul><div className="mini-result good">Next action: {record.nextAction}</div></article>
+}
+
+function ResultSelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) {
+  return <label className="library-select"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{values.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
+}
