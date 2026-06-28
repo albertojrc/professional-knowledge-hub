@@ -20,6 +20,7 @@ import './styles/sourceAwareOS.css'
 import './styles/professionalGraphOS.css'
 import './styles/sourceCoverageOS.css'
 import './styles/sourcePrepOS.css'
+import './styles/sourceExecutionOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
