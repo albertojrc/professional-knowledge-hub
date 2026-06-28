@@ -1,0 +1,35 @@
+import { useMemo, useState } from 'react'
+import { bankingCreditRiskLessons, bankingCreditRiskStudySummary } from '../data/bankingCreditRiskStudy'
+import type { BankingRiskStudyLesson } from '../types/bankingCreditRiskStudy'
+import { BadgeList } from '../components/ui/BadgeList'
+import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
+
+interface BankingCreditRiskStudyPageProps { focusId?: string | null }
+const allValue = 'All'
+const levelOptions = [allValue, ...Array.from(new Set(bankingCreditRiskLessons.map((lesson) => lesson.level))).sort()]
+const evidenceOptions = [allValue, ...Array.from(new Set(bankingCreditRiskLessons.map((lesson) => lesson.evidenceStatus))).sort()]
+
+export function BankingCreditRiskStudyPage({ focusId }: BankingCreditRiskStudyPageProps) {
+  const [level, setLevel] = useState(allValue)
+  const [evidence, setEvidence] = useState(allValue)
+  const [query, setQuery] = useState('')
+  const lessons = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return bankingCreditRiskLessons.filter((lesson) => level === allValue || lesson.level === level).filter((lesson) => evidence === allValue || lesson.evidenceStatus === evidence).filter((lesson) => !q || [lesson.title, lesson.level, lesson.evidenceStatus, lesson.studyObjective, ...lesson.sourceMaterials, ...lesson.coreConcepts, ...lesson.workflow, ...lesson.formulas, ...lesson.outputs, ...lesson.interpretation, ...lesson.businessDecisions, ...lesson.practicePrompts, ...lesson.connections].join(' ').toLowerCase().includes(q)).sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : levelRank(a.level) - levelRank(b.level) || a.title.localeCompare(b.title)))
+  }, [evidence, focusId, level, query])
+  return <section className="page-stack">{focusId && <div className="deep-link-banner">Opened from Global Search · focused banking lesson</div>}<div className="hero-panel banking-study-hero"><div><span className="eyebrow">Sprint 3.5 · Banking & Credit Risk Study Module</span><h1>Credit risk learning built around real academic source candidates.</h1><p>This module translates credit scoring materials into study lessons, formulas, outputs, decisions and practice. Source evidence remains pending until each file is reviewed.</p></div><div className="banking-study-score-card"><span className="eyebrow">Study Module</span><strong>{bankingCreditRiskStudySummary.totalLessons}</strong><p>{bankingCreditRiskStudySummary.sourceCandidates} source candidates · {bankingCreditRiskStudySummary.formulas} formulas</p><div className="inventory-mini-stats"><span>{bankingCreditRiskStudySummary.outputs} outputs</span><span>{bankingCreditRiskStudySummary.practicePrompts} prompts</span></div></div></div><section className="manual-panel result-impact"><span className="eyebrow">Study Flow</span><h2>From credit file to professional banking decision</h2><KnowledgeChain nodes={['Credit Source Candidate', 'Study Lesson', 'Risk Formula', 'Model Output', 'Banking Decision', 'Practice']} /></section><section className="manual-panel inventory-filter-panel"><div className="library-filter-header"><div><span className="eyebrow">Lesson Filters</span><h2>{lessons.length} of {bankingCreditRiskLessons.length} lessons visible</h2></div><button className="text-button" onClick={() => { setLevel(allValue); setEvidence(allValue); setQuery('') }} type="button">Clear filters</button></div><input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search credit scoring, PD, KS, ABT, policy, formulas or outputs..." /><div className="library-filter-grid"><StudySelect label="Level" value={level} values={levelOptions} onChange={setLevel} /><StudySelect label="Evidence" value={evidence} values={evidenceOptions} onChange={setEvidence} /></div></section><section className="manual-panel"><span className="eyebrow">Credit Risk Lessons</span><h2>Learn concepts through workflows, outputs and decisions</h2><div className="banking-study-grid">{lessons.map((lesson) => <LessonCard key={lesson.id} lesson={lesson} focused={lesson.id === focusId} />)}</div></section></section>
+}
+
+function LessonCard({ lesson, focused }: { lesson: BankingRiskStudyLesson; focused: boolean }) {
+  return <article className={`banking-study-card ${focused ? 'focused-result-card' : ''}`}><div className="banking-study-card-top"><span className="eyebrow">{lesson.level} · {lesson.evidenceStatus}</span><span className={`banking-study-pill status-${lesson.evidenceStatus.toLowerCase().replaceAll(' ', '-')}`}>{lesson.evidenceStatus}</span></div><h3>{lesson.title}</h3><p>{lesson.studyObjective}</p><h4>Source materials</h4><BadgeList items={lesson.sourceMaterials} tone="blue" /><h4>Core concepts</h4><BadgeList items={lesson.coreConcepts} tone="purple" /><h4>Professional workflow</h4><ol>{lesson.workflow.map((step) => <li key={step}>{step}</li>)}</ol><h4>Formulas and outputs</h4><BadgeList items={[...lesson.formulas, ...lesson.outputs]} tone="green" /><h4>How to interpret</h4><ul>{lesson.interpretation.map((item) => <li key={item}>{item}</li>)}</ul><h4>Business decisions</h4><BadgeList items={lesson.businessDecisions} tone="amber" /><h4>Practice prompts</h4><ul>{lesson.practicePrompts.map((prompt) => <li key={prompt}>{prompt}</li>)}</ul><h4>Connected areas</h4><BadgeList items={lesson.connections} tone="blue" /></article>
+}
+
+function StudySelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) {
+  return <label className="library-select"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{values.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
+}
+
+function levelRank(level: BankingRiskStudyLesson['level']) {
+  if (level === 'Foundation') return 1
+  if (level === 'Applied') return 2
+  return 3
+}
