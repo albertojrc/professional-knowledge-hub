@@ -23,7 +23,7 @@ export interface SearchResultItem {
   category: string
   summary: string
   tags: string[]
-  targetView: 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'source-review-execution' | 'source-command-center' | 'academic-review-workspace' | 'phase-2-handoff' | 'route-qa' | 'source-governance-summary' | 'source-pack-guide' | 'source-batch-planner' | 'review-form-template' | 'review-result-registry' | 'promotion-queue' | 'controlled-update-log' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
+  targetView: 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'source-review-execution' | 'source-command-center' | 'academic-review-workspace' | 'academic-file-registry' | 'phase-2-handoff' | 'route-qa' | 'source-governance-summary' | 'source-pack-guide' | 'source-batch-planner' | 'review-form-template' | 'review-result-registry' | 'promotion-queue' | 'controlled-update-log' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
   assetId?: string
 }
 
