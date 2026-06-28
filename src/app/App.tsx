@@ -18,6 +18,7 @@ import { SourceIntakePage } from '../pages/SourceIntakePage'
 import { IntakeCoverageMapPage } from '../pages/IntakeCoverageMapPage'
 import { SourceDecisionBoardPage } from '../pages/SourceDecisionBoardPage'
 import { SourceGovernanceSummaryPage } from '../pages/SourceGovernanceSummaryPage'
+import { SourcePackGuidePage } from '../pages/SourcePackGuidePage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
@@ -40,6 +41,7 @@ import { QualityReviewPage } from '../pages/QualityReviewPage'
 const extraNav: NavItem[] = [
   { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search the Hub.', icon: 'SE' },
   { id: 'source-governance-summary', label: 'Source Governance', eyebrow: 'Source', description: 'Executive governance summary.', icon: 'SG' },
+  { id: 'source-pack-guide', label: 'Source Pack Guide', eyebrow: 'Source', description: 'Pack plan.', icon: 'PK' },
   { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Source', description: 'Source inventory.', icon: 'MI' },
   { id: 'course-area-map', label: 'Course Area Map', eyebrow: 'Source', description: 'Area mapping.', icon: 'CM' },
   { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Source', description: 'Candidate queue.', icon: 'EV' },
@@ -47,7 +49,7 @@ const extraNav: NavItem[] = [
   { id: 'source-review-prep', label: 'Source Review Prep', eyebrow: 'Source', description: 'Review queue.', icon: 'SR' },
   { id: 'source-review-execution', label: 'Source Review Execution', eyebrow: 'Source', description: 'Review results.', icon: 'EX' },
   { id: 'course-evidence', label: 'Course Evidence', eyebrow: 'Source', description: 'Evidence extraction.', icon: 'CE' },
-  { id: 'source-intake', label: 'Source Intake', eyebrow: 'Source', description: 'Missing files.', icon: 'IN' },
+  { id: 'source-intake', label: 'Source Intake', eyebrow: 'Source', description: 'Missing groups.', icon: 'IN' },
   { id: 'intake-coverage-map', label: 'Intake Coverage Map', eyebrow: 'Source', description: 'Traceability map.', icon: 'IC' },
   { id: 'source-decision-board', label: 'Source Decision Board', eyebrow: 'Source', description: 'Upgrade decisions.', icon: 'SD' },
   { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Study', description: 'Asset library.', icon: 'KB' },
@@ -79,6 +81,7 @@ export function App() {
       {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} pathPrefs={pathPrefs} />}
       {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
       {activeView === 'source-governance-summary' && <SourceGovernanceSummaryPage />}
+      {activeView === 'source-pack-guide' && <SourcePackGuidePage focusId={focusId} />}
       {activeView === 'material-inventory' && <MaterialInventoryPage focusId={focusId} />}
       {activeView === 'course-area-map' && <CourseAreaMapPage focusId={focusId} />}
       {activeView === 'evidence-expansion' && <EvidenceExpansionPage focusId={focusId} />}
