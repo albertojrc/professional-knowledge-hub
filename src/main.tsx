@@ -40,6 +40,7 @@ import './styles/academicSourceOS.css'
 import './styles/studyModuleHubOS.css'
 import './styles/professionalCertificationsOS.css'
 import './styles/bankingCreditRiskStudyOS.css'
+import './styles/dataScienceAnalyticsStudyOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
