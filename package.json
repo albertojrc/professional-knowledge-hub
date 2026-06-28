@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "qa:audit": "node scripts/qa-audit.mjs",
-    "validate": "npm run qa:audit && npm run lint && npm run build"
+    "qa:sprint29": "node scripts/qa-sprint-2-9.mjs",
+    "validate": "npm run qa:audit && npm run qa:sprint29 && npm run lint && npm run build"
   },
   "dependencies": {
     "@vitejs/plugin-react": "4.3.4",
