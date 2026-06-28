@@ -24,6 +24,7 @@ import { ReviewFormTemplatePage } from '../pages/ReviewFormTemplatePage'
 import { ReviewResultRegistryPage } from '../pages/ReviewResultRegistryPage'
 import { PromotionQueuePage } from '../pages/PromotionQueuePage'
 import { ControlledUpdateLogPage } from '../pages/ControlledUpdateLogPage'
+import { SourceCommandCenterPage } from '../pages/SourceCommandCenterPage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
@@ -45,6 +46,7 @@ import { QualityReviewPage } from '../pages/QualityReviewPage'
 
 const extraNav: NavItem[] = [
   { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search the Hub.', icon: 'SE' },
+  { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Source', description: 'Executive source control.', icon: 'CC' },
   { id: 'source-governance-summary', label: 'Source Governance', eyebrow: 'Source', description: 'Executive governance summary.', icon: 'SG' },
   { id: 'source-pack-guide', label: 'Source Pack Guide', eyebrow: 'Source', description: 'Pack plan.', icon: 'PK' },
   { id: 'source-batch-planner', label: 'Source Batch Planner', eyebrow: 'Source', description: 'Review batches.', icon: 'BP' },
@@ -90,6 +92,7 @@ export function App() {
     <div className="app-shell"><Sidebar activeView={activeView} onChangeView={changeView} /><div className="app-main"><TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} /><main className="content-shell">
       {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} pathPrefs={pathPrefs} />}
       {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
+      {activeView === 'source-command-center' && <SourceCommandCenterPage />}
       {activeView === 'source-governance-summary' && <SourceGovernanceSummaryPage />}
       {activeView === 'source-pack-guide' && <SourcePackGuidePage focusId={focusId} />}
       {activeView === 'source-batch-planner' && <SourceBatchPlannerPage focusId={focusId} />}
