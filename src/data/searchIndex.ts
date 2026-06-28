@@ -9,8 +9,9 @@ import { materialRecords } from './materialInventory'
 import { courseAreaMapRecords, topicClusters } from './courseAreaMapping'
 import { evidenceExpansionCandidates } from './evidenceExpansion'
 import { sourceCoverageRecords } from './sourceCoverageQA'
+import { sourceReviewItems } from './sourceReviewPrep'
 
-export type SearchResultKind = 'Knowledge Asset' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Evidence Candidate' | 'Source Coverage' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
+export type SearchResultKind = 'Knowledge Asset' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Evidence Candidate' | 'Source Coverage' | 'Source Review' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
 
 export interface SearchResultItem {
   id: string
@@ -20,7 +21,7 @@ export interface SearchResultItem {
   category: string
   summary: string
   tags: string[]
-  targetView: 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
+  targetView: 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
   assetId?: string
 }
 
@@ -36,6 +37,7 @@ export const globalSearchIndex: SearchResultItem[] = [
   ...topicClusters.map((cluster) => ({ id: cluster.id, title: cluster.title, kind: 'Topic Cluster' as const, area: cluster.area, category: 'Topic Cluster', summary: cluster.description, tags: [...cluster.topics, ...cluster.connectedAssets, ...cluster.professionalOutputs, ...cluster.businessDecisions], targetView: 'course-area-map' as const })),
   ...evidenceExpansionCandidates.map((candidate) => ({ id: candidate.id, title: candidate.title, kind: 'Evidence Candidate' as const, area: candidate.area, category: candidate.status, summary: candidate.whyItMatters, tags: [candidate.assetId, candidate.program, ...candidate.linkedModuleIds, ...candidate.linkedMaterialIds, ...candidate.expectedEvidence, ...candidate.validationQuestions, candidate.nextAction], targetView: 'evidence-expansion' as const })),
   ...sourceCoverageRecords.map((record) => ({ id: record.id, title: record.title, kind: 'Source Coverage' as const, area: record.area, category: record.status, summary: record.nextAction, tags: [record.objectType, record.risk, ...record.linkedMaterials, ...record.linkedModules, ...record.linkedObjects, ...record.evidenceAvailable, ...record.gaps], targetView: 'source-coverage-qa' as const })),
+  ...sourceReviewItems.map((item) => ({ id: item.id, title: item.title, kind: 'Source Review' as const, area: item.targetAreas[0] ?? 'Source', category: item.priority, summary: item.nextAction, tags: [item.sourceType, item.status, item.sourceLocation, ...item.expectedPrograms, ...item.expectedModules, ...item.targetAreas, ...item.targetAssets, ...item.targetOutputs, ...item.targetCases, ...item.reviewQuestions], targetView: 'source-review-prep' as const })),
   ...studyPaths.map((path) => ({ id: path.id, title: path.title, kind: 'Study Path' as const, area: 'Learning Path', category: path.level, summary: path.professionalOutcome, tags: [path.subtitle, path.targetRole, path.duration, ...path.assetIds, ...path.milestones.flatMap((milestone) => [milestone.title, milestone.description, ...milestone.assetIds])], targetView: 'study-paths' as const })),
   ...allOutputs.map((output) => ({ id: output.id, title: output.title, kind: 'Output' as const, area: output.category === 'Finance' ? 'Finance' : 'Data Science', category: output.category, summary: output.whatItIs, tags: [...output.usedIn, ...output.relatedConcepts, ...output.relatedCases], targetView: 'output-atlas' as const })),
   ...allFormulas.map((formula) => ({ id: formula.id, title: formula.title, kind: 'Formula' as const, area: formula.area, category: 'Formula Library', summary: formula.interpretation, tags: [formula.formula, formula.variables, formula.professionalUse, ...formula.relatedItems], targetView: 'formula-library' as const })),
