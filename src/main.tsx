@@ -26,6 +26,7 @@ import './styles/sourceIntakeOS.css'
 import './styles/intakeCoverageOS.css'
 import './styles/sourceDecisionOS.css'
 import './styles/sourceGovernanceOS.css'
+import './styles/sourcePackOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
