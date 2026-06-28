@@ -12,6 +12,7 @@ import { DataScienceAnalyticsStudyPage } from '../pages/DataScienceAnalyticsStud
 import { FinanceValuationStudyPage } from '../pages/FinanceValuationStudyPage'
 import { EconomicsMarketsStudyPage } from '../pages/EconomicsMarketsStudyPage'
 import { ManagementStrategyStudyPage } from '../pages/ManagementStrategyStudyPage'
+import { ToolsPlatformsStudyPage } from '../pages/ToolsPlatformsStudyPage'
 import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { BankingCreditRiskStudyPage } from '../pages/BankingCreditRiskStudyPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
@@ -61,6 +62,7 @@ const extraNav: NavItem[] = [
   { id: 'finance-valuation-study', label: 'Finance & Valuation Study', eyebrow: 'Study', description: 'Finance and valuation module.', icon: 'FV' },
   { id: 'economics-markets-study', label: 'Economics & Markets Study', eyebrow: 'Study', description: 'Economics and market interpretation.', icon: 'EM' },
   { id: 'management-strategy-study', label: 'Management & Strategy Study', eyebrow: 'Study', description: 'Strategy and execution module.', icon: 'MS' },
+  { id: 'tools-platforms-study', label: 'Tools & Platforms Study', eyebrow: 'Study', description: 'SQL, Excel, BI, Python and Bloomberg.', icon: 'TP' },
   { id: 'professional-certifications', label: 'Professional Certifications', eyebrow: 'Study', description: 'CFA, BMC, BFF and Bloomberg workflows.', icon: 'PC' },
   { id: 'banking-credit-risk-study', label: 'Banking & Credit Risk Study', eyebrow: 'Study', description: 'Credit scoring study module.', icon: 'BR' },
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Evidence & QA', description: 'Executive source control.', icon: 'CC' },
@@ -114,6 +116,7 @@ export function App() {
     {activeView === 'finance-valuation-study' && <FinanceValuationStudyPage focusId={focusId} />}
     {activeView === 'economics-markets-study' && <EconomicsMarketsStudyPage focusId={focusId} />}
     {activeView === 'management-strategy-study' && <ManagementStrategyStudyPage focusId={focusId} />}
+    {activeView === 'tools-platforms-study' && <ToolsPlatformsStudyPage focusId={focusId} />}
     {activeView === 'professional-certifications' && <ProfessionalCertificationsPage focusId={focusId} />}
     {activeView === 'banking-credit-risk-study' && <BankingCreditRiskStudyPage focusId={focusId} />}
     {activeView === 'source-command-center' && <SourceCommandCenterPage />}
