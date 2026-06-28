@@ -21,6 +21,7 @@ import './styles/professionalGraphOS.css'
 import './styles/sourceCoverageOS.css'
 import './styles/sourcePrepOS.css'
 import './styles/sourceExecutionOS.css'
+import './styles/courseEvidenceOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
