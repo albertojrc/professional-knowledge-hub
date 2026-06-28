@@ -12,8 +12,9 @@ import { sourceCoverageRecords } from './sourceCoverageQA'
 import { sourceReviewItems } from './sourceReviewPrep'
 import { sourceExecutionRecords } from './sourceReviewExecution'
 import { sourceGovernanceSearchEntries } from './sourceGovernanceSearch'
+import { studyModuleSearchEntries } from './studyModuleSearch'
 
-export type SearchResultKind = 'Knowledge Asset' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Evidence Candidate' | 'Source Coverage' | 'Source Review' | 'Source Execution' | 'Governance Page' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
+export type SearchResultKind = 'Knowledge Asset' | 'Study Module' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Evidence Candidate' | 'Source Coverage' | 'Source Review' | 'Source Execution' | 'Governance Page' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
 
 export interface SearchResultItem {
   id: string
@@ -23,7 +24,7 @@ export interface SearchResultItem {
   category: string
   summary: string
   tags: string[]
-  targetView: 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'source-review-execution' | 'source-command-center' | 'academic-review-workspace' | 'academic-file-registry' | 'phase-2-handoff' | 'route-qa' | 'source-governance-summary' | 'source-pack-guide' | 'source-batch-planner' | 'review-form-template' | 'review-result-registry' | 'promotion-queue' | 'controlled-update-log' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
+  targetView: 'study-modules' | 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'source-review-execution' | 'source-command-center' | 'academic-review-workspace' | 'academic-file-registry' | 'phase-2-handoff' | 'route-qa' | 'source-governance-summary' | 'source-pack-guide' | 'source-batch-planner' | 'review-form-template' | 'review-result-registry' | 'promotion-queue' | 'controlled-update-log' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'
   assetId?: string
 }
 
@@ -33,6 +34,7 @@ const allModels = [...models, ...extraModels]
 const allBusinessCases = [...businessCases, ...sprint26BusinessCases]
 
 export const globalSearchIndex: SearchResultItem[] = [
+  ...studyModuleSearchEntries,
   ...sourceGovernanceSearchEntries,
   ...knowledgeAssetRegistry.map((asset) => ({ id: asset.id, title: asset.title, kind: 'Knowledge Asset' as const, area: asset.area, category: asset.category, summary: asset.summary, tags: [asset.type, asset.difficulty, ...asset.metrics, ...asset.outputs, ...asset.graphs, ...asset.businessApplications, ...asset.bankingApplications, ...asset.relatedAssets], targetView: 'knowledge-library' as const, assetId: asset.id })),
   ...materialRecords.map((material) => ({ id: material.id, title: material.title, kind: 'Material' as const, area: material.area, category: material.status, summary: material.description, tags: [material.program, material.materialType, material.locationLabel, material.priority, ...material.knownTopics, ...material.targetAssets, ...material.gapsToCheck], targetView: 'material-inventory' as const })),
