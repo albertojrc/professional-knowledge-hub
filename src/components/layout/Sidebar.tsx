@@ -1,15 +1,13 @@
 import type { NavItem, ViewId } from '../../types/knowledge'
 import { navItems } from '../../data/knowledge'
 
-interface SidebarProps {
-  activeView: ViewId
-  onChangeView: (view: ViewId) => void
-}
+interface SidebarProps { activeView: ViewId; onChangeView: (view: ViewId) => void }
 
 const globalSearchItem: NavItem = { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search across assets, outputs, formulas, models, cases and backlog.', icon: 'SE' }
 const materialInventoryItem: NavItem = { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Source System', description: 'Inventory class materials and map them to topics, assets and gaps.', icon: 'MI' }
 const courseAreaMapItem: NavItem = { id: 'course-area-map', label: 'Course Area Map', eyebrow: 'Source Mapping', description: 'Map courses and materials into professional knowledge areas.', icon: 'CM' }
-const evidenceExpansionItem: NavItem = { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Asset Queue', description: 'Validate candidate assets against class evidence before adding source claims.', icon: 'EV' }
+const evidenceExpansionItem: NavItem = { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Asset Queue', description: 'Validate candidate assets before source labels change.', icon: 'EV' }
+const sourceCoverageItem: NavItem = { id: 'source-coverage-qa', label: 'Source Coverage QA', eyebrow: 'Evidence Audit', description: 'Audit pending, candidate and complementary knowledge records.', icon: 'QA' }
 const knowledgeLibraryItem: NavItem = { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Second Brain', description: 'Reusable professional concepts across business, data science and banking.', icon: 'KB' }
 const studyPathsItem: NavItem = { id: 'study-paths', label: 'Study Paths', eyebrow: 'Learning Tracks', description: 'Role-based professional learning paths built from assets.', icon: 'SP' }
 const learningSessionItem: NavItem = { id: 'learning-session', label: 'Learning Session', eyebrow: 'Focus Mode', description: 'Guided one-asset-at-a-time study mode for your current path.', icon: 'LS' }
@@ -20,10 +18,9 @@ const decisionPlaybooksItem: NavItem = { id: 'decision-playbooks', label: 'Decis
 const mlModelsItem: NavItem = { id: 'ml-models', label: 'ML Models', eyebrow: 'Machine Learning', description: 'Detailed ML models with outputs, interpretation and graph examples.', icon: 'ML' }
 const mlGraphAtlasItem: NavItem = { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'Interpret', description: 'Machine learning charts: how to build, use and interpret them.', icon: 'CH' }
 
-const navCatalog: NavItem[] = [...navItems, globalSearchItem, materialInventoryItem, courseAreaMapItem, evidenceExpansionItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
-
+const navCatalog: NavItem[] = [...navItems, globalSearchItem, materialInventoryItem, courseAreaMapItem, evidenceExpansionItem, sourceCoverageItem, knowledgeLibraryItem, studyPathsItem, learningSessionItem, knowledgeFactoryItem, businessOsItem, professionalScenariosItem, decisionPlaybooksItem, mlModelsItem, mlGraphAtlasItem]
 const groups = [
-  { title: 'Source', ids: ['material-inventory', 'course-area-map', 'evidence-expansion', 'knowledge-factory', 'quality-review'] as ViewId[] },
+  { title: 'Source', ids: ['material-inventory', 'course-area-map', 'evidence-expansion', 'source-coverage-qa', 'knowledge-factory', 'quality-review'] as ViewId[] },
   { title: 'Study', ids: ['dashboard', 'global-search', 'knowledge-library', 'study-paths', 'learning-session', 'data-science', 'business-os', 'banking-finance', 'credit-risk'] as ViewId[] },
   { title: 'Machine Learning', ids: ['ml-models', 'ml-graph-atlas'] as ViewId[] },
   { title: 'Reference', ids: ['output-atlas', 'formula-library', 'model-library'] as ViewId[] },
@@ -31,28 +28,5 @@ const groups = [
 ]
 
 export function Sidebar({ activeView, onChangeView }: SidebarProps) {
-  return (
-    <aside className="sidebar">
-      <div className="brand-panel">
-        <span className="eyebrow">PKOS v2.3</span>
-        <h1>Professional Knowledge Hub</h1>
-        <p>Data Science + Banking + Finance + Business as a professional second brain.</p>
-      </div>
-      {groups.map((group) => (
-        <nav className="nav-group" key={group.title} aria-label={group.title}>
-          <div className="nav-title">{group.title}</div>
-          {group.ids.map((id) => {
-            const item = navCatalog.find((navItem) => navItem.id === id)
-            if (!item) return null
-            return (
-              <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button">
-                <span className="nav-icon">{item.icon}</span>
-                <span><strong>{item.label}</strong><small>{item.eyebrow}</small></span>
-              </button>
-            )
-          })}
-        </nav>
-      ))}
-    </aside>
-  )
+  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v2.8</span><h1>Professional Knowledge Hub</h1><p>Data Science + Banking + Finance + Business as a professional second brain.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
 }
