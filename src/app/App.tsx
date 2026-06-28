@@ -23,6 +23,7 @@ import { SourceBatchPlannerPage } from '../pages/SourceBatchPlannerPage'
 import { ReviewFormTemplatePage } from '../pages/ReviewFormTemplatePage'
 import { ReviewResultRegistryPage } from '../pages/ReviewResultRegistryPage'
 import { PromotionQueuePage } from '../pages/PromotionQueuePage'
+import { ControlledUpdateLogPage } from '../pages/ControlledUpdateLogPage'
 import { KnowledgeLibraryPage } from '../pages/KnowledgeLibraryPage'
 import { KnowledgeAssetDetailPage } from '../pages/KnowledgeAssetDetailPage'
 import { StudyPathsPage } from '../pages/StudyPathsPage'
@@ -50,6 +51,7 @@ const extraNav: NavItem[] = [
   { id: 'review-form-template', label: 'Review Form Template', eyebrow: 'Source', description: 'Standard review form.', icon: 'RF' },
   { id: 'review-result-registry', label: 'Review Result Registry', eyebrow: 'Source', description: 'Review records.', icon: 'RR' },
   { id: 'promotion-queue', label: 'Promotion Queue', eyebrow: 'Source', description: 'Controlled update proposals.', icon: 'PQ' },
+  { id: 'controlled-update-log', label: 'Controlled Update Log', eyebrow: 'Source', description: 'Update audit trail.', icon: 'UL' },
   { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Source', description: 'Source inventory.', icon: 'MI' },
   { id: 'course-area-map', label: 'Course Area Map', eyebrow: 'Source', description: 'Area mapping.', icon: 'CM' },
   { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Source', description: 'Candidate queue.', icon: 'EV' },
@@ -94,6 +96,7 @@ export function App() {
       {activeView === 'review-form-template' && <ReviewFormTemplatePage />}
       {activeView === 'review-result-registry' && <ReviewResultRegistryPage focusId={focusId} />}
       {activeView === 'promotion-queue' && <PromotionQueuePage focusId={focusId} />}
+      {activeView === 'controlled-update-log' && <ControlledUpdateLogPage focusId={focusId} />}
       {activeView === 'material-inventory' && <MaterialInventoryPage focusId={focusId} />}
       {activeView === 'course-area-map' && <CourseAreaMapPage focusId={focusId} />}
       {activeView === 'evidence-expansion' && <EvidenceExpansionPage focusId={focusId} />}
