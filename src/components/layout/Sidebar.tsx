@@ -4,13 +4,14 @@ interface SidebarProps { activeView: ViewId; onChangeView: (view: ViewId) => voi
 
 const studyNav: NavItem[] = [
   { id: 'study-modules', label: 'Study Modules', eyebrow: 'Main Hub', description: 'Professional learning modules.', icon: 'SM' },
+  { id: 'data-science-analytics-study', label: 'Data Science & Analytics Study', eyebrow: 'Analytics Workflow', description: 'Data science study module.', icon: 'DA' },
   { id: 'banking-credit-risk-study', label: 'Banking & Credit Risk Study', eyebrow: 'Credit Scoring', description: 'Credit risk study module.', icon: 'BR' },
   { id: 'professional-certifications', label: 'Professional Certifications', eyebrow: 'CFA · BMC · BFF', description: 'Certification tracks.', icon: 'PC' },
   { id: 'global-search', label: 'Global Search', eyebrow: 'Search', description: 'Search across the Hub.', icon: 'SE' },
   { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Concepts', description: 'Asset library.', icon: 'KB' },
   { id: 'study-paths', label: 'Study Paths', eyebrow: 'Tracks', description: 'Learning paths.', icon: 'SP' },
   { id: 'learning-session', label: 'Learning Session', eyebrow: 'Focus', description: 'Study mode.', icon: 'LS' },
-  { id: 'data-science', label: 'Data Science & Analytics', eyebrow: 'Core Module', description: 'Analytics OS.', icon: 'DS' },
+  { id: 'data-science', label: 'Data Science OS', eyebrow: 'Legacy Module', description: 'Analytics OS.', icon: 'DS' },
   { id: 'banking-finance', label: 'Banking & Finance', eyebrow: 'Legacy Module', description: 'Banking and finance.', icon: 'BF' },
   { id: 'credit-risk', label: 'Credit Risk Lab', eyebrow: 'Applied Lab', description: 'Credit risk case.', icon: 'CR' },
   { id: 'business-os', label: 'Management & Business', eyebrow: 'Core Module', description: 'Business OS.', icon: 'BS' }
@@ -59,12 +60,12 @@ const evidenceNav: NavItem[] = [
 
 const navCatalog: NavItem[] = [...navItems, ...studyNav, ...referenceNav, ...applicationNav, ...evidenceNav]
 const groups = [
-  { title: 'Study Modules', ids: ['dashboard', 'study-modules', 'banking-credit-risk-study', 'professional-certifications', 'global-search', 'knowledge-library', 'study-paths', 'learning-session', 'data-science', 'banking-finance', 'credit-risk', 'business-os'] as ViewId[] },
+  { title: 'Study Modules', ids: ['dashboard', 'study-modules', 'data-science-analytics-study', 'banking-credit-risk-study', 'professional-certifications', 'global-search', 'knowledge-library', 'study-paths', 'learning-session', 'data-science', 'banking-finance', 'credit-risk', 'business-os'] as ViewId[] },
   { title: 'Reference & Cases', ids: ['formula-library', 'model-library', 'output-atlas', 'business-cases', 'knowledge-map'] as ViewId[] },
   { title: 'Practice & Application', ids: ['professional-scenarios', 'decision-playbooks', 'ml-models', 'ml-graph-atlas'] as ViewId[] },
   { title: 'Evidence & QA', ids: ['source-command-center', 'academic-review-workspace', 'academic-file-registry', 'source-decision-board', 'promotion-queue', 'controlled-update-log', 'review-form-template', 'review-result-registry', 'source-governance-summary', 'source-pack-guide', 'source-batch-planner', 'material-inventory', 'course-area-map', 'evidence-expansion', 'source-coverage-qa', 'source-review-prep', 'source-review-execution', 'course-evidence', 'source-intake', 'intake-coverage-map', 'knowledge-factory', 'route-qa', 'phase-2-handoff', 'quality-review'] as ViewId[] }
 ]
 
 export function Sidebar({ activeView, onChangeView }: SidebarProps) {
-  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v3.5</span><h1>Professional Knowledge Hub</h1><p>Study-first modules powered by academic evidence, certifications and professional QA.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
+  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v3.6</span><h1>Professional Knowledge Hub</h1><p>Study-first modules powered by academic evidence, certifications and professional QA.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
 }
