@@ -7,6 +7,13 @@ export interface StudyPathMilestone {
   assetIds: string[]
 }
 
+export interface StudyPathModuleStep {
+  id: string
+  title: string
+  viewId: string
+  whyItMatters: string
+}
+
 export interface StudyPath {
   id: string
   title: string
@@ -18,4 +25,8 @@ export interface StudyPath {
   icon: string
   assetIds: string[]
   milestones: StudyPathMilestone[]
+  moduleSequence?: StudyPathModuleStep[]
+  outputPortfolio?: string[]
+  practiceAgenda?: string[]
+  successCriteria?: string[]
 }
