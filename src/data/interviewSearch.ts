@@ -1,0 +1,2 @@
+import { interviewPrompts } from './interviewPrep'
+export const interviewSearchEntries = interviewPrompts.map((item) => ({ id:`search-${item.id}`, title:item.title, kind:'Interview Prompt' as const, area:'Interview Prep', category:item.area, summary:item.question, tags:[item.format,item.level,item.whyItMatters,item.sampleAnswer,...item.answerFramework,...item.followUps,...item.linkedPortfolioItems,...item.linkedCapstones,...item.skillsTested,...item.redFlags], targetView:'interview-prep' as const }))
