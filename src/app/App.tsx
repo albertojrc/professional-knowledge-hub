@@ -16,6 +16,7 @@ import { ToolsPlatformsStudyPage } from '../pages/ToolsPlatformsStudyPage'
 import { PracticeEnginePage } from '../pages/PracticeEnginePage'
 import { CapstoneProjectsPage } from '../pages/CapstoneProjectsPage'
 import { PortfolioBuilderPage } from '../pages/PortfolioBuilderPage'
+import { InterviewPrepPage } from '../pages/InterviewPrepPage'
 import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { BankingCreditRiskStudyPage } from '../pages/BankingCreditRiskStudyPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
@@ -69,6 +70,7 @@ const extraNav: NavItem[] = [
   { id: 'practice-engine', label: 'Practice Engine', eyebrow: 'Practice', description: 'Quizzes, drills, cases and recall.', icon: 'PE' },
   { id: 'capstone-projects', label: 'Capstone Projects', eyebrow: 'Portfolio', description: 'Final professional projects.', icon: 'CP' },
   { id: 'portfolio-builder', label: 'Portfolio Builder', eyebrow: 'Career', description: 'CV, LinkedIn and interview stories.', icon: 'PB' },
+  { id: 'interview-prep', label: 'Interview Prep', eyebrow: 'Career', description: 'STAR, technical and project defense practice.', icon: 'IP' },
   { id: 'professional-certifications', label: 'Professional Certifications', eyebrow: 'Study', description: 'CFA, BMC, BFF and Bloomberg workflows.', icon: 'PC' },
   { id: 'banking-credit-risk-study', label: 'Banking & Credit Risk Study', eyebrow: 'Study', description: 'Credit scoring study module.', icon: 'BR' },
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Evidence & QA', description: 'Executive source control.', icon: 'CC' },
@@ -126,6 +128,7 @@ export function App() {
     {activeView === 'practice-engine' && <PracticeEnginePage focusId={focusId} />}
     {activeView === 'capstone-projects' && <CapstoneProjectsPage focusId={focusId} />}
     {activeView === 'portfolio-builder' && <PortfolioBuilderPage focusId={focusId} />}
+    {activeView === 'interview-prep' && <InterviewPrepPage focusId={focusId} />}
     {activeView === 'professional-certifications' && <ProfessionalCertificationsPage focusId={focusId} />}
     {activeView === 'banking-credit-risk-study' && <BankingCreditRiskStudyPage focusId={focusId} />}
     {activeView === 'source-command-center' && <SourceCommandCenterPage />}
