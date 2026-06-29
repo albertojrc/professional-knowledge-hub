@@ -18,6 +18,7 @@ import { CapstoneProjectsPage } from '../pages/CapstoneProjectsPage'
 import { PortfolioBuilderPage } from '../pages/PortfolioBuilderPage'
 import { InterviewPrepPage } from '../pages/InterviewPrepPage'
 import { RoleReadinessPage } from '../pages/RoleReadinessPage'
+import { HubQAPolishPage } from '../pages/HubQAPolishPage'
 import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { BankingCreditRiskStudyPage } from '../pages/BankingCreditRiskStudyPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
@@ -78,6 +79,7 @@ const extraNav: NavItem[] = [
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Evidence & QA', description: 'Executive source control.', icon: 'CC' },
   { id: 'academic-review-workspace', label: 'Academic Review Workspace', eyebrow: 'Evidence & QA', description: 'Phase 3 academic review.', icon: 'AR' },
   { id: 'academic-file-registry', label: 'Academic File Registry', eyebrow: 'Evidence & QA', description: 'Discovered academic files.', icon: 'AF' },
+  { id: 'hub-qa-polish', label: 'Hub QA Polish', eyebrow: 'Evidence & QA', description: 'Final navigation and quality polish.', icon: 'HQ' },
   { id: 'phase-2-handoff', label: 'Phase 2 Handoff', eyebrow: 'Evidence & QA', description: 'Governance closure and next phase.', icon: 'PH' },
   { id: 'route-qa', label: 'Route QA', eyebrow: 'Evidence & QA', description: 'Route and build readiness.', icon: 'RQ' },
   { id: 'source-governance-summary', label: 'Source Governance', eyebrow: 'Evidence & QA', description: 'Executive governance summary.', icon: 'SG' },
@@ -137,6 +139,7 @@ export function App() {
     {activeView === 'source-command-center' && <SourceCommandCenterPage />}
     {activeView === 'academic-review-workspace' && <AcademicReviewWorkspacePage focusId={focusId} />}
     {activeView === 'academic-file-registry' && <AcademicSourceRegistryPage focusId={focusId} />}
+    {activeView === 'hub-qa-polish' && <HubQAPolishPage focusId={focusId} />}
     {activeView === 'phase-2-handoff' && <Phase2HandoffPage />}
     {activeView === 'route-qa' && <RouteQAPage />}
     {activeView === 'source-governance-summary' && <SourceGovernanceSummaryPage />}
