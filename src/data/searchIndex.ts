@@ -6,6 +6,7 @@ import { phase4Formulas } from './formulasPhase4'
 import { phase4OutputAtlas } from './outputAtlasPhase4'
 import { sprint26BusinessCases } from './businessCasesSprint26'
 import { phase4BusinessCases } from './businessCasesPhase4'
+import { phase4Models } from './modelsPhase4'
 import { expansionBacklog } from './assetExpansionSystem'
 import { studyPaths } from './studyPaths'
 import { materialRecords } from './materialInventory'
@@ -31,7 +32,7 @@ export type SearchResultKind = 'Knowledge Asset' | 'Study Module' | 'Study Lesso
 export interface SearchResultItem { id: string; title: string; kind: SearchResultKind; area: string; category: string; summary: string; tags: string[]; targetView: 'study-modules' | 'data-science-analytics-study' | 'finance-valuation-study' | 'economics-markets-study' | 'management-strategy-study' | 'tools-platforms-study' | 'practice-engine' | 'banking-credit-risk-study' | 'professional-certifications' | 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'source-review-execution' | 'source-command-center' | 'academic-review-workspace' | 'academic-file-registry' | 'phase-2-handoff' | 'route-qa' | 'source-governance-summary' | 'source-pack-guide' | 'source-batch-planner' | 'review-form-template' | 'review-result-registry' | 'promotion-queue' | 'controlled-update-log' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'; assetId?: string }
 const allOutputs = [...outputAtlas, ...extraOutputAtlas, ...sprint25Outputs, ...phase4OutputAtlas]
 const allFormulas = [...formulas, ...sprint25Formulas, ...phase4Formulas]
-const allModels = [...models, ...extraModels]
+const allModels = [...models, ...extraModels, ...phase4Models]
 const allBusinessCases = [...businessCases, ...sprint26BusinessCases, ...phase4BusinessCases]
 export const globalSearchIndex: SearchResultItem[] = [
   ...studyModuleSearchEntries,
@@ -58,7 +59,7 @@ export const globalSearchIndex: SearchResultItem[] = [
   ...studyPaths.map((path) => ({ id: path.id, title: path.title, kind: 'Study Path' as const, area: 'Learning Path', category: path.level, summary: path.professionalOutcome, tags: [path.subtitle, path.targetRole, path.duration, ...path.assetIds, ...(path.moduleSequence ?? []).flatMap((step) => [step.title, step.viewId, step.whyItMatters]), ...(path.outputPortfolio ?? []), ...(path.practiceAgenda ?? []), ...(path.successCriteria ?? []), ...path.milestones.flatMap((milestone) => [milestone.title, milestone.description, ...milestone.assetIds])], targetView: 'study-paths' as const })),
   ...allOutputs.map((output) => ({ id: output.id, title: output.title, kind: 'Output' as const, area: output.category === 'Finance' ? 'Finance' : 'Data Science', category: output.category, summary: output.whatItIs, tags: [...output.usedIn, ...output.relatedConcepts, ...output.relatedCases], targetView: 'output-atlas' as const })),
   ...allFormulas.map((formula) => ({ id: formula.id, title: formula.title, kind: 'Formula' as const, area: formula.area, category: 'Formula Library', summary: formula.interpretation, tags: [formula.formula, formula.variables, formula.professionalUse, ...formula.relatedItems], targetView: 'formula-library' as const })),
-  ...allModels.map((model) => ({ id: model.id, title: model.title, kind: 'Model' as const, area: 'Data Science', category: model.family, summary: model.objective, tags: [model.inputs, model.outputs, model.interpretation, ...model.applications], targetView: 'model-library' as const })),
+  ...allModels.map((model) => ({ id: model.id, title: model.title, kind: 'Model' as const, area: 'Data Science', category: model.family, summary: model.objective, tags: [model.inputs, model.outputs, model.interpretation, model.goodResult, model.badResult, ...model.applications], targetView: 'model-library' as const })),
   ...allBusinessCases.map((businessCase) => ({ id: businessCase.id, title: businessCase.title, kind: 'Business Case' as const, area: businessCase.area, category: 'Business Case', summary: businessCase.businessQuestion, tags: [...businessCase.dataRequired, ...businessCase.workflow, ...businessCase.tools, ...businessCase.outputs, businessCase.decision, ...businessCase.relatedModules], targetView: 'business-cases' as const })),
   ...expansionBacklog.map((item) => ({ id: item.id, title: item.title, kind: 'Backlog Item' as const, area: item.area, category: item.category, summary: item.whyItMatters, tags: [item.type, item.priority, item.status, ...item.sourcePlan, ...item.relatedAssets], targetView: 'knowledge-factory' as const }))
 ]
