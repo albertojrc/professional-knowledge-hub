@@ -1,6 +1,7 @@
 import { formulas, models } from '../data/knowledge'
 import { extraModels } from '../data/phase3Knowledge'
 import { sprint25Formulas } from '../data/referenceExpansionSprint25'
+import { phase4Formulas } from '../data/formulasPhase4'
 import { BadgeList } from '../components/ui/BadgeList'
 import { ReadingGuide } from '../components/ui/ReadingGuide'
 
@@ -14,18 +15,18 @@ export function ReferencePage({ type, query, focusId }: ReferencePageProps) {
   const normalizedQuery = query.trim().toLowerCase()
 
   if (type === 'formulas') {
-    const allFormulas = [...formulas, ...sprint25Formulas]
+    const allFormulas = [...formulas, ...sprint25Formulas, ...phase4Formulas]
     const visibleFormulas = allFormulas
-      .filter((formula) => !normalizedQuery || `${formula.title} ${formula.area} ${formula.formula} ${formula.interpretation}`.toLowerCase().includes(normalizedQuery))
-      .sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.title.localeCompare(b.title)))
+      .filter((formula) => !normalizedQuery || `${formula.title} ${formula.area} ${formula.formula} ${formula.interpretation} ${formula.professionalUse} ${formula.relatedItems.join(' ')}`.toLowerCase().includes(normalizedQuery))
+      .sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.area.localeCompare(b.area) || a.title.localeCompare(b.title)))
 
     return (
       <section className="page-stack">
         {focusId && <div className="deep-link-banner">Opened from Global Search · focused formula</div>}
         <div className="page-header-panel">
-          <span className="eyebrow">Formula Library</span>
-          <h1>Finance, risk and analytics formulas</h1>
-          <p>Formulas are shown with variables, interpretation, professional use and related knowledge.</p>
+          <span className="eyebrow">Sprint 4.1 · Formula Library</span>
+          <h1>Finance, risk, economics, statistics, valuation and portfolio formulas.</h1>
+          <p>Formulas are shown with variables, interpretation, professional use and related knowledge so each calculation becomes a decision tool.</p>
         </div>
 
         <ReadingGuide title="How to use formulas professionally" steps={['Start by identifying the decision or metric the formula supports.', 'Read the variables before using the formula mechanically.', 'Translate the numerical result into interpretation and action.']} />
