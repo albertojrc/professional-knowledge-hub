@@ -1,0 +1,2 @@
+import { hubQAChecks } from './hubQualityPolish'
+export const hubQASearchEntries = hubQAChecks.map((item) => ({ id:`search-${item.id}`, title:item.title, kind:'QA Check' as const, area:'Hub QA Polish', category:item.area, summary:item.whyItMatters, tags:[item.status,String(item.score),item.ownerLayer,...item.checkedSignals,...item.risks,...item.polishActions,...item.linkedViews], targetView:'hub-qa-polish' as const }))
