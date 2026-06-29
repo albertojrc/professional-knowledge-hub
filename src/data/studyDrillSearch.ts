@@ -1,0 +1,2 @@
+import { studyDrills } from './studyDrills'
+export const studyDrillSearchEntries = studyDrills.map((item) => ({ id:`search-${item.id}`, title:item.title, kind:'Practice Drill' as const, area:item.area, category:item.type, summary:item.prompt, tags:[item.level,item.context,item.solution,item.explanation,...(item.choices ?? []),...item.connectedModules,...item.outputs,...item.tags], targetView:'practice-engine' as const }))
