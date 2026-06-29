@@ -2,6 +2,7 @@ import { formulas, models } from '../data/knowledge'
 import { extraModels } from '../data/phase3Knowledge'
 import { sprint25Formulas } from '../data/referenceExpansionSprint25'
 import { phase4Formulas } from '../data/formulasPhase4'
+import { phase4Models } from '../data/modelsPhase4'
 import { BadgeList } from '../components/ui/BadgeList'
 import { ReadingGuide } from '../components/ui/ReadingGuide'
 
@@ -48,17 +49,17 @@ export function ReferencePage({ type, query, focusId }: ReferencePageProps) {
     )
   }
 
-  const allModels = [...models, ...extraModels]
+  const allModels = [...models, ...extraModels, ...phase4Models]
   const visibleModels = allModels
-    .filter((model) => !normalizedQuery || `${model.title} ${model.family} ${model.objective} ${model.interpretation}`.toLowerCase().includes(normalizedQuery))
-    .sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.title.localeCompare(b.title)))
+    .filter((model) => !normalizedQuery || `${model.title} ${model.family} ${model.objective} ${model.inputs} ${model.outputs} ${model.interpretation} ${model.goodResult} ${model.badResult} ${model.applications.join(' ')}`.toLowerCase().includes(normalizedQuery))
+    .sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.family.localeCompare(b.family) || a.title.localeCompare(b.title)))
 
   return (
     <section className="page-stack">
       {focusId && <div className="deep-link-banner">Opened from Global Search · focused model</div>}
       <div className="page-header-panel">
-        <span className="eyebrow">Model Library</span>
-        <h1>Models with interpretation and business meaning</h1>
+        <span className="eyebrow">Sprint 4.4 · Model Library</span>
+        <h1>Models with interpretation, quality signals and business meaning.</h1>
         <p>Each model is treated as a professional method: objective, preparation, outputs, interpretation, good/bad result and applications.</p>
       </div>
 
