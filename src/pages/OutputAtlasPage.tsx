@@ -2,10 +2,11 @@ import { useMemo, useState } from 'react'
 import { outputAtlas } from '../data/knowledge'
 import { extraOutputAtlas } from '../data/phase3Knowledge'
 import { sprint25Outputs } from '../data/referenceExpansionSprint25'
+import { phase4OutputAtlas } from '../data/outputAtlasPhase4'
 import { BadgeList } from '../components/ui/BadgeList'
 import { ReadingGuide } from '../components/ui/ReadingGuide'
 
-const allOutputAtlas = [...outputAtlas, ...extraOutputAtlas, ...sprint25Outputs]
+const allOutputAtlas = [...outputAtlas, ...extraOutputAtlas, ...sprint25Outputs, ...phase4OutputAtlas]
 
 interface OutputAtlasPageProps {
   focusId?: string | null
@@ -19,7 +20,7 @@ export function OutputAtlasPage({ focusId }: OutputAtlasPageProps) {
   return (
     <section className="output-layout">
       <aside className="lesson-nav panel-card">
-        <span className="eyebrow">Atlas Index</span>
+        <span className="eyebrow">Sprint 4.2 · Atlas Index</span>
         {allOutputAtlas.map((item, index) => (
           <button className={`lesson-nav-item ${item.id === output.id ? 'active' : ''}`} key={item.id} onClick={() => setActiveOutputId(item.id)} type="button">
             <span>{index + 1}</span><strong>{item.title}</strong>
