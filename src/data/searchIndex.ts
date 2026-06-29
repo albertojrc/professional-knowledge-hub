@@ -16,6 +16,7 @@ import { studyModuleSearchEntries } from './studyModuleSearch'
 import { certificationSearchEntries } from './certificationSearch'
 import { cfaFoundationsSearchEntries } from './cfaFoundationsSearch'
 import { cfaInvestmentSearchEntries } from './cfaInvestmentSearch'
+import { bloombergSearchEntries } from './bloombergSearch'
 import { bankingCreditRiskSearchEntries } from './bankingCreditRiskSearch'
 import { dataScienceAnalyticsSearchEntries } from './dataScienceAnalyticsSearch'
 import { financeValuationSearchEntries } from './financeValuationSearch'
@@ -39,6 +40,7 @@ export const globalSearchIndex: SearchResultItem[] = [
   ...certificationSearchEntries,
   ...cfaFoundationsSearchEntries,
   ...cfaInvestmentSearchEntries,
+  ...bloombergSearchEntries,
   ...sourceGovernanceSearchEntries,
   ...knowledgeAssetRegistry.map((asset) => ({ id: asset.id, title: asset.title, kind: 'Knowledge Asset' as const, area: asset.area, category: asset.category, summary: asset.summary, tags: [asset.type, asset.difficulty, ...asset.metrics, ...asset.outputs, ...asset.graphs, ...asset.businessApplications, ...asset.bankingApplications, ...asset.relatedAssets], targetView: 'knowledge-library' as const, assetId: asset.id })),
   ...materialRecords.map((material) => ({ id: material.id, title: material.title, kind: 'Material' as const, area: material.area, category: material.status, summary: material.description, tags: [material.program, material.materialType, material.locationLabel, material.priority, ...material.knownTopics, ...material.targetAssets, ...material.gapsToCheck], targetView: 'material-inventory' as const })),
