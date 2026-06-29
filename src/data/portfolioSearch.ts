@@ -1,0 +1,2 @@
+import { portfolioItems } from './portfolioBuilder'
+export const portfolioSearchEntries = portfolioItems.map((item) => ({ id:`search-${item.id}`, title:item.title, kind:'Portfolio Item' as const, area:'Portfolio Builder', category:item.area, summary:item.projectSummary, tags:[item.level,item.capstoneId,item.cvDescription,item.linkedinDescription,item.portfolioHeadline,...item.skills,...item.tools,...item.outputs,...item.evidence,...item.interviewTalkingPoints,...item.nextUpgrade], targetView:'portfolio-builder' as const }))
