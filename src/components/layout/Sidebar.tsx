@@ -27,6 +27,7 @@ const referenceNav: NavItem[] = [
   { id: 'knowledge-map', label: 'Knowledge Map', eyebrow: 'Connections', description: 'Map.', icon: 'KM' }
 ]
 const applicationNav: NavItem[] = [
+  { id: 'practice-engine', label: 'Practice Engine', eyebrow: 'Practice', description: 'Quizzes, cases and drills.', icon: 'PE' },
   { id: 'professional-scenarios', label: 'Professional Scenarios', eyebrow: 'Apply', description: 'Scenarios.', icon: 'SC' },
   { id: 'decision-playbooks', label: 'Decision Playbooks', eyebrow: 'Decide', description: 'Playbooks.', icon: 'DP' },
   { id: 'ml-models', label: 'ML Models', eyebrow: 'Machine Learning', description: 'ML models.', icon: 'ML' },
@@ -61,9 +62,9 @@ const navCatalog: NavItem[] = [...navItems, ...studyNav, ...referenceNav, ...app
 const groups = [
   { title: 'Study Modules', ids: ['dashboard', 'study-modules', 'data-science-analytics-study', 'finance-valuation-study', 'economics-markets-study', 'management-strategy-study', 'tools-platforms-study', 'banking-credit-risk-study', 'professional-certifications', 'global-search', 'knowledge-library', 'study-paths', 'learning-session', 'data-science', 'banking-finance', 'credit-risk', 'business-os'] as ViewId[] },
   { title: 'Reference & Cases', ids: ['formula-library', 'model-library', 'output-atlas', 'business-cases', 'knowledge-map'] as ViewId[] },
-  { title: 'Practice & Application', ids: ['professional-scenarios', 'decision-playbooks', 'ml-models', 'ml-graph-atlas'] as ViewId[] },
+  { title: 'Practice & Application', ids: ['practice-engine', 'professional-scenarios', 'decision-playbooks', 'ml-models', 'ml-graph-atlas'] as ViewId[] },
   { title: 'Evidence & QA', ids: ['source-command-center', 'academic-review-workspace', 'academic-file-registry', 'source-decision-board', 'promotion-queue', 'controlled-update-log', 'review-form-template', 'review-result-registry', 'source-governance-summary', 'source-pack-guide', 'source-batch-planner', 'material-inventory', 'course-area-map', 'evidence-expansion', 'source-coverage-qa', 'source-review-prep', 'source-review-execution', 'course-evidence', 'source-intake', 'intake-coverage-map', 'knowledge-factory', 'route-qa', 'phase-2-handoff', 'quality-review'] as ViewId[] }
 ]
 export function Sidebar({ activeView, onChangeView }: SidebarProps) {
-  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v3.14</span><h1>Professional Knowledge Hub</h1><p>Study-first modules powered by academic evidence, certifications, role paths and professional QA.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
+  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v3.15</span><h1>Professional Knowledge Hub</h1><p>Study-first modules powered by academic evidence, certifications, role paths, practice and professional QA.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
 }
