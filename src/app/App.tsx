@@ -23,6 +23,7 @@ import { AcademicUpgradePassPage } from '../pages/AcademicUpgradePassPage'
 import { AcademicNotesPage } from '../pages/AcademicNotesPage'
 import { CreditScoringReviewPage } from '../pages/CreditScoringReviewPage'
 import { CreditPromotionQueuePage } from '../pages/CreditPromotionQueuePage'
+import { LCFieldMappingPage } from '../pages/LCFieldMappingPage'
 import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { BankingCreditRiskStudyPage } from '../pages/BankingCreditRiskStudyPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
@@ -84,6 +85,7 @@ const extraNav: NavItem[] = [
   { id: 'academic-notes', label: 'Academic Notes', eyebrow: 'Evidence & QA', description: 'Document extraction notes and pending refs.', icon: 'AN' },
   { id: 'credit-scoring-review', label: 'Credit Scoring Review', eyebrow: 'Evidence & QA', description: 'RetailCreditScoring review pass.', icon: 'CS' },
   { id: 'credit-promotion-queue', label: 'Credit Promotion Queue', eyebrow: 'Evidence & QA', description: 'Credit scoring update decisions.', icon: 'CQ' },
+  { id: 'lc-field-mapping', label: 'LC Field Mapping', eyebrow: 'Evidence & QA', description: 'LCDataDictionary field groups and ABT mapping.', icon: 'LC' },
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Evidence & QA', description: 'Executive source control.', icon: 'CC' },
   { id: 'academic-review-workspace', label: 'Academic Review Workspace', eyebrow: 'Evidence & QA', description: 'Phase 3 academic review.', icon: 'AR' },
   { id: 'academic-file-registry', label: 'Academic File Registry', eyebrow: 'Evidence & QA', description: 'Discovered academic files.', icon: 'AF' },
@@ -148,6 +150,7 @@ export function App() {
     {activeView === 'academic-notes' && <AcademicNotesPage focusId={focusId} />}
     {activeView === 'credit-scoring-review' && <CreditScoringReviewPage focusId={focusId} />}
     {activeView === 'credit-promotion-queue' && <CreditPromotionQueuePage focusId={focusId} />}
+    {activeView === 'lc-field-mapping' && <LCFieldMappingPage focusId={focusId} />}
     {activeView === 'source-command-center' && <SourceCommandCenterPage />}
     {activeView === 'academic-review-workspace' && <AcademicReviewWorkspacePage focusId={focusId} />}
     {activeView === 'academic-file-registry' && <AcademicSourceRegistryPage focusId={focusId} />}
