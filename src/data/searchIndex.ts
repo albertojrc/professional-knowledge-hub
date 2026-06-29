@@ -17,14 +17,15 @@ import { certificationSearchEntries } from './certificationSearch'
 import { cfaFoundationsSearchEntries } from './cfaFoundationsSearch'
 import { cfaInvestmentSearchEntries } from './cfaInvestmentSearch'
 import { bloombergSearchEntries } from './bloombergSearch'
+import { studyDrillSearchEntries } from './studyDrillSearch'
 import { bankingCreditRiskSearchEntries } from './bankingCreditRiskSearch'
 import { dataScienceAnalyticsSearchEntries } from './dataScienceAnalyticsSearch'
 import { financeValuationSearchEntries } from './financeValuationSearch'
 import { economicsSearchEntries } from './economicsSearch'
 import { managementSearchEntries } from './managementSearch'
 import { toolsSearchEntries } from './toolsSearch'
-export type SearchResultKind = 'Knowledge Asset' | 'Study Module' | 'Study Lesson' | 'Certification Track' | 'Certification Lesson' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Evidence Candidate' | 'Source Coverage' | 'Source Review' | 'Source Execution' | 'Governance Page' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
-export interface SearchResultItem { id: string; title: string; kind: SearchResultKind; area: string; category: string; summary: string; tags: string[]; targetView: 'study-modules' | 'data-science-analytics-study' | 'finance-valuation-study' | 'economics-markets-study' | 'management-strategy-study' | 'tools-platforms-study' | 'banking-credit-risk-study' | 'professional-certifications' | 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'source-review-execution' | 'source-command-center' | 'academic-review-workspace' | 'academic-file-registry' | 'phase-2-handoff' | 'route-qa' | 'source-governance-summary' | 'source-pack-guide' | 'source-batch-planner' | 'review-form-template' | 'review-result-registry' | 'promotion-queue' | 'controlled-update-log' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'; assetId?: string }
+export type SearchResultKind = 'Knowledge Asset' | 'Study Module' | 'Study Lesson' | 'Certification Track' | 'Certification Lesson' | 'Practice Drill' | 'Material' | 'Course Area' | 'Topic Cluster' | 'Evidence Candidate' | 'Source Coverage' | 'Source Review' | 'Source Execution' | 'Governance Page' | 'Output' | 'Formula' | 'Model' | 'Business Case' | 'Backlog Item' | 'Study Path'
+export interface SearchResultItem { id: string; title: string; kind: SearchResultKind; area: string; category: string; summary: string; tags: string[]; targetView: 'study-modules' | 'data-science-analytics-study' | 'finance-valuation-study' | 'economics-markets-study' | 'management-strategy-study' | 'tools-platforms-study' | 'practice-engine' | 'banking-credit-risk-study' | 'professional-certifications' | 'knowledge-library' | 'material-inventory' | 'course-area-map' | 'evidence-expansion' | 'source-coverage-qa' | 'source-review-prep' | 'source-review-execution' | 'source-command-center' | 'academic-review-workspace' | 'academic-file-registry' | 'phase-2-handoff' | 'route-qa' | 'source-governance-summary' | 'source-pack-guide' | 'source-batch-planner' | 'review-form-template' | 'review-result-registry' | 'promotion-queue' | 'controlled-update-log' | 'study-paths' | 'output-atlas' | 'formula-library' | 'model-library' | 'business-cases' | 'knowledge-factory'; assetId?: string }
 const allOutputs = [...outputAtlas, ...extraOutputAtlas, ...sprint25Outputs]
 const allFormulas = [...formulas, ...sprint25Formulas]
 const allModels = [...models, ...extraModels]
@@ -41,6 +42,7 @@ export const globalSearchIndex: SearchResultItem[] = [
   ...cfaFoundationsSearchEntries,
   ...cfaInvestmentSearchEntries,
   ...bloombergSearchEntries,
+  ...studyDrillSearchEntries,
   ...sourceGovernanceSearchEntries,
   ...knowledgeAssetRegistry.map((asset) => ({ id: asset.id, title: asset.title, kind: 'Knowledge Asset' as const, area: asset.area, category: asset.category, summary: asset.summary, tags: [asset.type, asset.difficulty, ...asset.metrics, ...asset.outputs, ...asset.graphs, ...asset.businessApplications, ...asset.bankingApplications, ...asset.relatedAssets], targetView: 'knowledge-library' as const, assetId: asset.id })),
   ...materialRecords.map((material) => ({ id: material.id, title: material.title, kind: 'Material' as const, area: material.area, category: material.status, summary: material.description, tags: [material.program, material.materialType, material.locationLabel, material.priority, ...material.knownTopics, ...material.targetAssets, ...material.gapsToCheck], targetView: 'material-inventory' as const })),
