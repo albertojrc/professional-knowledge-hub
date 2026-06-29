@@ -21,6 +21,7 @@ import { RoleReadinessPage } from '../pages/RoleReadinessPage'
 import { HubQAPolishPage } from '../pages/HubQAPolishPage'
 import { AcademicUpgradePassPage } from '../pages/AcademicUpgradePassPage'
 import { AcademicNotesPage } from '../pages/AcademicNotesPage'
+import { CreditScoringReviewPage } from '../pages/CreditScoringReviewPage'
 import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { BankingCreditRiskStudyPage } from '../pages/BankingCreditRiskStudyPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
@@ -80,6 +81,7 @@ const extraNav: NavItem[] = [
   { id: 'banking-credit-risk-study', label: 'Banking & Credit Risk Study', eyebrow: 'Study', description: 'Credit scoring study module.', icon: 'BR' },
   { id: 'academic-upgrade-pass', label: 'Academic Upgrade Pass', eyebrow: 'Evidence & QA', description: 'Controlled source-to-study upgrade queue.', icon: 'AU' },
   { id: 'academic-notes', label: 'Academic Notes', eyebrow: 'Evidence & QA', description: 'Document extraction notes and pending refs.', icon: 'AN' },
+  { id: 'credit-scoring-review', label: 'Credit Scoring Review', eyebrow: 'Evidence & QA', description: 'RetailCreditScoring review pass.', icon: 'CS' },
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Evidence & QA', description: 'Executive source control.', icon: 'CC' },
   { id: 'academic-review-workspace', label: 'Academic Review Workspace', eyebrow: 'Evidence & QA', description: 'Phase 3 academic review.', icon: 'AR' },
   { id: 'academic-file-registry', label: 'Academic File Registry', eyebrow: 'Evidence & QA', description: 'Discovered academic files.', icon: 'AF' },
@@ -142,6 +144,7 @@ export function App() {
     {activeView === 'banking-credit-risk-study' && <BankingCreditRiskStudyPage focusId={focusId} />}
     {activeView === 'academic-upgrade-pass' && <AcademicUpgradePassPage focusId={focusId} />}
     {activeView === 'academic-notes' && <AcademicNotesPage focusId={focusId} />}
+    {activeView === 'credit-scoring-review' && <CreditScoringReviewPage focusId={focusId} />}
     {activeView === 'source-command-center' && <SourceCommandCenterPage />}
     {activeView === 'academic-review-workspace' && <AcademicReviewWorkspacePage focusId={focusId} />}
     {activeView === 'academic-file-registry' && <AcademicSourceRegistryPage focusId={focusId} />}
