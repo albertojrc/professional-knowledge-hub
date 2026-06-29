@@ -5,6 +5,7 @@ import { sprint25Outputs, sprint25Formulas } from './referenceExpansionSprint25'
 import { phase4Formulas } from './formulasPhase4'
 import { phase4OutputAtlas } from './outputAtlasPhase4'
 import { sprint26BusinessCases } from './businessCasesSprint26'
+import { phase4BusinessCases } from './businessCasesPhase4'
 import { expansionBacklog } from './assetExpansionSystem'
 import { studyPaths } from './studyPaths'
 import { materialRecords } from './materialInventory'
@@ -31,7 +32,7 @@ export interface SearchResultItem { id: string; title: string; kind: SearchResul
 const allOutputs = [...outputAtlas, ...extraOutputAtlas, ...sprint25Outputs, ...phase4OutputAtlas]
 const allFormulas = [...formulas, ...sprint25Formulas, ...phase4Formulas]
 const allModels = [...models, ...extraModels]
-const allBusinessCases = [...businessCases, ...sprint26BusinessCases]
+const allBusinessCases = [...businessCases, ...sprint26BusinessCases, ...phase4BusinessCases]
 export const globalSearchIndex: SearchResultItem[] = [
   ...studyModuleSearchEntries,
   ...dataScienceAnalyticsSearchEntries,
