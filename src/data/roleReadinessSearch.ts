@@ -1,0 +1,2 @@
+import { careerRoles } from './roleReadiness'
+export const roleReadinessSearchEntries = careerRoles.map((role) => ({ id:`search-${role.id}`, title:role.title, kind:'Career Role' as const, area:'Role Readiness', category:role.area, summary:role.roleSummary, tags:[role.readinessBand,String(role.readinessScore),role.resumeAngle,...role.coreSkills,...role.proofAssets,...role.capstones,...role.portfolioItems,...role.interviewPrompts,...role.gaps,...role.nextActions,...role.studyModules,...role.formulas,...role.outputs,...role.tools], targetView:'role-readiness' as const }))
