@@ -1,0 +1,2 @@
+import { bloombergLessons } from './bloombergLearning'
+export const bloombergSearchEntries = bloombergLessons.map((lesson) => ({ id:`search-${lesson.id}`, title:lesson.title, kind:'Certification Lesson' as const, area:'Professional Certifications', category:lesson.layer, summary:lesson.objective, tags:[lesson.status,lesson.level,...lesson.materials,...lesson.concepts,...lesson.workflow,...lesson.functions,...lesson.outputs,...lesson.interpretation,...lesson.practice,...lesson.connectedModules], targetView:'professional-certifications' as const }))
