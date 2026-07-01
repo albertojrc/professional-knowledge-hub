@@ -6,10 +6,10 @@ import { BadgeList } from '../components/ui/BadgeList'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
 import { ModuleSearchCapsules } from '../components/search/ModuleSearchCapsules'
 
-interface ProfessionalCertificationsPageProps { focusId?: string | null; onNavigate: (view: ViewId, focusId?: string | null) => void; onOpenAsset: (assetId: string) => void }
+interface ProfessionalCertificationsPageProps { focusId?: string | null; onNavigate?: (view: ViewId, focusId?: string | null) => void; onOpenAsset?: (assetId: string) => void }
 const allValue = 'All'
 const statusOptions = [allValue, ...Array.from(new Set(cfaCertificationTracks.map((track) => track.status))).sort()]
-export function ProfessionalCertificationsPage({ focusId, onNavigate, onOpenAsset }: ProfessionalCertificationsPageProps) {
+export function ProfessionalCertificationsPage({ focusId, onNavigate = () => undefined, onOpenAsset = () => undefined }: ProfessionalCertificationsPageProps) {
   const [query, setQuery] = useState(''); const [status, setStatus] = useState(allValue); const [selectedId, setSelectedId] = useState<string | null>(null)
   const visible = useMemo(() => { const q = query.trim().toLowerCase(); return cfaCertificationTracks.filter((track) => status === allValue || track.status === status).filter((track) => !q || [track.title, track.eyebrow, track.level, track.status, track.summary, track.whyItMatters, track.nextAction, ...track.primaryOutputs, ...track.workflow, ...track.coreConcepts, ...track.formulasAndTools, ...track.practiceMoves, ...track.connectedViews, ...track.searchTerms].join(' ').toLowerCase().includes(q)) }, [query, status])
   const focused = cfaCertificationTracks.find((track) => track.id === focusId || track.aliases?.includes(focusId ?? ''))
