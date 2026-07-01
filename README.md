@@ -8,9 +8,9 @@ The Hub is designed as a professional second brain. It explains what a concept i
 
 ## Current sprint status
 
-The project has advanced through Sprint 5.9.
+The project has advanced through Sprint 5.10.
 
-Sprint 5.9 adds the `Model-Ready Feature Set`, a controlled Evidence & QA layer that converts the ABT Field Review Matrix into leakage-safe feature groups before credit scoring model experiments.
+Sprint 5.10 adds the `Credit Scoring Experiment Blueprint`, a controlled Evidence & QA layer that turns the Model-Ready Feature Set into a governed experiment plan for target definition, population design, feature matrix construction, baseline modeling, challenger comparison, validation metrics and monitoring handoff.
 
 ## Current modules
 
@@ -42,6 +42,7 @@ Sprint 5.9 adds the `Model-Ready Feature Set`, a controlled Evidence & QA layer 
 - ABT Schema Template
 - ABT Field Review Matrix
 - Model-Ready Feature Set
+- Credit Scoring Experiment Blueprint
 
 ## Local setup
 
@@ -70,6 +71,7 @@ Or run each step manually:
 npm run qa:audit
 npm run qa:sprint58
 npm run qa:sprint59
+npm run qa:sprint510
 npm run lint
 npm run build
 ```
@@ -83,6 +85,7 @@ docs/SPRINT_1_FINAL_REVIEW.md
 docs/SPRINT_2_ROADMAP.md
 docs/SPRINT_5_8_ABT_FIELD_REVIEW_MATRIX.md
 docs/SPRINT_5_9_MODEL_READY_FEATURE_SET.md
+docs/SPRINT_5_10_CREDIT_SCORING_EXPERIMENT_BLUEPRINT.md
 ```
 
 ## Design principles
@@ -99,7 +102,7 @@ docs/SPRINT_5_9_MODEL_READY_FEATURE_SET.md
 
 - Architecture: React/Vite/TypeScript Professional Knowledge Operating System.
 - Content depth: study-first modules with controlled Evidence & QA expansion.
-- Banking analytics: ABT blueprint, ABT schema template, field review matrix and model-ready feature set are now connected.
+- Banking analytics: ABT blueprint, ABT schema template, field review matrix, model-ready feature set and credit scoring experiment blueprint are now connected.
 - UX/UI: functional learning platform with backstage governance pages.
-- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.9.
-- Next phase: Sprint 5.10 should define the first credit scoring experiment blueprint from the approved feature set.
+- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.10.
+- Next phase: Sprint 5.11 should define the model card and monitoring handoff from the experiment validation outputs.
