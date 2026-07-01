@@ -1,0 +1,8 @@
+import{existsSync,readFileSync}from'node:fs'
+const files=['src/types/moduleCommandCenter.ts','src/data/moduleCommandCenters.ts','src/pages/BankingCreditRiskStudyPage.tsx','src/pages/ProfessionalCertificationsPage.tsx','src/styles/moduleCommandCenterOS.css','docs/UX_REORG_1_CLEAN_NAVIGATION_COMMAND_CENTERS.md']
+const signals=[['src/components/layout/Sidebar.tsx','Clean Navigation'],['src/components/layout/Sidebar.tsx','Main Modules'],['src/components/layout/Sidebar.tsx','Banking & Finance'],['src/components/layout/Sidebar.tsx','CFA & Certifications'],['src/components/layout/Sidebar.tsx','UX-REORG-1'],['src/pages/BankingCreditRiskStudyPage.tsx','Banking & Finance Command Center'],['src/pages/BankingCreditRiskStudyPage.tsx','command-center-layout'],['src/pages/ProfessionalCertificationsPage.tsx','CFA-first certification command center'],['src/pages/ProfessionalCertificationsPage.tsx','command-center-layout'],['src/data/moduleCommandCenters.ts','Credit Scoring & Model Lifecycle'],['src/data/moduleCommandCenters.ts','CFA Level I Roadmap'],['src/styles/studyModuleHubOS.css','moduleCommandCenterOS.css']]
+let bad=0
+for(const f of files){if(!existsSync(f)){console.error('missing '+f);bad=1}}
+for(const [f,s]of signals){if(!existsSync(f)||!readFileSync(f,'utf8').includes(s)){console.error(f+' missing '+s);bad=1}}
+if(bad)process.exit(1)
+console.log('UX reorg check passed.')
