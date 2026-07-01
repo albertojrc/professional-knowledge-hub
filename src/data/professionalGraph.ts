@@ -13,13 +13,16 @@ export const professionalGraphNodes: ProfessionalGraphNode[] = [
   { id: 'evidence-analytical-base-table', label: 'Evidence: Analytical Base Table', type: 'Evidence', area: 'SQL / Databases', summary: 'Candidate evidence queue item for validating ABT content.' },
   { id: 'evidence-financial-ratios', label: 'Evidence: Financial Ratios', type: 'Evidence', area: 'Finance', summary: 'Candidate evidence queue item for validating ratio analysis content.' },
   { id: 'evidence-cash-flow-analysis', label: 'Evidence: Cash Flow Analysis', type: 'Evidence', area: 'Finance', summary: 'Candidate evidence queue item for validating cash flow content.' },
+  { id: 'evidence-model-ready-features', label: 'Evidence: Model-Ready Feature Set', type: 'Evidence', area: 'Banking', summary: 'Sprint 5.9 evidence layer that controls which ABT fields can become credit scoring predictors.' },
   { id: 'data-quality-report', label: 'Data Quality Report', type: 'Asset', area: 'Data Science', summary: 'Asset explaining completeness, duplicates, validity and readiness checks.' },
   { id: 'analytical-base-table', label: 'Analytical Base Table', type: 'Asset', area: 'SQL / Databases', summary: 'Asset explaining observation-level modeling tables and feature/target structure.' },
+  { id: 'model-ready-feature-set', label: 'Model-Ready Feature Set', type: 'Asset', area: 'Banking', summary: 'Asset that converts reviewed ABT fields into allowed, blocked and held feature groups before model training.' },
   { id: 'sql-joins', label: 'SQL Joins', type: 'Asset', area: 'SQL / Databases', summary: 'Asset explaining how tables are combined using keys and join logic.' },
   { id: 'financial-ratios', label: 'Financial Ratios', type: 'Asset', area: 'Finance', summary: 'Asset explaining ratio families for liquidity, leverage, profitability and coverage.' },
   { id: 'cash-flow-analysis', label: 'Cash Flow Analysis', type: 'Asset', area: 'Finance', summary: 'Asset explaining operating, investing, financing and free cash flow interpretation.' },
   { id: 'data-quality-report-output', label: 'Data Quality Report Output', type: 'Output', area: 'Data Science', summary: 'Output used to interpret missing values, duplicates, outliers and readiness.' },
   { id: 'sql-join-reconciliation-output', label: 'SQL Join Reconciliation Output', type: 'Output', area: 'SQL / Databases', summary: 'Output used to verify row counts, match rates and duplicate keys after joins.' },
+  { id: 'feature-readiness-output', label: 'Feature Readiness Output', type: 'Output', area: 'Banking', summary: 'Output showing model-ready candidates, held fields, blocked fields, transformations and owner-review decisions.' },
   { id: 'financial-ratio-table-output', label: 'Financial Ratio Table', type: 'Output', area: 'Finance', summary: 'Output used to compare financial ratios over time or against peers.' },
   { id: 'cash-flow-bridge-output', label: 'Cash Flow Bridge', type: 'Output', area: 'Finance', summary: 'Output used to explain movement from opening cash to closing cash.' },
   { id: 'missing-rate', label: 'Missing Rate', type: 'Formula', area: 'Data Science', summary: 'Formula measuring incomplete values as a share of total rows.' },
@@ -28,6 +31,7 @@ export const professionalGraphNodes: ProfessionalGraphNode[] = [
   { id: 'free-cash-flow', label: 'Free Cash Flow', type: 'Formula', area: 'Finance', summary: 'Formula measuring operating cash after capital expenditures.' },
   { id: 'credit-risk-data-quality-review', label: 'Credit Risk Data Quality Review', type: 'Case', area: 'Banking', summary: 'Case that decides if a risk dataset is ready for modeling.' },
   { id: 'credit-scoring-abt', label: 'Credit Scoring ABT', type: 'Case', area: 'Banking', summary: 'Case that structures a credit scoring analytical base table.' },
+  { id: 'credit-scoring-feature-readiness', label: 'Credit Scoring Feature Readiness', type: 'Case', area: 'Banking', summary: 'Case that decides which reviewed ABT fields are safe enough for a first scorecard or ML experiment.' },
   { id: 'sme-financial-ratio-review', label: 'SME Financial Ratio Review', type: 'Case', area: 'Finance', summary: 'Case that reviews SME financial health for credit or monitoring.' },
   { id: 'cash-flow-credit-approval', label: 'Cash Flow Credit Approval', type: 'Case', area: 'Finance', summary: 'Case that tests whether cash generation supports debt service.' }
 ]
@@ -60,7 +64,13 @@ export const professionalGraphLinks: ProfessionalGraphLink[] = [
   { id: 'l25', from: 'data-quality-report-output', to: 'credit-risk-data-quality-review', type: 'supports', strength: 'Strong', explanation: 'The output supports the case decision to approve or block modeling.' },
   { id: 'l26', from: 'analytical-base-table', to: 'credit-scoring-abt', type: 'supports', strength: 'Strong', explanation: 'The ABT asset supports the credit scoring table case.' },
   { id: 'l27', from: 'financial-ratio-table-output', to: 'sme-financial-ratio-review', type: 'supports', strength: 'Strong', explanation: 'The ratio table supports SME credit review.' },
-  { id: 'l28', from: 'cash-flow-bridge-output', to: 'cash-flow-credit-approval', type: 'supports', strength: 'Strong', explanation: 'The bridge supports the debt capacity decision.' }
+  { id: 'l28', from: 'cash-flow-bridge-output', to: 'cash-flow-credit-approval', type: 'supports', strength: 'Strong', explanation: 'The bridge supports the debt capacity decision.' },
+  { id: 'l29', from: 'area-banking', to: 'evidence-model-ready-features', type: 'validates', strength: 'Pending', explanation: 'Feature readiness still requires source references and owner review before final promotion.' },
+  { id: 'l30', from: 'evidence-model-ready-features', to: 'model-ready-feature-set', type: 'explains', strength: 'Medium', explanation: 'Sprint 5.9 converts field review evidence into controlled feature groups.' },
+  { id: 'l31', from: 'analytical-base-table', to: 'model-ready-feature-set', type: 'depends on', strength: 'Strong', explanation: 'A model-ready feature set depends on a reviewed ABT grain, cutoff and schema.' },
+  { id: 'l32', from: 'model-ready-feature-set', to: 'feature-readiness-output', type: 'produces', strength: 'Strong', explanation: 'The feature set produces the readiness output used before model training.' },
+  { id: 'l33', from: 'feature-readiness-output', to: 'credit-scoring-feature-readiness', type: 'supports', strength: 'Strong', explanation: 'The readiness output supports the go/no-go decision for a first credit scoring experiment.' },
+  { id: 'l34', from: 'model-ready-feature-set', to: 'credit-scoring-abt', type: 'supports', strength: 'Strong', explanation: 'The feature set strengthens the ABT case by separating predictors, blocked fields and target-only fields.' }
 ]
 
 export const professionalGraphPathways: ProfessionalGraphPathway[] = [
@@ -79,6 +89,14 @@ export const professionalGraphPathways: ProfessionalGraphPathway[] = [
     nodeIds: ['dual-degree-folder', 'mbd-data-engineering-bi', 'area-data-science', 'evidence-analytical-base-table', 'sql-joins', 'analytical-base-table', 'sql-join-reconciliation-output', 'join-match-rate', 'credit-scoring-abt'],
     decision: 'Approve the table structure before model training.',
     evidenceStatus: 'Class evidence candidate until SQL and notebook files are inspected.'
+  },
+  {
+    id: 'path-credit-feature-readiness',
+    title: 'Credit Scoring Feature Readiness Pathway',
+    purpose: 'Trace how ABT schema review becomes a leakage-safe model matrix.',
+    nodeIds: ['dual-degree-folder', 'banking-analytics', 'area-banking', 'evidence-model-ready-features', 'analytical-base-table', 'model-ready-feature-set', 'feature-readiness-output', 'credit-scoring-feature-readiness'],
+    decision: 'Approve, hold or block feature groups before the first model experiment.',
+    evidenceStatus: 'Controlled candidate until LCDataDictionary references and owner decisions are completed.'
   },
   {
     id: 'path-sme-finance-review',
