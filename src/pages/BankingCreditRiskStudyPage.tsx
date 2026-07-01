@@ -1,98 +1,21 @@
 import { useMemo, useState } from 'react'
 import { bankingFinanceSummary, bankingFinanceTracks } from '../data/moduleCommandCenters'
 import type { CommandCenterTrack } from '../types/moduleCommandCenter'
+import type { ViewId } from '../types/knowledge'
 import { BadgeList } from '../components/ui/BadgeList'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
+import { ModuleSearchCapsules } from '../components/search/ModuleSearchCapsules'
 
-interface BankingCreditRiskStudyPageProps { focusId?: string | null }
+interface BankingCreditRiskStudyPageProps { focusId?: string | null; onNavigate: (view: ViewId, focusId?: string | null) => void; onOpenAsset: (assetId: string) => void }
 const allValue = 'All'
 const statusOptions = [allValue, ...Array.from(new Set(bankingFinanceTracks.map((track) => track.status))).sort()]
-
-export function BankingCreditRiskStudyPage({ focusId }: BankingCreditRiskStudyPageProps) {
-  const [query, setQuery] = useState('')
-  const [status, setStatus] = useState(allValue)
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const visible = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    return bankingFinanceTracks
-      .filter((track) => status === allValue || track.status === status)
-      .filter((track) => !q || [track.title, track.eyebrow, track.level, track.status, track.summary, track.whyItMatters, track.nextAction, ...track.primaryOutputs, ...track.workflow, ...track.coreConcepts, ...track.formulasAndTools, ...track.practiceMoves, ...track.connectedViews, ...track.searchTerms].join(' ').toLowerCase().includes(q))
-  }, [query, status])
+export function BankingCreditRiskStudyPage({ focusId, onNavigate, onOpenAsset }: BankingCreditRiskStudyPageProps) {
+  const [query, setQuery] = useState(''); const [status, setStatus] = useState(allValue); const [selectedId, setSelectedId] = useState<string | null>(null)
+  const visible = useMemo(() => { const q = query.trim().toLowerCase(); return bankingFinanceTracks.filter((track) => status === allValue || track.status === status).filter((track) => !q || [track.title, track.eyebrow, track.level, track.status, track.summary, track.whyItMatters, track.nextAction, ...track.primaryOutputs, ...track.workflow, ...track.coreConcepts, ...track.formulasAndTools, ...track.practiceMoves, ...track.connectedViews, ...track.searchTerms].join(' ').toLowerCase().includes(q)) }, [query, status])
   const focused = bankingFinanceTracks.find((track) => track.id === focusId || track.aliases?.includes(focusId ?? ''))
   const selected = focused ?? visible.find((track) => track.id === selectedId) ?? visible[0] ?? bankingFinanceTracks[0]
-
-  return (
-    <section className="page-stack command-center-page">
-      {focusId && <div className="deep-link-banner">Opened from Global Search · Banking & Finance context selected</div>}
-      <div className="hero-panel command-center-hero banking-finance-command-hero">
-        <div>
-          <span className="eyebrow">Reorg UX · Banking & Finance</span>
-          <h1>Banking & Finance Command Center.</h1>
-          <p>A cleaner module built around a few professional paths. Use the cards like search results; select one path, then study the detail panel on the right.</p>
-        </div>
-        <div className="command-center-score-card">
-          <span className="eyebrow">Simplified Module</span>
-          <strong>{bankingFinanceSummary.totalTracks}</strong>
-          <p>{bankingFinanceSummary.primaryTracks} primary paths · {bankingFinanceSummary.professionalTracks} professional layers</p>
-          <div className="inventory-mini-stats"><span>{bankingFinanceSummary.outputs} outputs</span><span>Search-first</span></div>
-        </div>
-      </div>
-
-      <section className="manual-panel command-center-rule">
-        <span className="eyebrow">Navigation rule</span>
-        <h2>Start from the concept, not from the backstage pages.</h2>
-        <p>The old governance pages still exist, but they are no longer the navigation experience. Global Search and these command-center cards should be the main way to enter content.</p>
-      </section>
-
-      <section className="manual-panel inventory-filter-panel command-center-filter-panel">
-        <div className="library-filter-header">
-          <div><span className="eyebrow">Module Search</span><h2>{visible.length} of {bankingFinanceTracks.length} paths visible</h2></div>
-          <button className="text-button" onClick={() => { setQuery(''); setStatus(allValue); setSelectedId(null) }} type="button">Clear</button>
-        </div>
-        <input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search credit risk, PD, WACC, DCF, ABT, monitoring, remediation..." />
-        <div className="library-filter-grid"><CommandSelect label="Path type" value={status} values={statusOptions} onChange={setStatus} /></div>
-      </section>
-
-      <section className="command-center-layout">
-        <div className="command-center-results" aria-label="Banking and Finance paths">
-          {visible.map((track) => <CommandResultCard key={track.id} track={track} selected={track.id === selected.id} onSelect={() => setSelectedId(track.id)} />)}
-        </div>
-        <CommandDetailPanel track={selected} />
-      </section>
-    </section>
-  )
+  return <section className="page-stack command-center-page">{focusId && <div className="deep-link-banner">Opened from search · Banking & Finance context selected</div>}<div className="hero-panel command-center-hero banking-finance-command-hero"><div><span className="eyebrow">Reorg UX · Banking & Finance</span><h1>Banking & Finance Command Center.</h1><p>Organized professional flow plus the full searchable finance, banking and risk capsule layer.</p></div><div className="command-center-score-card"><span className="eyebrow">Module Flow</span><strong>{bankingFinanceSummary.totalTracks}</strong><p>{bankingFinanceSummary.primaryTracks} primary paths · {bankingFinanceSummary.professionalTracks} professional layers</p><div className="inventory-mini-stats"><span>{bankingFinanceSummary.outputs} outputs</span><span>Search capsules restored</span></div></div></div><section className="manual-panel command-center-rule"><span className="eyebrow">Navigation rule</span><h2>Use the flow to orient yourself. Use the capsules to open the real detail.</h2><p>The module keeps the coherent banking/finance flow while restoring the searchable content layer from the global index.</p></section><section className="manual-panel inventory-filter-panel command-center-filter-panel"><div className="library-filter-header"><div><span className="eyebrow">Flow Capsules</span><h2>{visible.length} of {bankingFinanceTracks.length} orientation paths visible</h2></div><button className="text-button" onClick={() => { setQuery(''); setStatus(allValue); setSelectedId(null) }} type="button">Clear</button></div><input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search credit risk, PD, WACC, DCF, ABT, monitoring, remediation..." /><div className="library-filter-grid"><CommandSelect label="Path type" value={status} values={statusOptions} onChange={setStatus} /></div></section><section className="command-center-layout"><div className="command-center-results" aria-label="Banking and Finance paths">{visible.map((track) => <CommandResultCard key={track.id} track={track} selected={track.id === selected.id} onSelect={() => setSelectedId(track.id)} />)}</div><CommandDetailPanel track={selected} /></section><ModuleSearchCapsules title="Banking & Finance Search Capsules" eyebrow="Real Search Layer" description="Knowledge assets, outputs, formulas, models, cases, lessons and review pages related to banking, credit risk, finance and valuation." areaHints={['Banking', 'Finance', 'Credit']} targetViews={['banking-credit-risk-study', 'finance-valuation-study', 'output-atlas', 'formula-library', 'model-library', 'business-cases', 'knowledge-library', 'model-ready-feature-set', 'credit-scoring-experiment-blueprint', 'model-card-monitoring-handoff', 'portfolio-monitoring-dashboard-blueprint', 'alert-remediation-workflow']} keywords={['banking', 'finance', 'credit', 'risk', 'pd', 'expected loss', 'wacc', 'capm', 'valuation', 'cash flow', 'portfolio monitoring', 'model card']} focusId={focusId} onNavigate={onNavigate} onOpenAsset={onOpenAsset} /></section>
 }
-
-function CommandResultCard({ track, selected, onSelect }: { track: CommandCenterTrack; selected: boolean; onSelect: () => void }) {
-  return (
-    <button className={`command-result-card ${selected ? 'selected' : ''}`} onClick={onSelect} type="button">
-      <div>
-        <span className="eyebrow">{track.eyebrow} · {track.level}</span>
-        <h3>{track.title}</h3>
-        <p>{track.summary}</p>
-      </div>
-      <div className="search-result-meta"><span>{track.status}</span><span>{track.primaryOutputs.length} outputs</span><span>Open detail</span></div>
-    </button>
-  )
-}
-
-function CommandDetailPanel({ track }: { track: CommandCenterTrack }) {
-  return (
-    <article className="command-detail-panel">
-      <div className="command-detail-top"><span className="eyebrow">{track.eyebrow}</span><span className="command-status-pill">{track.status}</span></div>
-      <h2>{track.title}</h2>
-      <p>{track.whyItMatters}</p>
-      <section className="lesson-block"><div className="lesson-block-title"><span>1</span><h3>Professional workflow</h3></div><KnowledgeChain nodes={track.workflow} /></section>
-      <section className="lesson-block"><div className="lesson-block-title"><span>2</span><h3>Primary outputs</h3></div><BadgeList items={track.primaryOutputs} tone="blue" /></section>
-      <section className="lesson-block"><div className="lesson-block-title"><span>3</span><h3>Core concepts</h3></div><BadgeList items={track.coreConcepts} tone="purple" /></section>
-      <section className="lesson-block"><div className="lesson-block-title"><span>4</span><h3>Formulas and tools</h3></div><BadgeList items={track.formulasAndTools} tone="green" /></section>
-      <section className="lesson-block"><div className="lesson-block-title"><span>5</span><h3>Practice moves</h3></div><ul className="clean-list">{track.practiceMoves.map((item) => <li key={item}>{item}</li>)}</ul></section>
-      <section className="lesson-block insight-block"><div className="lesson-block-title"><span>✓</span><h3>How to enter this content</h3></div><p>{track.nextAction}</p><BadgeList items={track.searchTerms} tone="amber" /></section>
-      <section className="lesson-block"><div className="lesson-block-title"><span>→</span><h3>Connected views</h3></div><BadgeList items={track.connectedViews} tone="blue" /></section>
-    </article>
-  )
-}
-
-function CommandSelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) {
-  return <label className="library-select"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{values.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
-}
+function CommandResultCard({ track, selected, onSelect }: { track: CommandCenterTrack; selected: boolean; onSelect: () => void }) { return <button className={`command-result-card ${selected ? 'selected' : ''}`} onClick={onSelect} type="button"><div><span className="eyebrow">{track.eyebrow} · {track.level}</span><h3>{track.title}</h3><p>{track.summary}</p></div><div className="search-result-meta"><span>{track.status}</span><span>{track.primaryOutputs.length} outputs</span><span>Orientation</span></div></button> }
+function CommandDetailPanel({ track }: { track: CommandCenterTrack }) { return <article className="command-detail-panel"><div className="command-detail-top"><span className="eyebrow">{track.eyebrow}</span><span className="command-status-pill">{track.status}</span></div><h2>{track.title}</h2><p>{track.whyItMatters}</p><section className="lesson-block"><div className="lesson-block-title"><span>1</span><h3>Professional workflow</h3></div><KnowledgeChain nodes={track.workflow} /></section><section className="lesson-block"><div className="lesson-block-title"><span>2</span><h3>Primary outputs</h3></div><BadgeList items={track.primaryOutputs} tone="blue" /></section><section className="lesson-block"><div className="lesson-block-title"><span>3</span><h3>Core concepts</h3></div><BadgeList items={track.coreConcepts} tone="purple" /></section><section className="lesson-block"><div className="lesson-block-title"><span>4</span><h3>Formulas and tools</h3></div><BadgeList items={track.formulasAndTools} tone="green" /></section><section className="lesson-block"><div className="lesson-block-title"><span>5</span><h3>Practice moves</h3></div><ul className="clean-list">{track.practiceMoves.map((item) => <li key={item}>{item}</li>)}</ul></section><section className="lesson-block insight-block"><div className="lesson-block-title"><span>✓</span><h3>How to enter this content</h3></div><p>{track.nextAction}</p><BadgeList items={track.searchTerms} tone="amber" /></section><section className="lesson-block"><div className="lesson-block-title"><span>→</span><h3>Connected views</h3></div><BadgeList items={track.connectedViews} tone="blue" /></section></article> }
+function CommandSelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) { return <label className="library-select"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{values.map((item) => <option key={item} value={item}>{item}</option>)}</select></label> }
