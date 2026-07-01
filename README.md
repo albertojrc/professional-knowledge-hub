@@ -10,7 +10,7 @@ The Hub is designed as a professional second brain. It explains what a concept i
 
 The project has advanced through Sprint 5.13 and UX Reorg 2.
 
-UX Reorg 2 sets the visible sidebar to exactly five modules and converts Data Science, Banking & Finance and CFA & Certifications into command centers. Each module now uses search-style capsules with detailed panels that show workflow, outputs, concepts, formulas/tools, practice moves and connected views.
+UX Reorg 2 keeps the visible sidebar fixed at five modules and restores Global Search parity inside Data Science, Banking & Finance and CFA & Certifications. These modules now combine orientation flows with real search-index capsules, so the user can browse module content without losing the depth and entry style of Global Search.
 
 ## Visible navigation modules
 
@@ -23,22 +23,14 @@ UX Reorg 2 sets the visible sidebar to exactly five modules and converts Data Sc
 ## Current command centers
 
 - Data Science Command Center
-  - Data Workflow Foundations
-  - SQL, ABT & Analytics Engineering
-  - EDA, Statistics & Interpretation
-  - Machine Learning Lifecycle
-  - BI, Dashboards & Decision Storytelling
-  - Governance, Monitoring & Responsible AI
+  - Orientation flow: Data Workflow Foundations, SQL/ABT, EDA, ML Lifecycle, BI/Storytelling and Governance/Monitoring
+  - Restored capsule layer: Data Science Search Capsules from `globalSearchIndex`
 - Banking & Finance Command Center
-  - Credit Risk Core
-  - Credit Scoring & Model Lifecycle
-  - Corporate Finance & Valuation
-  - Portfolio Monitoring & Governance
+  - Orientation flow: Credit Risk Core, Credit Scoring & Model Lifecycle, Corporate Finance & Valuation and Portfolio Monitoring & Governance
+  - Restored capsule layer: Banking & Finance Search Capsules from `globalSearchIndex`
 - CFA & Certifications Command Center
-  - CFA Level I Roadmap
-  - Finance Foundations for CFA
-  - Investments & Portfolio Management
-  - Bloomberg as Support Tool
+  - Orientation flow: CFA Level I Roadmap, Finance Foundations for CFA, Investments & Portfolio Management and Bloomberg as Support Tool
+  - Restored capsule layer: CFA & Certifications Search Capsules from `globalSearchIndex`
 
 ## Local setup
 
@@ -96,7 +88,9 @@ docs/UX_REORG_1_CLEAN_NAVIGATION_COMMAND_CENTERS.md
 
 - The sidebar should stay fixed at five visible modules.
 - Data Science, Banking & Finance and CFA & Certifications should behave like command centers.
-- Each module capsule should open a detail panel with at least Global Search-level clarity.
+- A module must not replace Global Search depth with summaries.
+- Each module should include an orientation flow and a real search-index capsule layer.
+- Search capsules should show kind, area, category, summary, signals/tags and focused route context.
 - Specific deep pages remain accessible through search, internal links and focused routes.
 - Main theory must be visible.
 - Every important topic should answer: what, when, how, project moment, output, decision and monitoring.
@@ -110,9 +104,9 @@ docs/UX_REORG_1_CLEAN_NAVIGATION_COMMAND_CENTERS.md
 
 - Architecture: React/Vite/TypeScript Professional Knowledge Operating System.
 - Content depth: study-first modules with controlled Evidence & QA expansion.
-- Data Science: command center now organizes workflow foundations, SQL/ABT, EDA/statistics, ML lifecycle, BI/storytelling and governance/monitoring.
-- Banking analytics: ABT blueprint, ABT schema template, field review matrix, model-ready feature set, credit scoring experiment blueprint, model card monitoring handoff, portfolio monitoring dashboard blueprint and alert remediation workflow are now connected.
-- UX/UI: cleaner five-module navigation with command centers for Data Science, Banking & Finance and CFA & Certifications.
+- Data Science: command center now organizes workflow foundations, SQL/ABT, EDA/statistics, ML lifecycle, BI/storytelling and governance/monitoring, with restored search-index capsules.
+- Banking analytics: ABT blueprint, ABT schema template, field review matrix, model-ready feature set, credit scoring experiment blueprint, model card monitoring handoff, portfolio monitoring dashboard blueprint and alert remediation workflow are now connected through module capsules.
+- UX/UI: cleaner five-module navigation with command centers and restored Global Search-style capsule layers.
 - Search: specific terms and deep pages remain accessible through search and focused routes, without crowding the sidebar.
 - Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.13 plus UX Reorg 2.
-- Next phase: refine the Home dashboard so it matches the same five-module command-center navigation model before adding Sprint 5.14 content.
+- Next phase: test the module capsule route behavior locally, then refine Home to match the same five-module navigation model before adding Sprint 5.14 content.
