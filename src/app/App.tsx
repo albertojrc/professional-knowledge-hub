@@ -27,6 +27,7 @@ import { LCFieldMappingPage } from '../pages/LCFieldMappingPage'
 import { ABTBlueprintPage } from '../pages/ABTBlueprintPage'
 import { ABTSchemaTemplatePage } from '../pages/ABTSchemaTemplatePage'
 import { ABTFieldReviewMatrixPage } from '../pages/ABTFieldReviewMatrixPage'
+import { ModelReadyFeatureSetPage } from '../pages/ModelReadyFeatureSetPage'
 import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { BankingCreditRiskStudyPage } from '../pages/BankingCreditRiskStudyPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
@@ -69,63 +70,10 @@ import { ReferencePage } from '../pages/ReferencePage'
 import { BusinessCasesPage } from '../pages/BusinessCasesPage'
 import { KnowledgeMapPage } from '../pages/KnowledgeMapPage'
 import { QualityReviewPage } from '../pages/QualityReviewPage'
-const extraNav: NavItem[] = [
-  { id: 'global-search', label: 'Global Search', eyebrow: 'Command Center', description: 'Search the Hub.', icon: 'SE' },
-  { id: 'study-modules', label: 'Study Modules', eyebrow: 'Study', description: 'Main learning modules.', icon: 'SM' },
-  { id: 'data-science-analytics-study', label: 'Data Science & Analytics Study', eyebrow: 'Study', description: 'Analytics study module.', icon: 'DA' },
-  { id: 'finance-valuation-study', label: 'Finance & Valuation Study', eyebrow: 'Study', description: 'Finance and valuation module.', icon: 'FV' },
-  { id: 'economics-markets-study', label: 'Economics & Markets Study', eyebrow: 'Study', description: 'Economics and market interpretation.', icon: 'EM' },
-  { id: 'management-strategy-study', label: 'Management & Strategy Study', eyebrow: 'Study', description: 'Strategy and execution module.', icon: 'MS' },
-  { id: 'tools-platforms-study', label: 'Tools & Platforms Study', eyebrow: 'Study', description: 'SQL, Excel, BI, Python and Bloomberg.', icon: 'TP' },
-  { id: 'practice-engine', label: 'Practice Engine', eyebrow: 'Practice', description: 'Quizzes, drills, cases and recall.', icon: 'PE' },
-  { id: 'capstone-projects', label: 'Capstone Projects', eyebrow: 'Portfolio', description: 'Final professional projects.', icon: 'CP' },
-  { id: 'portfolio-builder', label: 'Portfolio Builder', eyebrow: 'Career', description: 'CV, LinkedIn and interview stories.', icon: 'PB' },
-  { id: 'interview-prep', label: 'Interview Prep', eyebrow: 'Career', description: 'STAR, technical and project defense practice.', icon: 'IP' },
-  { id: 'role-readiness', label: 'Role Readiness', eyebrow: 'Career', description: 'Career roadmap and skills gap map.', icon: 'RR' },
-  { id: 'professional-certifications', label: 'Professional Certifications', eyebrow: 'Study', description: 'CFA, BMC, BFF and Bloomberg workflows.', icon: 'PC' },
-  { id: 'banking-credit-risk-study', label: 'Banking & Credit Risk Study', eyebrow: 'Study', description: 'Credit scoring study module.', icon: 'BR' },
-  { id: 'academic-upgrade-pass', label: 'Academic Upgrade Pass', eyebrow: 'Evidence & QA', description: 'Controlled source-to-study upgrade queue.', icon: 'AU' },
-  { id: 'academic-notes', label: 'Academic Notes', eyebrow: 'Evidence & QA', description: 'Document extraction notes and pending refs.', icon: 'AN' },
-  { id: 'credit-scoring-review', label: 'Credit Scoring Review', eyebrow: 'Evidence & QA', description: 'RetailCreditScoring review pass.', icon: 'CS' },
-  { id: 'credit-promotion-queue', label: 'Credit Promotion Queue', eyebrow: 'Evidence & QA', description: 'Credit scoring update decisions.', icon: 'CQ' },
-  { id: 'lc-field-mapping', label: 'LC Field Mapping', eyebrow: 'Evidence & QA', description: 'LCDataDictionary field groups and ABT mapping.', icon: 'LC' },
-  { id: 'abt-blueprint', label: 'ABT Blueprint', eyebrow: 'Evidence & QA', description: 'Analytical base table design blueprint.', icon: 'AB' },
-  { id: 'abt-schema-template', label: 'ABT Schema Template', eyebrow: 'Evidence & QA', description: 'ABT columns and review metadata.', icon: 'AS' },
-  { id: 'abt-field-review-matrix', label: 'ABT Field Review Matrix', eyebrow: 'Evidence & QA', description: 'ABT field decisions and risk review.', icon: 'FR' },
-  { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Evidence & QA', description: 'Executive source control.', icon: 'CC' },
-  { id: 'academic-review-workspace', label: 'Academic Review Workspace', eyebrow: 'Evidence & QA', description: 'Phase 3 academic review.', icon: 'AR' },
-  { id: 'academic-file-registry', label: 'Academic File Registry', eyebrow: 'Evidence & QA', description: 'Discovered academic files.', icon: 'AF' },
-  { id: 'hub-qa-polish', label: 'Hub QA Polish', eyebrow: 'Evidence & QA', description: 'Final navigation and quality polish.', icon: 'HQ' },
-  { id: 'phase-2-handoff', label: 'Phase 2 Handoff', eyebrow: 'Evidence & QA', description: 'Governance closure and next phase.', icon: 'PH' },
-  { id: 'route-qa', label: 'Route QA', eyebrow: 'Evidence & QA', description: 'Route and build readiness.', icon: 'RQ' },
-  { id: 'source-governance-summary', label: 'Source Governance', eyebrow: 'Evidence & QA', description: 'Executive governance summary.', icon: 'SG' },
-  { id: 'source-pack-guide', label: 'Source Pack Guide', eyebrow: 'Evidence & QA', description: 'Pack plan.', icon: 'PK' },
-  { id: 'source-batch-planner', label: 'Source Batch Planner', eyebrow: 'Evidence & QA', description: 'Review batches.', icon: 'BP' },
-  { id: 'review-form-template', label: 'Review Form Template', eyebrow: 'Evidence & QA', description: 'Standard review form.', icon: 'RF' },
-  { id: 'review-result-registry', label: 'Review Result Registry', eyebrow: 'Evidence & QA', description: 'Review records.', icon: 'RR' },
-  { id: 'promotion-queue', label: 'Promotion Queue', eyebrow: 'Evidence & QA', description: 'Controlled update proposals.', icon: 'PQ' },
-  { id: 'controlled-update-log', label: 'Controlled Update Log', eyebrow: 'Evidence & QA', description: 'Update audit trail.', icon: 'UL' },
-  { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Evidence & QA', description: 'Source inventory.', icon: 'MI' },
-  { id: 'course-area-map', label: 'Course Area Map', eyebrow: 'Evidence & QA', description: 'Area mapping.', icon: 'CM' },
-  { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Evidence & QA', description: 'Candidate queue.', icon: 'EV' },
-  { id: 'source-coverage-qa', label: 'Source Coverage QA', eyebrow: 'Evidence & QA', description: 'Coverage audit.', icon: 'QA' },
-  { id: 'source-review-prep', label: 'Source Review Prep', eyebrow: 'Evidence & QA', description: 'Review queue.', icon: 'SR' },
-  { id: 'source-review-execution', label: 'Source Review Execution', eyebrow: 'Evidence & QA', description: 'Review results.', icon: 'EX' },
-  { id: 'course-evidence', label: 'Course Evidence', eyebrow: 'Evidence & QA', description: 'Evidence extraction.', icon: 'CE' },
-  { id: 'source-intake', label: 'Source Intake', eyebrow: 'Evidence & QA', description: 'Missing groups.', icon: 'IN' },
-  { id: 'intake-coverage-map', label: 'Intake Coverage Map', eyebrow: 'Evidence & QA', description: 'Traceability map.', icon: 'IC' },
-  { id: 'source-decision-board', label: 'Source Decision Board', eyebrow: 'Evidence & QA', description: 'Upgrade decisions.', icon: 'SD' },
-  { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Study', description: 'Asset library.', icon: 'KB' },
-  { id: 'study-paths', label: 'Study Paths', eyebrow: 'Study', description: 'Learning paths.', icon: 'SP' },
-  { id: 'learning-session', label: 'Learning Session', eyebrow: 'Study', description: 'Focus mode.', icon: 'LS' },
-  { id: 'knowledge-factory', label: 'Knowledge Factory', eyebrow: 'Evidence & QA', description: 'Expansion system.', icon: 'KF' },
-  { id: 'business-os', label: 'Business OS', eyebrow: 'Core', description: 'Business operating system.', icon: 'BS' },
-  { id: 'professional-scenarios', label: 'Professional Scenarios', eyebrow: 'Apply', description: 'Scenarios.', icon: 'SC' },
-  { id: 'decision-playbooks', label: 'Decision Playbooks', eyebrow: 'Apply', description: 'Decision playbooks.', icon: 'DP' },
-  { id: 'ml-models', label: 'ML Models', eyebrow: 'ML', description: 'Model library.', icon: 'ML' },
-  { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'ML', description: 'Graph atlas.', icon: 'GA' }
-]
-const navCatalog: NavItem[] = [...navItems, ...extraNav]
+
+const navCatalog: NavItem[] = [...navItems, { id: 'model-ready-feature-set', label: 'Model-Ready Feature Set', eyebrow: 'Evidence & QA', description: 'Leakage-safe feature promotion for credit scoring.', icon: 'MF' }]
+const titleFromView = (id: ViewId): string => id.split('-').map((x) => x.charAt(0).toUpperCase() + x.slice(1)).join(' ')
+
 export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
   const [query, setQuery] = useState('')
@@ -133,7 +81,7 @@ export function App() {
   const [focusId, setFocusId] = useState<string | null>(null)
   const assetProgress = useAssetProgress()
   const pathPrefs = usePathPrefs()
-  const activeItem = useMemo(() => navCatalog.find((item) => item.id === activeView) ?? navCatalog[0], [activeView])
+  const activeItem = useMemo<NavItem>(() => navCatalog.find((item) => item.id === activeView) ?? { id: activeView, label: titleFromView(activeView), eyebrow: 'Hub', description: 'Professional Knowledge Hub.', icon: 'PK' }, [activeView])
   const openAsset = (assetId: string) => { setFocusId(null); setActiveAssetId(assetId); setActiveView('knowledge-library') }
   const changeView = (view: ViewId, nextFocusId: string | null = null) => { setActiveAssetId(null); setFocusId(nextFocusId); setActiveView(view) }
   return (<div className="app-shell"><Sidebar activeView={activeView} onChangeView={changeView} /><div className="app-main"><TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} /><main className="content-shell">
@@ -160,6 +108,7 @@ export function App() {
     {activeView === 'abt-blueprint' && <ABTBlueprintPage focusId={focusId} />}
     {activeView === 'abt-schema-template' && <ABTSchemaTemplatePage focusId={focusId} />}
     {activeView === 'abt-field-review-matrix' && <ABTFieldReviewMatrixPage focusId={focusId} />}
+    {activeView === 'model-ready-feature-set' && <ModelReadyFeatureSetPage focusId={focusId} />}
     {activeView === 'source-command-center' && <SourceCommandCenterPage />}
     {activeView === 'academic-review-workspace' && <AcademicReviewWorkspacePage focusId={focusId} />}
     {activeView === 'academic-file-registry' && <AcademicSourceRegistryPage focusId={focusId} />}
