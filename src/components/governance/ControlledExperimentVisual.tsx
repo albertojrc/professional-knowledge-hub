@@ -1,0 +1,5 @@
+import { VisualGovernanceStudio, type VisualGovernanceItem } from './VisualGovernanceStudio'
+export function ControlledExperimentVisual({ focusId }: { focusId?: string | null }) {
+  const items: VisualGovernanceItem[] = [{ id: 'design-gate', title: 'Design Gate', eyebrow: 'Experiment', status: 'Active', summary: 'Plan the analytical test before implementation.', decision: 'Confirm objective, population, target and checks.', nextAction: 'Prepare the design package.', tags: ['objective', 'population', 'target', 'checks'], sections: [{ title: 'Inputs', items: ['objective', 'population', 'target'], tone: 'purple' }, { title: 'Outputs', items: ['brief', 'review plan'], tone: 'green' }] }]
+  return <VisualGovernanceStudio title="Experiment Blueprint" sprint="Sprint 5.10" icon="EX" description="Visual page for experiment planning." rule="Approve design before implementation." flowTitle="Experiment Flow" flow={['Objective', 'Population', 'Target', 'Inputs', 'Review']} items={items} focusId={focusId} />
+}
