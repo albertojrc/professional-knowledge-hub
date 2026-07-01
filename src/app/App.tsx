@@ -99,7 +99,7 @@ export function App() {
     {activeView === 'dashboard' && <DashboardPage onNavigate={changeView} onOpenAsset={openAsset} assetProgress={assetProgress} pathPrefs={pathPrefs} />}
     {activeView === 'global-search' && <GlobalSearchPage query={query} onQueryChange={setQuery} onNavigate={changeView} onOpenAsset={openAsset} />}
     {activeView === 'study-modules' && <StudyModuleHubPage focusId={focusId} />}
-    {activeView === 'data-science-analytics-study' && <DataScienceAnalyticsStudyPage focusId={focusId} />}
+    {activeView === 'data-science-analytics-study' && <DataScienceAnalyticsStudyPage focusId={focusId} onNavigate={changeView} onOpenAsset={openAsset} />}
     {activeView === 'finance-valuation-study' && <FinanceValuationStudyPage focusId={focusId} />}
     {activeView === 'economics-markets-study' && <EconomicsMarketsStudyPage focusId={focusId} />}
     {activeView === 'management-strategy-study' && <ManagementStrategyStudyPage focusId={focusId} />}
@@ -109,8 +109,8 @@ export function App() {
     {activeView === 'portfolio-builder' && <PortfolioBuilderPage focusId={focusId} />}
     {activeView === 'interview-prep' && <InterviewPrepPage focusId={focusId} />}
     {activeView === 'role-readiness' && <RoleReadinessPage focusId={focusId} />}
-    {activeView === 'professional-certifications' && <ProfessionalCertificationsPage focusId={focusId} />}
-    {activeView === 'banking-credit-risk-study' && <BankingCreditRiskStudyPage focusId={focusId} />}
+    {activeView === 'professional-certifications' && <ProfessionalCertificationsPage focusId={focusId} onNavigate={changeView} onOpenAsset={openAsset} />}
+    {activeView === 'banking-credit-risk-study' && <BankingCreditRiskStudyPage focusId={focusId} onNavigate={changeView} onOpenAsset={openAsset} />}
     {activeView === 'academic-upgrade-pass' && <AcademicUpgradePassPage focusId={focusId} />}
     {activeView === 'academic-notes' && <AcademicNotesPage focusId={focusId} />}
     {activeView === 'credit-scoring-review' && <CreditScoringReviewPage focusId={focusId} />}
