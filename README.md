@@ -8,9 +8,9 @@ The Hub is designed as a professional second brain and visual learning platform.
 
 ## Current sprint status
 
-The project has advanced through Sprint 5.14 and UX Reorg 3.
+The project has advanced through Sprint 5.15 and UX Reorg 3.
 
-UX Reorg 3 uses the Knowledge Asset Detail page as the visual reference for the main modules. Sprint 5.14 continues that direction by adding a visual model governance path for Model Refresh & Challenger Review inside Banking & Finance.
+UX Reorg 3 uses the Knowledge Asset Detail page as the visual reference for the main modules. Sprint 5.15 continues that direction by converting Home into a visual dashboard and entry point for the five-module learning experience.
 
 ## Visible navigation modules
 
@@ -22,6 +22,8 @@ UX Reorg 3 uses the Knowledge Asset Detail page as the visual reference for the 
 
 ## Current visual studios
 
+- Home Visual Dashboard
+  - Entry flow: visual module gateways, current path, progress, output preview, hidden command actions and backstage tools
 - Data Science Visual Studio
   - Orientation flow: Data Workflow Foundations, SQL/ABT, EDA, ML Lifecycle, BI/Storytelling and Governance/Monitoring
   - Restored capsule layer: Data Science Search Capsules from `globalSearchIndex`
@@ -64,6 +66,7 @@ npm run qa:sprint511
 npm run qa:sprint512
 npm run qa:sprint513
 npm run qa:sprint514
+npm run qa:sprint515
 npm run qa:ux-reorg
 npm run lint
 npm run build
@@ -83,6 +86,7 @@ docs/SPRINT_5_11_MODEL_CARD_MONITORING_HANDOFF.md
 docs/SPRINT_5_12_PORTFOLIO_MONITORING_DASHBOARD_BLUEPRINT.md
 docs/SPRINT_5_13_ALERT_REMEDIATION_WORKFLOW.md
 docs/SPRINT_5_14_MODEL_REFRESH_CHALLENGER_REVIEW.md
+docs/SPRINT_5_15_HOME_VISUAL_DASHBOARD.md
 docs/UX_REORG_1_CLEAN_NAVIGATION_COMMAND_CENTERS.md
 ```
 
@@ -90,6 +94,7 @@ docs/UX_REORG_1_CLEAN_NAVIGATION_COMMAND_CENTERS.md
 
 - The sidebar should stay fixed at five visible modules.
 - The visual reference is the Knowledge Asset Detail page style.
+- Home should act as a visual launchpad, not a backend tool list.
 - Data Science, Banking & Finance and CFA & Certifications should behave like visual learning studios.
 - A module must not replace Global Search depth with summaries.
 - Each module should include orientation paths and a real search-index capsule layer.
@@ -107,9 +112,10 @@ docs/UX_REORG_1_CLEAN_NAVIGATION_COMMAND_CENTERS.md
 
 - Architecture: React/Vite/TypeScript Professional Knowledge Operating System.
 - Content depth: study-first modules with controlled Evidence & QA expansion.
-- Data Science: visual studio now organizes workflow foundations, SQL/ABT, EDA/statistics, ML lifecycle, BI/storytelling and governance/monitoring, with restored search-index capsules.
-- Banking analytics: visual studio now connects ABT blueprint, feature readiness, experiment design, model card, monitoring handoff, portfolio monitoring, alert remediation and model refresh/challenger review.
-- UX/UI: cleaner five-module navigation with visual learning studios and restored Global Search-style capsule layers.
+- Home: visual dashboard now routes the user into the main modules, progress, current path, hidden command actions and backstage tools.
+- Data Science: visual studio organizes workflow foundations, SQL/ABT, EDA/statistics, ML lifecycle, BI/storytelling and governance/monitoring, with restored search-index capsules.
+- Banking analytics: visual studio connects ABT blueprint, feature readiness, experiment design, model card, monitoring handoff, portfolio monitoring, alert remediation and model refresh/challenger review.
+- UX/UI: cleaner five-module navigation with Home dashboard, visual learning studios and restored Global Search-style capsule layers.
 - Search: specific terms and deep pages remain accessible through search and focused routes, without crowding the sidebar.
-- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.14 plus UX Reorg 3.
-- Next phase: bring Home into the same visual studio language and continue converting deeper pages to the concept-learning visual pattern.
+- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.15 plus UX Reorg 3.
+- Next phase: rebuild Global Search with the same visual learning platform language.
