@@ -1,5 +1,116 @@
 import type { CommandCenterSummary, CommandCenterTrack } from '../types/moduleCommandCenter'
 
+export const dataScienceTracks: CommandCenterTrack[] = [
+  {
+    id: 'ds-data-workflow-foundation',
+    title: 'Data Workflow Foundations',
+    eyebrow: 'Data Science',
+    level: 'Foundation',
+    status: 'Primary path',
+    summary: 'Understand the full path from a business question to clean data, analysis, model output and decision.',
+    whyItMatters: 'This is the entry layer for every data project. It prevents you from jumping into Python, dashboards or models before knowing the business question, grain, source and output.',
+    primaryOutputs: ['Business question statement', 'Data source map', 'Data quality report', 'Analysis-ready dataset', 'Decision note'],
+    workflow: ['Business question', 'Data sources', 'Dataset grain', 'Quality checks', 'Analysis-ready table', 'Output', 'Decision'],
+    coreConcepts: ['Observation grain', 'Data lineage', 'Completeness', 'Validity', 'Duplicates', 'Target definition', 'Analytical base table'],
+    formulasAndTools: ['Missing rate', 'Duplicate rate', 'Join match rate', 'Basic SQL profiling', 'EDA summary'],
+    practiceMoves: ['Rewrite a vague business question as a data question', 'Identify the correct observation grain', 'Explain whether a dataset is analysis-ready'],
+    connectedViews: ['Knowledge Library', 'Data Quality Report', 'Analytical Base Table', 'Output Atlas'],
+    searchTerms: ['data quality', 'ABT', 'grain', 'lineage', 'missing rate', 'data profiling'],
+    nextAction: 'Start here when a topic feels messy. Use the search terms to open specific concepts with deep detail.',
+    aliases: ['data-science-analytics-study', 'study-modules', 'data-quality-report', 'analytical-base-table']
+  },
+  {
+    id: 'ds-sql-analytics-engineering',
+    title: 'SQL, ABT & Analytics Engineering',
+    eyebrow: 'Data Engineering for Analytics',
+    level: 'Intermediate',
+    status: 'Primary path',
+    summary: 'Build reliable analytical tables through joins, keys, row-count checks, transformations and feature-ready structures.',
+    whyItMatters: 'Most professional analytics failures start before modeling: wrong joins, duplicated rows, unclear grain or broken fields. This path makes data preparation explicit and auditable.',
+    primaryOutputs: ['SQL reconciliation output', 'ABT blueprint', 'Data dictionary', 'Feature field review', 'Model-ready table'],
+    workflow: ['Source tables', 'Keys and joins', 'Row reconciliation', 'Feature construction', 'Field review', 'ABT validation', 'Downstream use'],
+    coreConcepts: ['Primary key', 'Foreign key', 'Join logic', 'One-to-many duplication', 'Cutoff date', 'Feature leakage', 'Data dictionary'],
+    formulasAndTools: ['Join match rate', 'Row-count reconciliation', 'SQL joins', 'CASE WHEN', 'Window functions', 'Data dictionary checks'],
+    practiceMoves: ['Diagnose a bad join', 'Explain why row counts changed', 'Decide if a field belongs in an ABT'],
+    connectedViews: ['ABT Blueprint', 'ABT Schema Template', 'ABT Field Review Matrix', 'Model-Ready Feature Set'],
+    searchTerms: ['SQL joins', 'ABT', 'data dictionary', 'feature leakage', 'row count', 'join match rate'],
+    nextAction: 'Use this path before any ML or dashboard work; it is the bridge between raw data and professional analytics.',
+    aliases: ['abt-blueprint', 'abt-schema-template', 'abt-field-review-matrix', 'model-ready-feature-set']
+  },
+  {
+    id: 'ds-eda-statistics-interpretation',
+    title: 'EDA, Statistics & Interpretation',
+    eyebrow: 'Analytics Thinking',
+    level: 'Intermediate',
+    status: 'Primary path',
+    summary: 'Turn distributions, relationships, outliers and statistical summaries into business-readable insight.',
+    whyItMatters: 'EDA is where you learn what the data is saying before you automate anything. This path makes interpretation the goal, not chart production.',
+    primaryOutputs: ['EDA summary', 'Distribution review', 'Outlier note', 'Segment comparison', 'Insight memo'],
+    workflow: ['Profile variables', 'Check distributions', 'Compare segments', 'Inspect outliers', 'Test relationships', 'Write interpretation', 'Recommend next analysis'],
+    coreConcepts: ['Distribution', 'Mean vs median', 'Variance', 'Correlation', 'Outlier', 'Segmentation', 'Statistical significance'],
+    formulasAndTools: ['Mean', 'Median', 'Standard deviation', 'Correlation', 'Crosstab', 'Histogram', 'Boxplot'],
+    practiceMoves: ['Explain a distribution without jargon', 'Identify a misleading average', 'Translate an outlier into a business question'],
+    connectedViews: ['Output Atlas', 'Formula Library', 'Business Cases', 'Global Search'],
+    searchTerms: ['EDA', 'correlation', 'outliers', 'variance', 'distribution', 'segmentation'],
+    nextAction: 'Use this path when you need to explain data in business language before building a model.',
+    aliases: ['output-atlas', 'formula-library', 'business-cases']
+  },
+  {
+    id: 'ds-machine-learning-lifecycle',
+    title: 'Machine Learning Lifecycle',
+    eyebrow: 'Modeling',
+    level: 'Advanced',
+    status: 'Primary path',
+    summary: 'Follow the model lifecycle from target definition and baseline model to evaluation, explainability, calibration and monitoring.',
+    whyItMatters: 'A model is not just code. It needs target logic, validation, interpretation, monitoring and a decision it supports.',
+    primaryOutputs: ['Baseline model report', 'Validation metrics', 'Calibration view', 'Feature importance', 'Model comparison', 'Monitoring handoff'],
+    workflow: ['Target definition', 'Feature matrix', 'Train/test split', 'Baseline model', 'Challenger model', 'Evaluation', 'Explainability', 'Monitoring'],
+    coreConcepts: ['Supervised learning', 'Classification', 'Regression', 'Overfitting', 'Cross-validation', 'Calibration', 'Feature importance', 'Drift'],
+    formulasAndTools: ['AUC', 'Gini', 'KS', 'Precision/Recall', 'RMSE', 'Residuals', 'SHAP', 'Calibration plot'],
+    practiceMoves: ['Explain why a baseline model matters', 'Choose the right metric for a business problem', 'Interpret model quality without over-claiming'],
+    connectedViews: ['Model Library', 'Output Atlas', 'Credit Scoring Experiment Blueprint', 'Model Card & Monitoring Handoff'],
+    searchTerms: ['machine learning', 'AUC', 'Gini', 'KS', 'RMSE', 'SHAP', 'calibration'],
+    nextAction: 'Use this path only after the data workflow and ABT path are clear.',
+    aliases: ['model-library', 'credit-scoring-experiment-blueprint', 'model-card-monitoring-handoff']
+  },
+  {
+    id: 'ds-bi-dashboard-storytelling',
+    title: 'BI, Dashboards & Decision Storytelling',
+    eyebrow: 'Analytics Delivery',
+    level: 'Intermediate',
+    status: 'Practice layer',
+    summary: 'Convert metrics and model outputs into dashboards, executive narratives and decision-ready views.',
+    whyItMatters: 'A dashboard is not a chart collection. It must answer what changed, why it changed, what matters and what decision should follow.',
+    primaryOutputs: ['Executive dashboard', 'KPI tree', 'Metric definition sheet', 'Insight narrative', 'Action recommendation'],
+    workflow: ['Decision need', 'KPI definition', 'Data source', 'Visual design', 'Interpretation rules', 'Action owner', 'Follow-up metric'],
+    coreConcepts: ['KPI', 'Metric definition', 'Leading indicator', 'Lagging indicator', 'Dashboard hierarchy', 'Narrative insight'],
+    formulasAndTools: ['KPI calculation', 'Trend comparison', 'Cohort view', 'Power BI dashboard', 'Tableau dashboard'],
+    practiceMoves: ['Write a one-sentence dashboard insight', 'Separate metric from decision', 'Design a KPI card that tells the user what to do next'],
+    connectedViews: ['Output Atlas', 'Business Cases', 'Portfolio Monitoring Dashboard Blueprint', 'Tools & Platforms Study'],
+    searchTerms: ['dashboard', 'KPI', 'Power BI', 'Tableau', 'cohort', 'business insight'],
+    nextAction: 'Use this path when you need to turn analysis into something a manager can act on.',
+    aliases: ['tools-platforms-study', 'portfolio-monitoring-dashboard-blueprint']
+  },
+  {
+    id: 'ds-governance-monitoring-ai',
+    title: 'Governance, Monitoring & Responsible AI',
+    eyebrow: 'Professional Control',
+    level: 'Professional',
+    status: 'Governance layer',
+    summary: 'Understand how data and model outputs are controlled through documentation, monitoring, limitations, owners and remediation.',
+    whyItMatters: 'This is what makes analytics credible in banking and business environments: documented assumptions, known limitations, monitoring and accountable owners.',
+    primaryOutputs: ['Model card', 'Monitoring dashboard', 'Limitation register', 'Alert playbook', 'Governance memo'],
+    workflow: ['Model/output purpose', 'Assumptions', 'Limitations', 'Monitoring signal', 'Owner', 'Escalation', 'Remediation', 'Governance decision'],
+    coreConcepts: ['Model governance', 'Human oversight', 'Drift', 'PSI', 'Limitations backlog', 'Responsible AI', 'Auditability'],
+    formulasAndTools: ['PSI', 'Calibration drift', 'Alert aging', 'Owner SLA', 'Model card template'],
+    practiceMoves: ['Write a model limitation clearly', 'Decide when a metric requires escalation', 'Close a monitoring alert with evidence'],
+    connectedViews: ['Model Card & Monitoring Handoff', 'Portfolio Monitoring Dashboard Blueprint', 'Alert Playbook & Remediation Workflow', 'Knowledge Map'],
+    searchTerms: ['model governance', 'monitoring', 'responsible AI', 'PSI', 'model card', 'alert remediation'],
+    nextAction: 'Use this as the professional layer once you understand the model or dashboard output.',
+    aliases: ['model-card-monitoring-handoff', 'portfolio-monitoring-dashboard-blueprint', 'alert-remediation-workflow']
+  }
+]
+
 export const bankingFinanceTracks: CommandCenterTrack[] = [
   {
     id: 'bf-credit-risk-core',
@@ -149,6 +260,15 @@ export const cfaCertificationTracks: CommandCenterTrack[] = [
     aliases: ['bloomberg-learning', 'tools-platforms-study', 'economics-markets-study']
   }
 ]
+
+export const dataScienceSummary: CommandCenterSummary = {
+  title: 'Data Science Command Center',
+  shortName: 'Data Science',
+  totalTracks: dataScienceTracks.length,
+  primaryTracks: dataScienceTracks.filter((track) => track.status === 'Primary path').length,
+  professionalTracks: dataScienceTracks.filter((track) => track.level === 'Professional').length,
+  outputs: dataScienceTracks.flatMap((track) => track.primaryOutputs).length
+}
 
 export const bankingFinanceSummary: CommandCenterSummary = {
   title: 'Banking & Finance Command Center',
