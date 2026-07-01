@@ -26,6 +26,7 @@ import { CreditPromotionQueuePage } from '../pages/CreditPromotionQueuePage'
 import { LCFieldMappingPage } from '../pages/LCFieldMappingPage'
 import { ABTBlueprintPage } from '../pages/ABTBlueprintPage'
 import { ABTSchemaTemplatePage } from '../pages/ABTSchemaTemplatePage'
+import { ABTFieldReviewMatrixPage } from '../pages/ABTFieldReviewMatrixPage'
 import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { BankingCreditRiskStudyPage } from '../pages/BankingCreditRiskStudyPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
@@ -90,6 +91,7 @@ const extraNav: NavItem[] = [
   { id: 'lc-field-mapping', label: 'LC Field Mapping', eyebrow: 'Evidence & QA', description: 'LCDataDictionary field groups and ABT mapping.', icon: 'LC' },
   { id: 'abt-blueprint', label: 'ABT Blueprint', eyebrow: 'Evidence & QA', description: 'Analytical base table design blueprint.', icon: 'AB' },
   { id: 'abt-schema-template', label: 'ABT Schema Template', eyebrow: 'Evidence & QA', description: 'ABT columns and review metadata.', icon: 'AS' },
+  { id: 'abt-field-review-matrix', label: 'ABT Field Review Matrix', eyebrow: 'Evidence & QA', description: 'ABT field decisions and risk review.', icon: 'FR' },
   { id: 'source-command-center', label: 'Source Command Center', eyebrow: 'Evidence & QA', description: 'Executive source control.', icon: 'CC' },
   { id: 'academic-review-workspace', label: 'Academic Review Workspace', eyebrow: 'Evidence & QA', description: 'Phase 3 academic review.', icon: 'AR' },
   { id: 'academic-file-registry', label: 'Academic File Registry', eyebrow: 'Evidence & QA', description: 'Discovered academic files.', icon: 'AF' },
@@ -157,6 +159,7 @@ export function App() {
     {activeView === 'lc-field-mapping' && <LCFieldMappingPage focusId={focusId} />}
     {activeView === 'abt-blueprint' && <ABTBlueprintPage focusId={focusId} />}
     {activeView === 'abt-schema-template' && <ABTSchemaTemplatePage focusId={focusId} />}
+    {activeView === 'abt-field-review-matrix' && <ABTFieldReviewMatrixPage focusId={focusId} />}
     {activeView === 'source-command-center' && <SourceCommandCenterPage />}
     {activeView === 'academic-review-workspace' && <AcademicReviewWorkspacePage focusId={focusId} />}
     {activeView === 'academic-file-registry' && <AcademicSourceRegistryPage focusId={focusId} />}
