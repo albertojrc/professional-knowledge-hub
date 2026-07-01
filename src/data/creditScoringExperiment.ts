@@ -1,0 +1,133 @@
+import type { CreditScoringExperimentStage, CreditScoringExperimentSummary } from '../types/creditScoringExperiment'
+
+export const creditScoringExperimentStages: CreditScoringExperimentStage[] = [
+  {
+    id: 'experiment-business-objective',
+    stage: 'Business objective and decision use',
+    status: 'Ready to design',
+    risk: 'Medium',
+    objective: 'Define what the score will support: approve, reject, price, limit, review manually or monitor portfolio risk.',
+    requiredInputs: ['credit policy question', 'target population', 'decision owner', 'model-ready feature set'],
+    designChoices: ['application score vs monitoring score', 'PD ranking vs binary classification', 'human review threshold', 'portfolio reporting level'],
+    outputs: ['experiment charter', 'decision use statement', 'model scope boundary'],
+    validationChecks: ['business objective is explicit', 'decision owner is named', 'out-of-scope uses are documented'],
+    governanceNotes: ['Do not build a model before defining the business decision it will support.', 'Separate study experiment from production decisioning.'],
+    linkedFeatureGroups: ['feature-borrower-affordability', 'feature-credit-history', 'feature-loan-request'],
+    decisionGate: 'Approve experiment purpose before technical design starts.',
+    nextAction: 'Write the credit scoring experiment charter.'
+  },
+  {
+    id: 'experiment-population-cutoff',
+    stage: 'Population, grain and cutoff design',
+    status: 'Requires evidence',
+    risk: 'High',
+    objective: 'Define the eligible lending population, one-row-per-loan grain and the decision-time cutoff date.',
+    requiredInputs: ['ABT schema template', 'ABT field review matrix', 'loan-level grain rule', 'cutoff date evidence'],
+    designChoices: ['single-loan observation grain', 'exclude incomplete applications', 'decision-date cutoff', 'train/test time split'],
+    outputs: ['population filter', 'cutoff rule', 'observation window note'],
+    validationChecks: ['one row per loan', 'no future information at cutoff', 'population exclusions documented'],
+    governanceNotes: ['Cutoff logic is a high-risk leakage control.', 'Every feature must be available before or at the decision cutoff.'],
+    linkedFeatureGroups: ['feature-technical-controls', 'feature-derived-stability'],
+    decisionGate: 'Do not split data until grain and cutoff are approved.',
+    nextAction: 'Confirm final cutoff date field and population filters.'
+  },
+  {
+    id: 'experiment-target-definition',
+    stage: 'Target and performance window',
+    status: 'Blocked until decision',
+    risk: 'High',
+    objective: 'Convert raw loan performance status into a defensible good/bad target for supervised learning.',
+    requiredInputs: ['target_status_raw', 'target_bad_flag review', 'performance window decision', 'excluded status list'],
+    designChoices: ['bad flag definition', 'observation-to-performance window length', 'exclude ambiguous statuses', 'freeze target mapping version'],
+    outputs: ['target map', 'class balance report', 'excluded status register'],
+    validationChecks: ['target has no missing critical values', 'class balance is reviewed', 'ambiguous statuses are excluded or documented'],
+    governanceNotes: ['Raw final status cannot be used as a predictor.', 'Target mapping requires owner approval before modeling.'],
+    linkedFeatureGroups: ['feature-performance-outcomes'],
+    decisionGate: 'No model training until target mapping is approved.',
+    nextAction: 'Approve good/bad mapping and performance window.'
+  },
+  {
+    id: 'experiment-feature-matrix',
+    stage: 'Feature matrix construction',
+    status: 'Requires evidence',
+    risk: 'High',
+    objective: 'Build X_train from reviewed model-ready candidates while excluding blocked fields and technical controls.',
+    requiredInputs: ['model-ready feature set', 'blocked field list', 'transformation rules', 'source references'],
+    designChoices: ['numeric imputation', 'categorical encoding', 'rare category grouping', 'train-only transformations'],
+    outputs: ['X_train schema', 'X_test schema', 'feature exclusion log'],
+    validationChecks: ['blocked fields absent from X_train', 'same columns in train and test', 'transformers fit on train only'],
+    governanceNotes: ['Technical IDs, target fields and pricing decision fields stay outside the model matrix.', 'Derived variables must inherit the risk status of parent fields.'],
+    linkedFeatureGroups: ['feature-borrower-affordability', 'feature-credit-history', 'feature-derived-stability', 'feature-pricing-grade'],
+    decisionGate: 'Model matrix must pass leakage QA before training.',
+    nextAction: 'Generate first X/y schema using only approved feature groups.'
+  },
+  {
+    id: 'experiment-baseline-model',
+    stage: 'Baseline interpretable model',
+    status: 'Ready to design',
+    risk: 'Medium',
+    objective: 'Train a transparent baseline such as logistic regression to establish interpretability, coefficients and benchmark performance.',
+    requiredInputs: ['approved target', 'train/test split', 'reviewed feature matrix', 'class balance report'],
+    designChoices: ['logistic regression baseline', 'regularization strength', 'class weighting', 'probability calibration review'],
+    outputs: ['baseline AUC/Gini/KS', 'coefficient table', 'confusion matrix by threshold'],
+    validationChecks: ['train/test performance gap reviewed', 'coefficients directionally plausible', 'threshold analysis documented'],
+    governanceNotes: ['Baseline model is the anchor for explainability and challenger comparison.', 'Coefficients should be reviewed for business plausibility.'],
+    linkedFeatureGroups: ['feature-borrower-affordability', 'feature-credit-history'],
+    decisionGate: 'Baseline must be interpretable before adding complex challengers.',
+    nextAction: 'Define logistic regression baseline notebook section.'
+  },
+  {
+    id: 'experiment-challenger-models',
+    stage: 'Challenger models and comparison',
+    status: 'Ready to design',
+    risk: 'Medium',
+    objective: 'Compare baseline performance against tree-based challengers without losing governance control.',
+    requiredInputs: ['baseline metrics', 'same train/test split', 'same approved feature matrix', 'model comparison table'],
+    designChoices: ['decision tree', 'random forest', 'gradient boosting', 'limited hyperparameter grid'],
+    outputs: ['model comparison table', 'feature importance view', 'overfitting check'],
+    validationChecks: ['same data used across models', 'overfitting gap reviewed', 'performance improvement is material'],
+    governanceNotes: ['A more accurate model is not automatically better if it is unstable or hard to explain.', 'Challenger use requires interpretability and monitoring plan.'],
+    linkedFeatureGroups: ['feature-borrower-affordability', 'feature-credit-history', 'feature-loan-request'],
+    decisionGate: 'Select champion only after performance, explainability and governance review.',
+    nextAction: 'Create challenger comparison design using the same feature set.'
+  },
+  {
+    id: 'experiment-validation-metrics',
+    stage: 'Validation metrics and interpretation',
+    status: 'Governance gate',
+    risk: 'High',
+    objective: 'Interpret model performance through credit risk metrics and business decision thresholds.',
+    requiredInputs: ['predicted probabilities', 'actual target', 'threshold grid', 'segment labels'],
+    designChoices: ['AUC and Gini', 'KS statistic', 'confusion matrix', 'precision/recall', 'calibration curve', 'approval cutoff simulation'],
+    outputs: ['validation dashboard', 'threshold decision table', 'segment stability review'],
+    validationChecks: ['AUC/Gini/KS documented', 'threshold tradeoff explained', 'calibration reviewed', 'bad-rate ranking is monotonic where expected'],
+    governanceNotes: ['Metrics must translate into accept/reject/review decisions.', 'Validation should separate statistical quality from business usability.'],
+    linkedFeatureGroups: ['feature-borrower-affordability', 'feature-credit-history', 'feature-derived-stability'],
+    decisionGate: 'Model cannot be promoted without metric interpretation and threshold rationale.',
+    nextAction: 'Build the validation output template for score interpretation.'
+  },
+  {
+    id: 'experiment-monitoring-handoff',
+    stage: 'Monitoring and portfolio handoff',
+    status: 'Governance gate',
+    risk: 'Medium',
+    objective: 'Define what must be monitored after the experiment: drift, stability, calibration and portfolio outcomes.',
+    requiredInputs: ['champion model summary', 'feature list', 'validation metrics', 'segment reports'],
+    designChoices: ['PSI monitoring', 'feature missingness monitoring', 'bad-rate tracking', 'approval-rate tracking', 'retraining trigger'],
+    outputs: ['monitoring checklist', 'model card draft', 'experiment handoff note'],
+    validationChecks: ['monitoring metrics mapped to owners', 'drift thresholds documented', 'retraining conditions stated'],
+    governanceNotes: ['A model experiment is incomplete without monitoring logic.', 'Portfolio monitoring connects the model back to banking decisions.'],
+    linkedFeatureGroups: ['feature-technical-controls', 'feature-derived-stability'],
+    decisionGate: 'No final sprint closure without model card and monitoring handoff.',
+    nextAction: 'Prepare model card and monitoring checklist for Sprint 5.11.'
+  }
+]
+
+export const creditScoringExperimentSummary: CreditScoringExperimentSummary = {
+  totalStages: creditScoringExperimentStages.length,
+  readyStages: creditScoringExperimentStages.filter((x) => x.status === 'Ready to design').length,
+  evidenceStages: creditScoringExperimentStages.filter((x) => x.status === 'Requires evidence').length,
+  governanceGates: creditScoringExperimentStages.filter((x) => x.status === 'Governance gate').length,
+  blockedStages: creditScoringExperimentStages.filter((x) => x.status === 'Blocked until decision').length,
+  highRiskStages: creditScoringExperimentStages.filter((x) => x.risk === 'High').length
+}
