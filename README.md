@@ -8,9 +8,9 @@ The Hub is designed as a professional second brain. It explains what a concept i
 
 ## Current sprint status
 
-The project has advanced through Sprint 5.11.
+The project has advanced through Sprint 5.12.
 
-Sprint 5.11 adds the `Model Card & Monitoring Handoff`, a controlled Evidence & QA layer that turns credit scoring experiment outputs into model documentation, monitoring controls, alert rules, ownership questions and limitation tracking.
+Sprint 5.12 adds the `Portfolio Monitoring Dashboard Blueprint`, a controlled Evidence & QA layer that turns model monitoring outputs into portfolio risk dashboard widgets for score distribution, bad-rate, delinquency, PSI, calibration, vintage analysis, approval policy and alert triage.
 
 ## Current modules
 
@@ -44,6 +44,7 @@ Sprint 5.11 adds the `Model Card & Monitoring Handoff`, a controlled Evidence & 
 - Model-Ready Feature Set
 - Credit Scoring Experiment Blueprint
 - Model Card & Monitoring Handoff
+- Portfolio Monitoring Dashboard Blueprint
 
 ## Local setup
 
@@ -74,6 +75,7 @@ npm run qa:sprint58
 npm run qa:sprint59
 npm run qa:sprint510
 npm run qa:sprint511
+npm run qa:sprint512
 npm run lint
 npm run build
 ```
@@ -89,6 +91,7 @@ docs/SPRINT_5_8_ABT_FIELD_REVIEW_MATRIX.md
 docs/SPRINT_5_9_MODEL_READY_FEATURE_SET.md
 docs/SPRINT_5_10_CREDIT_SCORING_EXPERIMENT_BLUEPRINT.md
 docs/SPRINT_5_11_MODEL_CARD_MONITORING_HANDOFF.md
+docs/SPRINT_5_12_PORTFOLIO_MONITORING_DASHBOARD_BLUEPRINT.md
 ```
 
 ## Design principles
@@ -105,8 +108,8 @@ docs/SPRINT_5_11_MODEL_CARD_MONITORING_HANDOFF.md
 
 - Architecture: React/Vite/TypeScript Professional Knowledge Operating System.
 - Content depth: study-first modules with controlled Evidence & QA expansion.
-- Banking analytics: ABT blueprint, ABT schema template, field review matrix, model-ready feature set, credit scoring experiment blueprint and model card monitoring handoff are now connected.
+- Banking analytics: ABT blueprint, ABT schema template, field review matrix, model-ready feature set, credit scoring experiment blueprint, model card monitoring handoff and portfolio monitoring dashboard blueprint are now connected.
 - UX/UI: functional learning platform with backstage governance pages.
-- Search: global search now includes the credit scoring governance pages for feature readiness, experiment design and model card monitoring.
-- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.11.
-- Next phase: Sprint 5.12 should define the portfolio monitoring dashboard blueprint from the model card monitoring outputs.
+- Search: global search now includes the credit scoring governance pages for feature readiness, experiment design, model card monitoring and portfolio dashboard monitoring.
+- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.12.
+- Next phase: Sprint 5.13 should define the alert playbook and remediation workflow from the portfolio monitoring dashboard outputs.
