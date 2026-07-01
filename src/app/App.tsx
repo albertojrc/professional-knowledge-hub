@@ -31,6 +31,7 @@ import { ModelReadyFeatureSetPage } from '../pages/ModelReadyFeatureSetPage'
 import { CreditScoringExperimentBlueprintPage } from '../pages/CreditScoringExperimentBlueprintPage'
 import { ModelCardMonitoringHandoffPage } from '../pages/ModelCardMonitoringHandoffPage'
 import { PortfolioMonitoringDashboardBlueprintPage } from '../pages/PortfolioMonitoringDashboardBlueprintPage'
+import { AlertRemediationWorkflowPage } from '../pages/AlertRemediationWorkflowPage'
 import { ProfessionalCertificationsPage } from '../pages/ProfessionalCertificationsPage'
 import { BankingCreditRiskStudyPage } from '../pages/BankingCreditRiskStudyPage'
 import { AcademicReviewWorkspacePage } from '../pages/AcademicReviewWorkspacePage'
@@ -79,7 +80,8 @@ const navCatalog: NavItem[] = [
   { id: 'model-ready-feature-set', label: 'Model-Ready Feature Set', eyebrow: 'Evidence & QA', description: 'Leakage-safe feature promotion for credit scoring.', icon: 'MF' },
   { id: 'credit-scoring-experiment-blueprint', label: 'Credit Scoring Experiment Blueprint', eyebrow: 'Evidence & QA', description: 'Experiment design for credit scoring models.', icon: 'CE' },
   { id: 'model-card-monitoring-handoff', label: 'Model Card & Monitoring Handoff', eyebrow: 'Evidence & QA', description: 'Model card, monitoring controls and ownership handoff.', icon: 'MC' },
-  { id: 'portfolio-monitoring-dashboard-blueprint', label: 'Portfolio Monitoring Dashboard Blueprint', eyebrow: 'Evidence & QA', description: 'Portfolio risk monitoring dashboard for scores, drift and alerts.', icon: 'PM' }
+  { id: 'portfolio-monitoring-dashboard-blueprint', label: 'Portfolio Monitoring Dashboard Blueprint', eyebrow: 'Evidence & QA', description: 'Portfolio risk monitoring dashboard for scores, drift and alerts.', icon: 'PM' },
+  { id: 'alert-remediation-workflow', label: 'Alert Playbook & Remediation Workflow', eyebrow: 'Evidence & QA', description: 'Alert triage, owner actions, escalation and closure workflow.', icon: 'AR' }
 ]
 const titleFromView = (id: ViewId): string => id.split('-').map((x) => x.charAt(0).toUpperCase() + x.slice(1)).join(' ')
 
@@ -121,6 +123,7 @@ export function App() {
     {activeView === 'credit-scoring-experiment-blueprint' && <CreditScoringExperimentBlueprintPage focusId={focusId} />}
     {activeView === 'model-card-monitoring-handoff' && <ModelCardMonitoringHandoffPage focusId={focusId} />}
     {activeView === 'portfolio-monitoring-dashboard-blueprint' && <PortfolioMonitoringDashboardBlueprintPage focusId={focusId} />}
+    {activeView === 'alert-remediation-workflow' && <AlertRemediationWorkflowPage focusId={focusId} />}
     {activeView === 'source-command-center' && <SourceCommandCenterPage />}
     {activeView === 'academic-review-workspace' && <AcademicReviewWorkspacePage focusId={focusId} />}
     {activeView === 'academic-file-registry' && <AcademicSourceRegistryPage focusId={focusId} />}
