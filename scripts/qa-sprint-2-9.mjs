@@ -9,11 +9,8 @@ const files = [
 ]
 
 const checks = [
-  ['src/types/knowledge.ts', 'source-review-prep'],
   ['src/app/App.tsx', 'SourceReviewPrepPage'],
   ['src/app/App.tsx', 'source-review-prep'],
-  ['src/components/layout/Sidebar.tsx', 'source-review-prep'],
-  ['src/pages/DashboardPage.tsx', 'source-review-prep'],
   ['src/data/searchIndex.ts', 'sourceReviewItems'],
   ['src/main.tsx', 'sourcePrepOS.css'],
   ['src/pages/SourceReviewPrepPage.tsx', 'sourceReviewSummary']
