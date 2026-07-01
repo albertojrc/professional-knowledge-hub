@@ -1,35 +1,98 @@
 import { useMemo, useState } from 'react'
-import { dataScienceAnalyticsLessons, dataScienceAnalyticsStudySummary } from '../data/dataScienceAnalyticsStudy'
-import type { DataScienceStudyLesson } from '../types/dataScienceAnalyticsStudy'
+import { dataScienceSummary, dataScienceTracks } from '../data/moduleCommandCenters'
+import type { CommandCenterTrack } from '../types/moduleCommandCenter'
 import { BadgeList } from '../components/ui/BadgeList'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
 
 interface DataScienceAnalyticsStudyPageProps { focusId?: string | null }
 const allValue = 'All'
-const levelOptions = [allValue, ...Array.from(new Set(dataScienceAnalyticsLessons.map((lesson) => lesson.level))).sort()]
-const evidenceOptions = [allValue, ...Array.from(new Set(dataScienceAnalyticsLessons.map((lesson) => lesson.evidenceStatus))).sort()]
+const statusOptions = [allValue, ...Array.from(new Set(dataScienceTracks.map((track) => track.status))).sort()]
 
 export function DataScienceAnalyticsStudyPage({ focusId }: DataScienceAnalyticsStudyPageProps) {
-  const [level, setLevel] = useState(allValue)
-  const [evidence, setEvidence] = useState(allValue)
   const [query, setQuery] = useState('')
-  const lessons = useMemo(() => {
+  const [status, setStatus] = useState(allValue)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const visible = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return dataScienceAnalyticsLessons.filter((lesson) => level === allValue || lesson.level === level).filter((lesson) => evidence === allValue || lesson.evidenceStatus === evidence).filter((lesson) => !q || [lesson.title, lesson.level, lesson.evidenceStatus, lesson.studyObjective, ...lesson.sourceMaterials, ...lesson.coreConcepts, ...lesson.workflow, ...lesson.formulas, ...lesson.outputs, ...lesson.interpretation, ...lesson.businessDecisions, ...lesson.practicePrompts, ...lesson.connections].join(' ').toLowerCase().includes(q)).sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : levelRank(a.level) - levelRank(b.level) || a.title.localeCompare(b.title)))
-  }, [evidence, focusId, level, query])
-  return <section className="page-stack">{focusId && <div className="deep-link-banner">Opened from Global Search · focused data science lesson</div>}<div className="hero-panel ds-study-hero"><div><span className="eyebrow">Sprint 3.6 · Data Science & Analytics Study Module</span><h1>Data Science study built around academic source candidates.</h1><p>This module translates data dictionaries, validation material and graph lectures into professional analytics lessons, workflows, outputs and practice.</p></div><div className="ds-study-score-card"><span className="eyebrow">Study Module</span><strong>{dataScienceAnalyticsStudySummary.totalLessons}</strong><p>{dataScienceAnalyticsStudySummary.sourceCandidates} source candidates · {dataScienceAnalyticsStudySummary.formulas} formulas</p><div className="inventory-mini-stats"><span>{dataScienceAnalyticsStudySummary.outputs} outputs</span><span>{dataScienceAnalyticsStudySummary.practicePrompts} prompts</span></div></div></div><section className="manual-panel result-impact"><span className="eyebrow">Study Flow</span><h2>From raw data to decision-ready analytics</h2><KnowledgeChain nodes={['Academic Source Candidate', 'Data Workflow', 'Formula / Check', 'Output', 'Interpretation', 'Business Decision', 'Practice']} /></section><section className="manual-panel inventory-filter-panel"><div className="library-filter-header"><div><span className="eyebrow">Lesson Filters</span><h2>{lessons.length} of {dataScienceAnalyticsLessons.length} lessons visible</h2></div><button className="text-button" onClick={() => { setLevel(allValue); setEvidence(allValue); setQuery('') }} type="button">Clear filters</button></div><input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search data quality, ABT, features, KS, graph analytics or outputs..." /><div className="library-filter-grid"><StudySelect label="Level" value={level} values={levelOptions} onChange={setLevel} /><StudySelect label="Evidence" value={evidence} values={evidenceOptions} onChange={setEvidence} /></div></section><section className="manual-panel"><span className="eyebrow">Analytics Lessons</span><h2>Learn concepts through workflows, checks and business decisions</h2><div className="ds-study-grid">{lessons.map((lesson) => <LessonCard key={lesson.id} lesson={lesson} focused={lesson.id === focusId} />)}</div></section></section>
+    return dataScienceTracks
+      .filter((track) => status === allValue || track.status === status)
+      .filter((track) => !q || [track.title, track.eyebrow, track.level, track.status, track.summary, track.whyItMatters, track.nextAction, ...track.primaryOutputs, ...track.workflow, ...track.coreConcepts, ...track.formulasAndTools, ...track.practiceMoves, ...track.connectedViews, ...track.searchTerms].join(' ').toLowerCase().includes(q))
+  }, [query, status])
+  const focused = dataScienceTracks.find((track) => track.id === focusId || track.aliases?.includes(focusId ?? ''))
+  const selected = focused ?? visible.find((track) => track.id === selectedId) ?? visible[0] ?? dataScienceTracks[0]
+
+  return (
+    <section className="page-stack command-center-page">
+      {focusId && <div className="deep-link-banner">Opened from Global Search · Data Science context selected</div>}
+      <div className="hero-panel command-center-hero data-science-command-hero">
+        <div>
+          <span className="eyebrow">Reorg UX · Data Science</span>
+          <h1>Data Science Command Center.</h1>
+          <p>A structured path from business question to data, SQL, EDA, machine learning, dashboards, monitoring and decision-making.</p>
+        </div>
+        <div className="command-center-score-card data-science-score-card">
+          <span className="eyebrow">Simplified Module</span>
+          <strong>{dataScienceSummary.totalTracks}</strong>
+          <p>{dataScienceSummary.primaryTracks} primary paths · {dataScienceSummary.outputs} outputs</p>
+          <div className="inventory-mini-stats"><span>{dataScienceSummary.professionalTracks} professional layer</span><span>Search-style detail</span></div>
+        </div>
+      </div>
+
+      <section className="manual-panel command-center-rule">
+        <span className="eyebrow">Learning rule</span>
+        <h2>Every data topic must connect to a workflow, output and decision.</h2>
+        <p>This module is not a list of tools. Each capsule explains why the topic matters, what it produces, how it is used and which concepts to open next.</p>
+      </section>
+
+      <section className="manual-panel inventory-filter-panel command-center-filter-panel">
+        <div className="library-filter-header">
+          <div><span className="eyebrow">Module Search</span><h2>{visible.length} of {dataScienceTracks.length} paths visible</h2></div>
+          <button className="text-button" onClick={() => { setQuery(''); setStatus(allValue); setSelectedId(null) }} type="button">Clear</button>
+        </div>
+        <input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search ABT, EDA, SQL, machine learning, dashboards, monitoring, SHAP..." />
+        <div className="library-filter-grid"><CommandSelect label="Path type" value={status} values={statusOptions} onChange={setStatus} /></div>
+      </section>
+
+      <section className="command-center-layout">
+        <div className="command-center-results" aria-label="Data Science paths">
+          {visible.map((track) => <CommandResultCard key={track.id} track={track} selected={track.id === selected.id} onSelect={() => setSelectedId(track.id)} />)}
+        </div>
+        <CommandDetailPanel track={selected} />
+      </section>
+    </section>
+  )
 }
 
-function LessonCard({ lesson, focused }: { lesson: DataScienceStudyLesson; focused: boolean }) {
-  return <article className={`ds-study-card ${focused ? 'focused-result-card' : ''}`}><div className="ds-study-card-top"><span className="eyebrow">{lesson.level} · {lesson.evidenceStatus}</span><span className={`ds-study-pill status-${lesson.evidenceStatus.toLowerCase().replaceAll(' ', '-')}`}>{lesson.evidenceStatus}</span></div><h3>{lesson.title}</h3><p>{lesson.studyObjective}</p><h4>Source materials</h4><BadgeList items={lesson.sourceMaterials} tone="blue" /><h4>Core concepts</h4><BadgeList items={lesson.coreConcepts} tone="purple" /><h4>Professional workflow</h4><ol>{lesson.workflow.map((step) => <li key={step}>{step}</li>)}</ol><h4>Formulas and outputs</h4><BadgeList items={[...lesson.formulas, ...lesson.outputs]} tone="green" /><h4>How to interpret</h4><ul>{lesson.interpretation.map((item) => <li key={item}>{item}</li>)}</ul><h4>Business decisions</h4><BadgeList items={lesson.businessDecisions} tone="amber" /><h4>Practice prompts</h4><ul>{lesson.practicePrompts.map((prompt) => <li key={prompt}>{prompt}</li>)}</ul><h4>Connected areas</h4><BadgeList items={lesson.connections} tone="blue" /></article>
+function CommandResultCard({ track, selected, onSelect }: { track: CommandCenterTrack; selected: boolean; onSelect: () => void }) {
+  return (
+    <button className={`command-result-card ${selected ? 'selected' : ''}`} onClick={onSelect} type="button">
+      <div>
+        <span className="eyebrow">{track.eyebrow} · {track.level}</span>
+        <h3>{track.title}</h3>
+        <p>{track.summary}</p>
+      </div>
+      <div className="search-result-meta"><span>{track.status}</span><span>{track.primaryOutputs.length} outputs</span><span>Open detail</span></div>
+    </button>
+  )
 }
 
-function StudySelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) {
+function CommandDetailPanel({ track }: { track: CommandCenterTrack }) {
+  return (
+    <article className="command-detail-panel">
+      <div className="command-detail-top"><span className="eyebrow">{track.eyebrow}</span><span className="command-status-pill">{track.status}</span></div>
+      <h2>{track.title}</h2>
+      <p>{track.whyItMatters}</p>
+      <section className="lesson-block"><div className="lesson-block-title"><span>1</span><h3>Professional workflow</h3></div><KnowledgeChain nodes={track.workflow} /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>2</span><h3>Outputs to build</h3></div><BadgeList items={track.primaryOutputs} tone="blue" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>3</span><h3>Core concepts</h3></div><BadgeList items={track.coreConcepts} tone="purple" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>4</span><h3>Formulas and tools</h3></div><BadgeList items={track.formulasAndTools} tone="green" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>5</span><h3>Practice moves</h3></div><ul className="clean-list">{track.practiceMoves.map((item) => <li key={item}>{item}</li>)}</ul></section>
+      <section className="lesson-block insight-block"><div className="lesson-block-title"><span>✓</span><h3>How to use this path</h3></div><p>{track.nextAction}</p><BadgeList items={track.searchTerms} tone="amber" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>→</span><h3>Connected views</h3></div><BadgeList items={track.connectedViews} tone="blue" /></section>
+    </article>
+  )
+}
+
+function CommandSelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) {
   return <label className="library-select"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{values.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
-}
-
-function levelRank(level: DataScienceStudyLesson['level']) {
-  if (level === 'Foundation') return 1
-  if (level === 'Applied') return 2
-  return 3
 }
