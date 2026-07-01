@@ -44,6 +44,7 @@ import './styles/dataScienceAnalyticsStudyOS.css'
 import './styles/financeValuationStudyOS.css'
 import './styles/visualModuleStudioOS.css'
 import './styles/modelRefreshChallengerOS.css'
+import './styles/homeVisualDashboardOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
