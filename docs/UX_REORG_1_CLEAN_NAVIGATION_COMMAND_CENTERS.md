@@ -1,14 +1,14 @@
-# UX Reorg 2 — Five Main Modules & Deep Command Centers
+# UX Reorg 2 — Five Main Modules & Global Search Parity
 
-This reorganization pauses content expansion and improves how the hub is navigated.
+This reorganization pauses content expansion and repairs how the hub is navigated.
 
 ## Why
 
-The sidebar had become too crowded. The project needed fewer visible modules and clearer entry points before additional sprint expansion. The user clarified that the visible menu should contain five modules, not a separate Global Search module.
+The sidebar had become too crowded, but the fix must not remove the powerful Global Search experience. The visible menu should contain five modules, while each module must preserve access to the same searchable capsule layer.
 
 ## Navigation principle
 
-The sidebar should show only the main modules. Specific assets, governance pages, formulas, outputs, Global Search results and backstage workflows remain accessible through internal search, deep links and command-center capsules.
+The sidebar should show only the main modules. Specific assets, governance pages, formulas, outputs, search results and backstage workflows remain accessible through internal search, deep links and command-center capsules.
 
 ## Visible sidebar modules
 
@@ -20,20 +20,20 @@ The sidebar should show only the main modules. Specific assets, governance pages
 
 ## Interior module principle
 
-Each module must behave like a command center. The user should be able to select a capsule and receive at least the same level of clarity as a Global Search detail entry:
+Each module must behave like a command center and also expose a real search-capsule layer powered by `globalSearchIndex`. Selecting a capsule should provide at least the same level of clarity as a Global Search entry:
 
-- why the path matters
-- professional workflow
-- outputs to build
-- core concepts
-- formulas and tools
-- practice moves
-- search/open-next terms
-- connected views
+- title
+- kind
+- area
+- category
+- summary
+- search signals / tags
+- route context
+- button to open the same focused route when routing handlers are available
 
 ## Data Science redesign
 
-`DataScienceAnalyticsStudyPage` is now a command center with a search-result-style list and a detail panel. It consolidates:
+`DataScienceAnalyticsStudyPage` is a command center with orientation paths plus `Data Science Search Capsules` powered by the real search index. It organizes:
 
 - Data Workflow Foundations
 - SQL, ABT & Analytics Engineering
@@ -44,7 +44,7 @@ Each module must behave like a command center. The user should be able to select
 
 ## Banking & Finance redesign
 
-`BankingCreditRiskStudyPage` is now a command center with a search-result-style list and a detail panel. It consolidates:
+`BankingCreditRiskStudyPage` is a command center with orientation paths plus `Banking & Finance Search Capsules` powered by the real search index. It organizes:
 
 - Credit Risk Core
 - Credit Scoring & Model Lifecycle
@@ -53,7 +53,7 @@ Each module must behave like a command center. The user should be able to select
 
 ## CFA & Certifications redesign
 
-`ProfessionalCertificationsPage` is now a CFA-first command center. It consolidates:
+`ProfessionalCertificationsPage` is a CFA-first command center with orientation paths plus `CFA & Certifications Search Capsules` powered by the real search index. It organizes:
 
 - CFA Level I Roadmap
 - Finance Foundations for CFA
@@ -62,9 +62,9 @@ Each module must behave like a command center. The user should be able to select
 
 ## User-facing effect
 
-The user is no longer forced to browse dozens of sidebar items. The preferred experience is:
+The user is no longer forced to browse dozens of sidebar items, and the modules no longer feel like summaries. The preferred experience is:
 
 1. Open one of the five main modules.
-2. Select a path capsule.
-3. Study the detail panel.
-4. Use the suggested search/open-next terms to reach deeper pages when needed.
+2. Use the orientation flow to understand the learning structure.
+3. Use the restored search capsules inside the module to browse real Global Search entries.
+4. Open the focused route for an exact asset, formula, output, model, case or governance page.
