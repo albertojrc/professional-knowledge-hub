@@ -1,0 +1,6 @@
+import { portfolioMonitoringWidgets } from '../../data/portfolioMonitoringDashboard'
+import { VisualGovernanceStudio, type VisualGovernanceItem } from './VisualGovernanceStudio'
+export function PortfolioMonitoringVisual({ focusId }: { focusId?: string | null }) {
+  const items: VisualGovernanceItem[] = portfolioMonitoringWidgets.map((x) => ({ id: x.id, title: x.widget, eyebrow: x.cadence, status: x.status, severity: x.severity, summary: x.purpose, decision: x.output, nextAction: x.nextAction, tags: [...x.coreMetrics, ...x.visualDesign, ...x.businessActions], sections: [{ title: 'Core metrics', items: x.coreMetrics, tone: 'purple' }, { title: 'Required data', items: x.requiredData, tone: 'blue' }, { title: 'Visual design', items: x.visualDesign, tone: 'green' }, { title: 'Actions', items: x.businessActions, tone: 'amber' }] }))
+  return <VisualGovernanceStudio title="Portfolio Monitoring Dashboard Blueprint" sprint="Sprint 5.12" icon="PM" description="A visual governance page for portfolio monitoring widgets, interpretation, owner actions and dashboard outputs." rule="Every monitoring signal needs interpretation, owner action and evidence." flowTitle="Portfolio Monitoring Flow" flow={['Monitoring Output', 'Portfolio Health', 'Risk Outcomes', 'Alert Triage', 'Owner Action', 'Decision']} items={items} focusId={focusId} />
+}
