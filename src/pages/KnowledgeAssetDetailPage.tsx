@@ -26,6 +26,7 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
   const related = asset.relatedAssets.map((id) => knowledgeAssetRegistry.find((item) => item.id === id)).filter(Boolean)
   const sourceMeta = getSourceAwareAssetMeta(asset.id)
   const mainGraph = asset.graphs[0]
+  const chartType = mainGraph ? graphToType(mainGraph) : null
   const status = assetProgress.getAssetStatus(asset.id)
 
   return (
@@ -88,7 +89,7 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
         <aside className="concept-output-panel">
           <div className="output-panel-card progress-panel"><span className="eyebrow">Study Tracker</span><h2>{asset.title}</h2><AssetProgressControl status={status} onChange={(nextStatus) => assetProgress.setAssetStatus(asset.id, nextStatus)} /></div>
           {sourceMeta && <div className="output-panel-card source-evidence-card"><span className="eyebrow">Evidence Status</span><h3>{sourceMeta.evidenceLabel}</h3><p>{sourceMeta.evidenceExplanation}</p></div>}
-          <div className="output-panel-card"><span className="eyebrow">Output View</span><h2>{mainGraph ?? 'Professional Output'}</h2>{mainGraph ? <MlMiniChart title={mainGraph} type={graphToType(mainGraph)} /> : <p>Outputs will appear here as the asset expands.</p>}</div>
+          <div className="output-panel-card"><span className="eyebrow">Output View</span><h2>{mainGraph ?? 'Professional Output'}</h2>{mainGraph && chartType ? <MlMiniChart title={mainGraph} type={chartType} /> : <GraphFallback assetTitle={asset.title} outputs={asset.outputs} />}</div>
           <div className="output-panel-card success-panel"><h3>Interpretation checklist</h3><ul><li>What does the output show?</li><li>Is the metric aligned with the business problem?</li><li>What decision becomes possible?</li></ul></div>
           <div className="output-panel-card"><h3>Metrics</h3><SmartBadgeList items={asset.metrics} tone="green" /><h3>Assumptions</h3><SmartBadgeList items={asset.assumptions} tone="amber" /><h3>Outputs</h3><SmartBadgeList items={asset.outputs} tone="blue" /></div>
           <div className="output-panel-card"><h3>Learning goals</h3><ul>{asset.learningGoals.map((goal) => <li key={goal}>{goal}</li>)}</ul></div>
@@ -100,7 +101,11 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
   )
 }
 
-function graphToType(graph: string): MlChartType {
+function GraphFallback({ assetTitle, outputs }: { assetTitle: string; outputs: string[] }) {
+  return <div className="module-capsule-empty"><strong>No specific chart assigned for {assetTitle}.</strong><p>Use the outputs below instead of forcing an unrelated chart.</p><BadgeList items={outputs.slice(0, 6)} tone="blue" /></div>
+}
+
+function graphToType(graph: string): MlChartType | null {
   const name = graph.toLowerCase()
   if (name.includes('precision')) return 'pr'
   if (name.includes('calibration')) return 'calibration'
@@ -110,8 +115,13 @@ function graphToType(graph: string): MlChartType {
   if (name.includes('residual')) return 'residual'
   if (name.includes('actual')) return 'actual-predicted'
   if (name.includes('elbow')) return 'elbow'
+  if (name.includes('cluster')) return 'cluster'
+  if (name.includes('forecast')) return 'forecast'
+  if (name.includes('learning')) return 'learning-curve'
   if (name.includes('lift')) return 'lift'
   if (name.includes('gain')) return 'gain'
   if (name.includes('ks')) return 'ks'
-  return 'roc'
+  if (name.includes('partial') || name.includes('dependence')) return 'pdp'
+  if (name.includes('roc')) return 'roc'
+  return null
 }
