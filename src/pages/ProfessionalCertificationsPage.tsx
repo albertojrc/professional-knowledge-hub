@@ -1,28 +1,98 @@
 import { useMemo, useState } from 'react'
-import { professionalCertificationSummary, professionalCertificationTracks } from '../data/professionalCertifications'
-import { cfaFoundationLessons, cfaFoundationsSummary } from '../data/cfaFoundations'
-import { cfaInvestmentLessons, cfaInvestmentsSummary } from '../data/cfaInvestments'
-import { bloombergLessons, bloombergSummary } from '../data/bloombergLearning'
-import type { ProfessionalCertificationTrack } from '../types/professionalCertification'
-import type { CfaFoundationLesson } from '../types/cfaFoundations'
-import type { CfaInvestmentLesson } from '../types/cfaInvestments'
-import type { BloombergLesson } from '../types/bloombergLearning'
+import { cfaCertificationSummary, cfaCertificationTracks } from '../data/moduleCommandCenters'
+import type { CommandCenterTrack } from '../types/moduleCommandCenter'
 import { BadgeList } from '../components/ui/BadgeList'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
+
 interface ProfessionalCertificationsPageProps { focusId?: string | null }
 const allValue = 'All'
-const trackOptions = [allValue, ...Array.from(new Set(professionalCertificationTracks.map((item) => item.track))).sort()]
-const statusOptions = [allValue, ...Array.from(new Set(professionalCertificationTracks.map((item) => item.status))).sort()]
+const statusOptions = [allValue, ...Array.from(new Set(cfaCertificationTracks.map((track) => track.status))).sort()]
+
 export function ProfessionalCertificationsPage({ focusId }: ProfessionalCertificationsPageProps) {
-  const [track, setTrack] = useState(allValue); const [status, setStatus] = useState(allValue); const [query, setQuery] = useState('')
-  const items = useMemo(() => { const q = query.trim().toLowerCase(); return professionalCertificationTracks.filter((item) => track === allValue || item.track === track).filter((item) => status === allValue || item.status === status).filter((item) => !q || [item.title, item.track, item.status, item.purpose, item.studyOutcome, ...item.topicBlocks, ...item.connectedStudyModules, ...item.formulas, ...item.outputs, ...item.terminalWorkflows, ...item.practiceItems, item.sourceStatus, item.nextAction].join(' ').toLowerCase().includes(q)).sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : a.title.localeCompare(b.title))) }, [focusId, query, status, track])
-  const cfaItems = useMemo(() => { const q = query.trim().toLowerCase(); return cfaFoundationLessons.filter((item) => !q || [item.title, item.layer, item.level, item.status, item.objective, ...item.officialAnchor, ...item.concepts, ...item.workflow, ...item.formulas, ...item.outputs, ...item.interpretation, ...item.practice, ...item.connectedModules].join(' ').toLowerCase().includes(q)).sort((a,b)=>(a.id===focusId?-1:b.id===focusId?1:a.title.localeCompare(b.title))) }, [focusId, query])
-  const investmentItems = useMemo(() => { const q = query.trim().toLowerCase(); return cfaInvestmentLessons.filter((item) => !q || [item.title, item.layer, item.level, item.status, item.objective, ...item.officialAnchor, ...item.concepts, ...item.workflow, ...item.formulas, ...item.outputs, ...item.interpretation, ...item.practice, ...item.connectedModules].join(' ').toLowerCase().includes(q)).sort((a,b)=>(a.id===focusId?-1:b.id===focusId?1:a.title.localeCompare(b.title))) }, [focusId, query])
-  const bloombergItems = useMemo(() => { const q = query.trim().toLowerCase(); return bloombergLessons.filter((item) => !q || [item.title, item.layer, item.level, item.status, item.objective, ...item.materials, ...item.concepts, ...item.workflow, ...item.functions, ...item.outputs, ...item.interpretation, ...item.practice, ...item.connectedModules].join(' ').toLowerCase().includes(q)).sort((a,b)=>(a.id===focusId?-1:b.id===focusId?1:a.title.localeCompare(b.title))) }, [focusId, query])
-  return <section className="page-stack">{focusId && <div className="deep-link-banner">Opened from Global Search · focused certification track</div>}<div className="hero-panel certification-hero"><div><span className="eyebrow">Sprint 3.13 · Professional Certifications</span><h1>CFA, Bloomberg Market Concepts and Bloomberg Finance Fundamentals.</h1><p>A dedicated certification module for finance credentials, Bloomberg learning and market workflows, connected back to Finance, Economics, Banking and Tools.</p></div><div className="certification-score-card"><span className="eyebrow">Certification Lessons</span><strong>{cfaFoundationsSummary.totalLessons + cfaInvestmentsSummary.totalLessons + bloombergSummary.totalLessons}</strong><p>{cfaInvestmentsSummary.totalLessons} CFA investments · {bloombergSummary.totalLessons} Bloomberg</p><div className="inventory-mini-stats"><span>{cfaFoundationsSummary.formulas + cfaInvestmentsSummary.formulas} formulas</span><span>{cfaFoundationsSummary.practicePrompts + cfaInvestmentsSummary.practicePrompts + bloombergSummary.practicePrompts} prompts</span></div></div></div><section className="manual-panel result-impact"><span className="eyebrow">Certification Learning Flow</span><h2>Separate track, connected knowledge</h2><KnowledgeChain nodes={['Certification Track', 'Topic Blocks', 'Finance / Economics / Banking', 'Formulas', 'Bloomberg Workflows', 'Practice']} /></section><section className="manual-panel inventory-filter-panel"><div className="library-filter-header"><div><span className="eyebrow">Track Filters</span><h2>{items.length} of {professionalCertificationTracks.length} tracks visible</h2></div><button className="text-button" onClick={() => { setTrack(allValue); setStatus(allValue); setQuery('') }} type="button">Clear filters</button></div><input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search CFA, BMC, BFF, Bloomberg, economic calendar, fixed income, equity or market brief..." /><div className="library-filter-grid"><CertificationSelect label="Track" value={track} values={trackOptions} onChange={setTrack} /><CertificationSelect label="Status" value={status} values={statusOptions} onChange={setStatus} /></div></section><section className="manual-panel"><span className="eyebrow">Certification Tracks</span><h2>Professional credential learning paths</h2><div className="certification-grid">{items.map((item) => <CertificationCard key={item.id} item={item} focused={item.id === focusId} />)}</div></section><section className="manual-panel"><span className="eyebrow">CFA Foundations Content Pack</span><h2>{cfaItems.length} CFA Level I foundation lessons</h2><div className="certification-grid">{cfaItems.map((item) => <CfaCard key={item.id} item={item} focused={item.id === focusId} />)}</div></section><section className="manual-panel"><span className="eyebrow">CFA Investments & Portfolio Content Pack</span><h2>{investmentItems.length} investment and portfolio lessons</h2><div className="certification-grid">{investmentItems.map((item) => <CfaInvestmentCard key={item.id} item={item} focused={item.id === focusId} />)}</div></section><section className="manual-panel"><span className="eyebrow">BMC / BFF / Bloomberg Workflows Content Pack</span><h2>{bloombergItems.length} Bloomberg learning workflow lessons</h2><div className="certification-grid">{bloombergItems.map((item) => <BloombergCard key={item.id} item={item} focused={item.id === focusId} />)}</div></section></section>
+  const [query, setQuery] = useState('')
+  const [status, setStatus] = useState(allValue)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return cfaCertificationTracks
+      .filter((track) => status === allValue || track.status === status)
+      .filter((track) => !q || [track.title, track.eyebrow, track.level, track.status, track.summary, track.whyItMatters, track.nextAction, ...track.primaryOutputs, ...track.workflow, ...track.coreConcepts, ...track.formulasAndTools, ...track.practiceMoves, ...track.connectedViews, ...track.searchTerms].join(' ').toLowerCase().includes(q))
+  }, [query, status])
+  const focused = cfaCertificationTracks.find((track) => track.id === focusId || track.aliases?.includes(focusId ?? ''))
+  const selected = focused ?? visible.find((track) => track.id === selectedId) ?? visible[0] ?? cfaCertificationTracks[0]
+
+  return (
+    <section className="page-stack command-center-page">
+      {focusId && <div className="deep-link-banner">Opened from Global Search · CFA / Certifications context selected</div>}
+      <div className="hero-panel command-center-hero cfa-command-hero">
+        <div>
+          <span className="eyebrow">Reorg UX · CFA & Certifications</span>
+          <h1>CFA-first certification command center.</h1>
+          <p>The certification module is now anchored around CFA Level I. Bloomberg remains as a support workflow instead of competing with the main study path.</p>
+        </div>
+        <div className="command-center-score-card cfa-score-card">
+          <span className="eyebrow">Simplified Module</span>
+          <strong>{cfaCertificationSummary.totalTracks}</strong>
+          <p>{cfaCertificationSummary.primaryTracks} primary paths · {cfaCertificationSummary.outputs} outputs</p>
+          <div className="inventory-mini-stats"><span>CFA first</span><span>Search-first</span></div>
+        </div>
+      </div>
+
+      <section className="manual-panel command-center-rule">
+        <span className="eyebrow">Certification rule</span>
+        <h2>CFA is the spine. Everything else supports the spine.</h2>
+        <p>This page no longer dumps every lesson at once. Pick a path, study the detail panel, then use Global Search for specific concepts, formulas or weak areas.</p>
+      </section>
+
+      <section className="manual-panel inventory-filter-panel command-center-filter-panel">
+        <div className="library-filter-header">
+          <div><span className="eyebrow">Module Search</span><h2>{visible.length} of {cfaCertificationTracks.length} paths visible</h2></div>
+          <button className="text-button" onClick={() => { setQuery(''); setStatus(allValue); setSelectedId(null) }} type="button">Clear</button>
+        </div>
+        <input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search CFA, FSA, fixed income, portfolio, ethics, WACC, Bloomberg..." />
+        <div className="library-filter-grid"><CommandSelect label="Path type" value={status} values={statusOptions} onChange={setStatus} /></div>
+      </section>
+
+      <section className="command-center-layout">
+        <div className="command-center-results" aria-label="CFA and certification paths">
+          {visible.map((track) => <CommandResultCard key={track.id} track={track} selected={track.id === selected.id} onSelect={() => setSelectedId(track.id)} />)}
+        </div>
+        <CommandDetailPanel track={selected} />
+      </section>
+    </section>
+  )
 }
-function CertificationCard({ item, focused }: { item: ProfessionalCertificationTrack; focused: boolean }) { return <article className={`certification-card ${focused ? 'focused-result-card' : ''}`}><div className="certification-card-top"><span className="eyebrow">{item.track} · {item.status}</span><span className="certification-track-pill">{item.track}</span></div><h3>{item.title}</h3><p>{item.purpose}</p><div className="mini-result good">Outcome: {item.studyOutcome}</div><h4>Topic blocks</h4><BadgeList items={item.topicBlocks} tone="blue" /><h4>Connected study modules</h4><BadgeList items={item.connectedStudyModules} tone="purple" /><h4>Formulas and outputs</h4><BadgeList items={[...item.formulas, ...item.outputs].length ? [...item.formulas, ...item.outputs] : ['No formula-heavy layer yet']} tone="green" /><h4>Bloomberg / terminal workflows</h4><BadgeList items={item.terminalWorkflows.length ? item.terminalWorkflows : ['No terminal workflow yet']} tone="amber" /><h4>Practice</h4><ul>{item.practiceItems.map((practice) => <li key={practice}>{practice}</li>)}</ul><div className="mini-result warning">Source status: {item.sourceStatus}</div><div className="mini-result good">Next action: {item.nextAction}</div></article> }
-function CfaCard({ item, focused }: { item: CfaFoundationLesson; focused: boolean }) { return <article className={`certification-card ${focused ? 'focused-result-card' : ''}`}><div className="certification-card-top"><span className="eyebrow">{item.layer} · {item.level}</span><span className="certification-track-pill">CFA</span></div><h3>{item.title}</h3><p>{item.objective}</p><div className="mini-result good">Alignment: {item.status}</div><h4>Official anchor</h4><BadgeList items={item.officialAnchor} tone="blue" /><h4>Concepts</h4><BadgeList items={item.concepts} tone="purple" /><h4>Study workflow</h4><ol>{item.workflow.map((step)=><li key={step}>{step}</li>)}</ol><h4>Formulas and outputs</h4><BadgeList items={[...item.formulas,...item.outputs].length?[...item.formulas,...item.outputs]:['Conceptual lesson']} tone="green" /><h4>How to interpret</h4><ul>{item.interpretation.map((x)=><li key={x}>{x}</li>)}</ul><h4>Practice</h4><ul>{item.practice.map((x)=><li key={x}>{x}</li>)}</ul><h4>Connected modules</h4><BadgeList items={item.connectedModules} tone="amber" /></article> }
-function CfaInvestmentCard({ item, focused }: { item: CfaInvestmentLesson; focused: boolean }) { return <article className={`certification-card ${focused ? 'focused-result-card' : ''}`}><div className="certification-card-top"><span className="eyebrow">{item.layer} · {item.level}</span><span className="certification-track-pill">CFA</span></div><h3>{item.title}</h3><p>{item.objective}</p><div className="mini-result good">Alignment: {item.status}</div><h4>Official anchor</h4><BadgeList items={item.officialAnchor} tone="blue" /><h4>Concepts</h4><BadgeList items={item.concepts} tone="purple" /><h4>Investment workflow</h4><ol>{item.workflow.map((step)=><li key={step}>{step}</li>)}</ol><h4>Formulas and outputs</h4><BadgeList items={[...item.formulas,...item.outputs]} tone="green" /><h4>How to interpret</h4><ul>{item.interpretation.map((x)=><li key={x}>{x}</li>)}</ul><h4>Practice</h4><ul>{item.practice.map((x)=><li key={x}>{x}</li>)}</ul><h4>Connected modules</h4><BadgeList items={item.connectedModules} tone="amber" /></article> }
-function BloombergCard({ item, focused }: { item: BloombergLesson; focused: boolean }) { return <article className={`certification-card ${focused ? 'focused-result-card' : ''}`}><div className="certification-card-top"><span className="eyebrow">{item.layer} · {item.level}</span><span className="certification-track-pill">{item.layer}</span></div><h3>{item.title}</h3><p>{item.objective}</p><div className="mini-result warning">Status: {item.status}</div><h4>Materials</h4><BadgeList items={item.materials} tone="blue" /><h4>Concepts</h4><BadgeList items={item.concepts} tone="purple" /><h4>Terminal-style workflow</h4><ol>{item.workflow.map((step)=><li key={step}>{step}</li>)}</ol><h4>Functions and outputs</h4><BadgeList items={[...item.functions,...item.outputs]} tone="green" /><h4>How to interpret</h4><ul>{item.interpretation.map((x)=><li key={x}>{x}</li>)}</ul><h4>Practice</h4><ul>{item.practice.map((x)=><li key={x}>{x}</li>)}</ul><h4>Connected modules</h4><BadgeList items={item.connectedModules} tone="amber" /></article> }
-function CertificationSelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) { return <label className="library-select"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{values.map((item) => <option key={item} value={item}>{item}</option>)}</select></label> }
+
+function CommandResultCard({ track, selected, onSelect }: { track: CommandCenterTrack; selected: boolean; onSelect: () => void }) {
+  return (
+    <button className={`command-result-card ${selected ? 'selected' : ''}`} onClick={onSelect} type="button">
+      <div>
+        <span className="eyebrow">{track.eyebrow} · {track.level}</span>
+        <h3>{track.title}</h3>
+        <p>{track.summary}</p>
+      </div>
+      <div className="search-result-meta"><span>{track.status}</span><span>{track.primaryOutputs.length} outputs</span><span>Open detail</span></div>
+    </button>
+  )
+}
+
+function CommandDetailPanel({ track }: { track: CommandCenterTrack }) {
+  return (
+    <article className="command-detail-panel">
+      <div className="command-detail-top"><span className="eyebrow">{track.eyebrow}</span><span className="command-status-pill">{track.status}</span></div>
+      <h2>{track.title}</h2>
+      <p>{track.whyItMatters}</p>
+      <section className="lesson-block"><div className="lesson-block-title"><span>1</span><h3>Study workflow</h3></div><KnowledgeChain nodes={track.workflow} /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>2</span><h3>Outputs to build</h3></div><BadgeList items={track.primaryOutputs} tone="blue" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>3</span><h3>Core concepts</h3></div><BadgeList items={track.coreConcepts} tone="purple" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>4</span><h3>Formulas and tools</h3></div><BadgeList items={track.formulasAndTools} tone="green" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>5</span><h3>Practice moves</h3></div><ul className="clean-list">{track.practiceMoves.map((item) => <li key={item}>{item}</li>)}</ul></section>
+      <section className="lesson-block insight-block"><div className="lesson-block-title"><span>✓</span><h3>How to use this path</h3></div><p>{track.nextAction}</p><BadgeList items={track.searchTerms} tone="amber" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>→</span><h3>Connected views</h3></div><BadgeList items={track.connectedViews} tone="blue" /></section>
+    </article>
+  )
+}
+
+function CommandSelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) {
+  return <label className="library-select"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{values.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
+}
