@@ -6,10 +6,10 @@ import { BadgeList } from '../components/ui/BadgeList'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
 import { ModuleSearchCapsules } from '../components/search/ModuleSearchCapsules'
 
-interface BankingCreditRiskStudyPageProps { focusId?: string | null; onNavigate: (view: ViewId, focusId?: string | null) => void; onOpenAsset: (assetId: string) => void }
+interface BankingCreditRiskStudyPageProps { focusId?: string | null; onNavigate?: (view: ViewId, focusId?: string | null) => void; onOpenAsset?: (assetId: string) => void }
 const allValue = 'All'
 const statusOptions = [allValue, ...Array.from(new Set(bankingFinanceTracks.map((track) => track.status))).sort()]
-export function BankingCreditRiskStudyPage({ focusId, onNavigate, onOpenAsset }: BankingCreditRiskStudyPageProps) {
+export function BankingCreditRiskStudyPage({ focusId, onNavigate = () => undefined, onOpenAsset = () => undefined }: BankingCreditRiskStudyPageProps) {
   const [query, setQuery] = useState(''); const [status, setStatus] = useState(allValue); const [selectedId, setSelectedId] = useState<string | null>(null)
   const visible = useMemo(() => { const q = query.trim().toLowerCase(); return bankingFinanceTracks.filter((track) => status === allValue || track.status === status).filter((track) => !q || [track.title, track.eyebrow, track.level, track.status, track.summary, track.whyItMatters, track.nextAction, ...track.primaryOutputs, ...track.workflow, ...track.coreConcepts, ...track.formulasAndTools, ...track.practiceMoves, ...track.connectedViews, ...track.searchTerms].join(' ').toLowerCase().includes(q)) }, [query, status])
   const focused = bankingFinanceTracks.find((track) => track.id === focusId || track.aliases?.includes(focusId ?? ''))
