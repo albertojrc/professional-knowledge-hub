@@ -23,6 +23,7 @@ const requiredFiles = [
   'src/pages/ReferencePage.tsx',
   'src/pages/KnowledgeAssetDetailPage.tsx',
   'src/pages/KnowledgeMapPage.tsx',
+  'src/components/knowledge/VisualKnowledgeMapStudio.tsx',
   'src/pages/SourceCoverageQAPage.tsx',
   'src/pages/KnowledgeLibraryPage.tsx',
   'src/pages/StudyPathsPage.tsx',
@@ -66,7 +67,8 @@ assertContains('src/data/searchIndex.ts', 'sourceCoverageRecords')
 assertContains('src/pages/KnowledgeAssetDetailPage.tsx', 'getSourceAwareAssetMeta')
 assertContains('src/pages/OutputAtlasPage.tsx', 'sprint25Outputs')
 assertContains('src/pages/ReferencePage.tsx', 'sprint25Formulas')
-assertContains('src/pages/KnowledgeMapPage.tsx', 'professionalGraphNodes')
+assertContains('src/pages/KnowledgeMapPage.tsx', 'VisualKnowledgeMapStudio')
+assertContains('src/components/knowledge/VisualKnowledgeMapStudio.tsx', 'professionalGraphNodes')
 assertContains('src/pages/SourceCoverageQAPage.tsx', 'sourceCoverageSummary')
 assertContains('src/pages/SourceCoverageQAPage.tsx', 'pendingGraphLinks')
 assertContains('src/main.tsx', './styles/professionalGraphOS.css')
