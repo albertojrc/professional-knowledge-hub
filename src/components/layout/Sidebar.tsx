@@ -1,84 +1,18 @@
 import type { NavItem, ViewId } from '../../types/knowledge'
 import { navItems } from '../../data/knowledge'
 interface SidebarProps { activeView: ViewId; onChangeView: (view: ViewId) => void }
-const studyNav: NavItem[] = [
-  { id: 'study-modules', label: 'Study Modules', eyebrow: 'Main Hub', description: 'Learning modules.', icon: 'SM' },
-  { id: 'data-science-analytics-study', label: 'Data Science & Analytics Study', eyebrow: 'Study', description: 'Analytics.', icon: 'DA' },
-  { id: 'finance-valuation-study', label: 'Finance & Valuation Study', eyebrow: 'Study', description: 'Finance.', icon: 'FV' },
-  { id: 'economics-markets-study', label: 'Economics & Markets Study', eyebrow: 'Study', description: 'Markets.', icon: 'EM' },
-  { id: 'management-strategy-study', label: 'Management & Strategy Study', eyebrow: 'Study', description: 'Strategy.', icon: 'MS' },
-  { id: 'tools-platforms-study', label: 'Tools & Platforms Study', eyebrow: 'Study', description: 'Tools.', icon: 'TP' },
-  { id: 'banking-credit-risk-study', label: 'Banking & Credit Risk Study', eyebrow: 'Study', description: 'Banking.', icon: 'BR' },
-  { id: 'professional-certifications', label: 'Professional Certifications', eyebrow: 'CFA · BMC · BFF', description: 'Certifications.', icon: 'PC' },
-  { id: 'global-search', label: 'Global Search', eyebrow: 'Search', description: 'Search.', icon: 'SE' },
-  { id: 'knowledge-library', label: 'Knowledge Library', eyebrow: 'Concepts', description: 'Library.', icon: 'KB' },
-  { id: 'study-paths', label: 'Study Paths', eyebrow: 'Tracks', description: 'Paths.', icon: 'SP' },
-  { id: 'learning-session', label: 'Learning Session', eyebrow: 'Focus', description: 'Session.', icon: 'LS' },
-  { id: 'data-science', label: 'Data Science OS', eyebrow: 'Legacy', description: 'Analytics OS.', icon: 'DS' },
-  { id: 'banking-finance', label: 'Banking & Finance', eyebrow: 'Legacy', description: 'Banking.', icon: 'BF' },
-  { id: 'credit-risk', label: 'Credit Risk Lab', eyebrow: 'Lab', description: 'Applied lab.', icon: 'CR' },
-  { id: 'business-os', label: 'Management & Business', eyebrow: 'Core', description: 'Business OS.', icon: 'BS' }
-]
-const referenceNav: NavItem[] = [
-  { id: 'formula-library', label: 'Formula Library', eyebrow: 'Reference', description: 'Formulas.', icon: 'FL' },
-  { id: 'model-library', label: 'Model Library', eyebrow: 'Reference', description: 'Models.', icon: 'MO' },
-  { id: 'output-atlas', label: 'Output Atlas', eyebrow: 'Interpretation', description: 'Outputs.', icon: 'OA' },
-  { id: 'business-cases', label: 'Business Case Library', eyebrow: 'Application', description: 'Cases.', icon: 'BC' },
-  { id: 'knowledge-map', label: 'Knowledge Map', eyebrow: 'Connections', description: 'Map.', icon: 'KM' }
-]
-const applicationNav: NavItem[] = [
-  { id: 'practice-engine', label: 'Practice Engine', eyebrow: 'Practice', description: 'Practice.', icon: 'PE' },
-  { id: 'capstone-projects', label: 'Capstone Projects', eyebrow: 'Portfolio', description: 'Projects.', icon: 'CP' },
-  { id: 'portfolio-builder', label: 'Portfolio Builder', eyebrow: 'Career', description: 'Portfolio.', icon: 'PB' },
-  { id: 'interview-prep', label: 'Interview Prep', eyebrow: 'Career', description: 'Interview.', icon: 'IP' },
-  { id: 'role-readiness', label: 'Role Readiness', eyebrow: 'Career', description: 'Roadmap.', icon: 'RR' },
-  { id: 'professional-scenarios', label: 'Professional Scenarios', eyebrow: 'Apply', description: 'Scenarios.', icon: 'SC' },
-  { id: 'decision-playbooks', label: 'Decision Playbooks', eyebrow: 'Decide', description: 'Playbooks.', icon: 'DP' },
-  { id: 'ml-models', label: 'ML Models', eyebrow: 'ML', description: 'Models.', icon: 'ML' },
-  { id: 'ml-graph-atlas', label: 'ML Graph Atlas', eyebrow: 'Charts', description: 'Charts.', icon: 'CH' }
-]
-const evidenceNav: NavItem[] = [
-  { id: 'academic-upgrade-pass', label: 'Academic Upgrade Pass', eyebrow: 'Backstage', description: 'Upgrade queue.', icon: 'AU' },
-  { id: 'academic-notes', label: 'Academic Notes', eyebrow: 'Backstage', description: 'Notes.', icon: 'AN' },
-  { id: 'credit-scoring-review', label: 'Credit Scoring Review', eyebrow: 'Backstage', description: 'Review pass.', icon: 'CS' },
-  { id: 'credit-promotion-queue', label: 'Credit Promotion Queue', eyebrow: 'Backstage', description: 'Update decisions.', icon: 'CQ' },
-  { id: 'lc-field-mapping', label: 'LC Field Mapping', eyebrow: 'Backstage', description: 'Field groups.', icon: 'LC' },
-  { id: 'abt-blueprint', label: 'ABT Blueprint', eyebrow: 'Backstage', description: 'ABT design.', icon: 'AB' },
-  { id: 'abt-schema-template', label: 'ABT Schema Template', eyebrow: 'Backstage', description: 'ABT columns.', icon: 'AS' },
-  { id: 'abt-field-review-matrix', label: 'ABT Field Review Matrix', eyebrow: 'Backstage', description: 'Field decisions.', icon: 'FR' },
-  { id: 'model-ready-feature-set', label: 'Model-Ready Feature Set', eyebrow: 'Backstage', description: 'Feature promotion.', icon: 'MF' },
-  { id: 'hub-qa-polish', label: 'Hub QA Polish', eyebrow: 'Backstage', description: 'Polish.', icon: 'HQ' },
-  { id: 'source-command-center', label: 'Evidence Command Center', eyebrow: 'Backstage', description: 'Control.', icon: 'CC' },
-  { id: 'academic-review-workspace', label: 'Academic Review', eyebrow: 'Backstage', description: 'Review.', icon: 'AR' },
-  { id: 'academic-file-registry', label: 'Academic Files', eyebrow: 'Backstage', description: 'Files.', icon: 'AF' },
-  { id: 'source-decision-board', label: 'Decision Board', eyebrow: 'Backstage', description: 'Decisions.', icon: 'SD' },
-  { id: 'promotion-queue', label: 'Promotion Queue', eyebrow: 'Backstage', description: 'Queue.', icon: 'PQ' },
-  { id: 'controlled-update-log', label: 'Update Log', eyebrow: 'Backstage', description: 'Log.', icon: 'UL' },
-  { id: 'review-form-template', label: 'Review Form', eyebrow: 'Backstage', description: 'Form.', icon: 'RF' },
-  { id: 'review-result-registry', label: 'Review Results', eyebrow: 'Backstage', description: 'Results.', icon: 'RR' },
-  { id: 'source-governance-summary', label: 'Source Governance', eyebrow: 'Backstage', description: 'Summary.', icon: 'SG' },
-  { id: 'source-pack-guide', label: 'Source Pack Guide', eyebrow: 'Backstage', description: 'Guide.', icon: 'PK' },
-  { id: 'source-batch-planner', label: 'Source Batch Planner', eyebrow: 'Backstage', description: 'Planner.', icon: 'BP' },
-  { id: 'material-inventory', label: 'Material Inventory', eyebrow: 'Backstage', description: 'Inventory.', icon: 'MI' },
-  { id: 'course-area-map', label: 'Course Area Map', eyebrow: 'Backstage', description: 'Area map.', icon: 'CM' },
-  { id: 'evidence-expansion', label: 'Evidence Expansion', eyebrow: 'Backstage', description: 'Expansion.', icon: 'EV' },
-  { id: 'source-coverage-qa', label: 'Source Coverage QA', eyebrow: 'Backstage', description: 'Coverage.', icon: 'QA' },
-  { id: 'source-review-prep', label: 'Review Prep', eyebrow: 'Backstage', description: 'Prep.', icon: 'SR' },
-  { id: 'source-review-execution', label: 'Review Execution', eyebrow: 'Backstage', description: 'Execution.', icon: 'EX' },
-  { id: 'course-evidence', label: 'Course Evidence', eyebrow: 'Backstage', description: 'Evidence.', icon: 'CE' },
-  { id: 'source-intake', label: 'Source Intake', eyebrow: 'Backstage', description: 'Intake.', icon: 'IN' },
-  { id: 'intake-coverage-map', label: 'Intake Coverage Map', eyebrow: 'Backstage', description: 'Coverage.', icon: 'IC' },
-  { id: 'knowledge-factory', label: 'Knowledge Factory', eyebrow: 'Backstage', description: 'Factory.', icon: 'KF' },
-  { id: 'route-qa', label: 'Route QA', eyebrow: 'Backstage', description: 'Routes.', icon: 'RQ' },
-  { id: 'phase-2-handoff', label: 'Phase 2 Handoff', eyebrow: 'Backstage', description: 'Handoff.', icon: 'PH' }
-]
+const n=(id:ViewId,label:string,eyebrow='Backstage',icon='•'):NavItem=>({id,label,eyebrow,description:label,icon})
+const studyNav: NavItem[] = [n('study-modules','Study Modules','Main Hub','SM'),n('data-science-analytics-study','Data Science & Analytics Study','Study','DA'),n('finance-valuation-study','Finance & Valuation Study','Study','FV'),n('economics-markets-study','Economics & Markets Study','Study','EM'),n('management-strategy-study','Management & Strategy Study','Study','MS'),n('tools-platforms-study','Tools & Platforms Study','Study','TP'),n('banking-credit-risk-study','Banking & Credit Risk Study','Study','BR'),n('professional-certifications','Professional Certifications','CFA · BMC · BFF','PC'),n('global-search','Global Search','Search','SE'),n('knowledge-library','Knowledge Library','Concepts','KB'),n('study-paths','Study Paths','Tracks','SP'),n('learning-session','Learning Session','Focus','LS'),n('data-science','Data Science OS','Legacy','DS'),n('banking-finance','Banking & Finance','Legacy','BF'),n('credit-risk','Credit Risk Lab','Lab','CR'),n('business-os','Management & Business','Core','BS')]
+const referenceNav: NavItem[] = [n('formula-library','Formula Library','Reference','FL'),n('model-library','Model Library','Reference','MO'),n('output-atlas','Output Atlas','Interpretation','OA'),n('business-cases','Business Case Library','Application','BC'),n('knowledge-map','Knowledge Map','Connections','KM')]
+const applicationNav: NavItem[] = [n('practice-engine','Practice Engine','Practice','PE'),n('capstone-projects','Capstone Projects','Portfolio','CP'),n('portfolio-builder','Portfolio Builder','Career','PB'),n('interview-prep','Interview Prep','Career','IP'),n('role-readiness','Role Readiness','Career','RR'),n('professional-scenarios','Professional Scenarios','Apply','SC'),n('decision-playbooks','Decision Playbooks','Decide','DP'),n('ml-models','ML Models','ML','ML'),n('ml-graph-atlas','ML Graph Atlas','Charts','CH')]
+const evidenceNav: NavItem[] = [n('academic-upgrade-pass','Academic Upgrade Pass','Backstage','AU'),n('academic-notes','Academic Notes','Backstage','AN'),n('credit-scoring-review','Credit Scoring Review','Backstage','CS'),n('credit-promotion-queue','Credit Promotion Queue','Backstage','CQ'),n('lc-field-mapping','LC Field Mapping','Backstage','LC'),n('abt-blueprint','ABT Blueprint','Backstage','AB'),n('abt-schema-template','ABT Schema Template','Backstage','AS'),n('abt-field-review-matrix','ABT Field Review Matrix','Backstage','FR'),n('model-ready-feature-set','Model-Ready Feature Set','Backstage','MF'),n('hub-qa-polish','Hub QA Polish','Backstage','HQ'),n('source-command-center','Evidence Command Center','Backstage','CC'),n('academic-review-workspace','Academic Review','Backstage','AR'),n('academic-file-registry','Academic Files','Backstage','AF'),n('source-decision-board','Decision Board','Backstage','SD'),n('promotion-queue','Promotion Queue','Backstage','PQ'),n('controlled-update-log','Update Log','Backstage','UL'),n('review-form-template','Review Form','Backstage','RF'),n('review-result-registry','Review Results','Backstage','RR'),n('source-governance-summary','Source Governance','Backstage','SG'),n('source-pack-guide','Source Pack Guide','Backstage','PK'),n('source-batch-planner','Source Batch Planner','Backstage','BP'),n('material-inventory','Material Inventory','Backstage','MI'),n('course-area-map','Course Area Map','Backstage','CM'),n('evidence-expansion','Evidence Expansion','Backstage','EV'),n('source-coverage-qa','Source Coverage QA','Backstage','QA'),n('source-review-prep','Review Prep','Backstage','SR'),n('source-review-execution','Review Execution','Backstage','EX'),n('course-evidence','Course Evidence','Backstage','CE'),n('source-intake','Source Intake','Backstage','IN'),n('intake-coverage-map','Intake Coverage Map','Backstage','IC'),n('knowledge-factory','Knowledge Factory','Backstage','KF'),n('route-qa','Route QA','Backstage','RQ'),n('phase-2-handoff','Phase 2 Handoff','Backstage','PH')]
 const navCatalog: NavItem[] = [...navItems, ...studyNav, ...referenceNav, ...applicationNav, ...evidenceNav]
 const groups = [
-  { title: 'Study Modules', ids: ['dashboard', 'study-modules', 'data-science-analytics-study', 'finance-valuation-study', 'economics-markets-study', 'management-strategy-study', 'tools-platforms-study', 'banking-credit-risk-study', 'professional-certifications', 'global-search', 'knowledge-library', 'study-paths', 'learning-session', 'data-science', 'banking-finance', 'credit-risk', 'business-os'] as ViewId[] },
-  { title: 'Reference & Cases', ids: ['formula-library', 'model-library', 'output-atlas', 'business-cases', 'knowledge-map'] as ViewId[] },
-  { title: 'Practice & Application', ids: ['practice-engine', 'capstone-projects', 'portfolio-builder', 'interview-prep', 'role-readiness', 'professional-scenarios', 'decision-playbooks', 'ml-models', 'ml-graph-atlas'] as ViewId[] },
-  { title: 'Evidence & QA', ids: ['academic-upgrade-pass', 'academic-notes', 'credit-scoring-review', 'credit-promotion-queue', 'lc-field-mapping', 'abt-blueprint', 'abt-schema-template', 'abt-field-review-matrix', 'model-ready-feature-set', 'hub-qa-polish', 'source-command-center', 'academic-review-workspace', 'academic-file-registry', 'source-decision-board', 'promotion-queue', 'controlled-update-log', 'review-form-template', 'review-result-registry', 'source-governance-summary', 'source-pack-guide', 'source-batch-planner', 'material-inventory', 'course-area-map', 'evidence-expansion', 'source-coverage-qa', 'source-review-prep', 'source-review-execution', 'course-evidence', 'source-intake', 'intake-coverage-map', 'knowledge-factory', 'route-qa', 'phase-2-handoff', 'quality-review'] as ViewId[] }
+  { title: 'Study Modules', ids: ['dashboard','study-modules','data-science-analytics-study','finance-valuation-study','economics-markets-study','management-strategy-study','tools-platforms-study','banking-credit-risk-study','professional-certifications','global-search','knowledge-library','study-paths','learning-session','data-science','banking-finance','credit-risk','business-os'] as ViewId[] },
+  { title: 'Reference & Cases', ids: ['formula-library','model-library','output-atlas','business-cases','knowledge-map'] as ViewId[] },
+  { title: 'Practice & Application', ids: ['practice-engine','capstone-projects','portfolio-builder','interview-prep','role-readiness','professional-scenarios','decision-playbooks','ml-models','ml-graph-atlas'] as ViewId[] },
+  { title: 'Evidence & QA', ids: ['academic-upgrade-pass','academic-notes','credit-scoring-review','credit-promotion-queue','lc-field-mapping','abt-blueprint','abt-schema-template','abt-field-review-matrix','model-ready-feature-set','hub-qa-polish','source-command-center','academic-review-workspace','academic-file-registry','source-decision-board','promotion-queue','controlled-update-log','review-form-template','review-result-registry','source-governance-summary','source-pack-guide','source-batch-planner','material-inventory','course-area-map','evidence-expansion','source-coverage-qa','source-review-prep','source-review-execution','course-evidence','source-intake','intake-coverage-map','knowledge-factory','route-qa','phase-2-handoff','quality-review'] as ViewId[] }
 ]
 export function Sidebar({ activeView, onChangeView }: SidebarProps) {
-  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v5.9</span><h1>Professional Knowledge Hub</h1><p>Study-first modules with model-ready feature set, field review matrix, ABT schema templates, ABT design, field mapping, review queues and governance.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
+  return <aside className="sidebar"><div className="brand-panel"><span className="eyebrow">PKOS v5.8 · PKOS v5.9</span><h1>Professional Knowledge Hub</h1><p>Study-first modules with model-ready feature set, field review matrix, ABT schema templates, ABT design, field mapping, review queues and governance.</p></div>{groups.map((group) => <nav className="nav-group" key={group.title} aria-label={group.title}><div className="nav-title">{group.title}</div>{group.ids.map((id) => { const item = navCatalog.find((navItem) => navItem.id === id); if (!item) return null; return <button className={`nav-item ${activeView === id ? 'active' : ''}`} key={item.id} onClick={() => onChangeView(item.id)} type="button"><span className="nav-icon">{item.icon}</span><span><strong>{item.label}</strong><small>{item.eyebrow}</small></span></button> })}</nav>)}</aside>
 }
