@@ -1,14 +1,10 @@
-# UX Reorg 2 — Five Main Modules & Global Search Parity
+# UX Reorg 3 — Visual Learning Studio
 
-This reorganization pauses content expansion and repairs how the hub is navigated.
+This pass uses the Knowledge Asset Detail page as the visual reference for the main modules.
 
 ## Why
 
-The sidebar had become too crowded, but the fix must not remove the powerful Global Search experience. The visible menu should contain five modules, while each module must preserve access to the same searchable capsule layer.
-
-## Navigation principle
-
-The sidebar should show only the main modules. Specific assets, governance pages, formulas, outputs, search results and backstage workflows remain accessible through internal search, deep links and command-center capsules.
+The hub should feel like a professional learning platform. The target experience is a lesson-style page with a large hero card, breadcrumb, reading guide, tabs, output panel, checklist and clear study blocks.
 
 ## Visible sidebar modules
 
@@ -18,65 +14,42 @@ The sidebar should show only the main modules. Specific assets, governance pages
 - CFA & Certifications
 - Knowledge Map
 
-## Interior module principle
+## Visual studio pattern
 
-Each module must behave like a command center and also expose a real search-capsule layer powered by `globalSearchIndex`. Selecting a capsule should provide at least the same level of clarity as a Global Search entry:
+The main study modules now use `VisualModuleStudio`:
 
-- title
-- kind
-- area
-- category
-- summary
-- search signals / tags
-- route context
-- button to open the same focused route when routing handlers are available
+- lesson-style toolbar and breadcrumb
+- large visual hero card
+- section tabs
+- selectable learning path chips
+- reading guide
+- numbered learning blocks
+- workflow chain
+- outputs, concepts and tools cards
+- practice block
+- search capsules from `globalSearchIndex`
+- right-side study tracker, output preview, checklist and connected views
 
-## UX polish added
+## Search parity
 
-The restored capsule layer now has a clearer user flow:
+The visual redesign does not remove the search depth. Each module keeps a real search-capsule layer powered by `globalSearchIndex`. A capsule shows title, kind, area, category, summary, tags, route context and an `Open exact view` action.
 
-- capsule count and total module inventory are visible at the top
-- search input explains what can be searched inside the module
-- filter reset is separated from the search box
-- selected capsule is visually highlighted
-- result list has its own scroll area to reduce page jumping
-- empty state explains what to do when filters return no matches
-- detail panel shows where the capsule belongs, search signals and a direct `Open exact view` action
+## Data Science
 
-## Data Science redesign
+`DataScienceAnalyticsStudyPage` now delegates to `VisualModuleStudio` with Data Science tracks and Data Science search capsules.
 
-`DataScienceAnalyticsStudyPage` is a command center with orientation paths plus `Data Science Search Capsules` powered by the real search index. It organizes:
+## Banking & Finance
 
-- Data Workflow Foundations
-- SQL, ABT & Analytics Engineering
-- EDA, Statistics & Interpretation
-- Machine Learning Lifecycle
-- BI, Dashboards & Decision Storytelling
-- Governance, Monitoring & Responsible AI
+`BankingCreditRiskStudyPage` now delegates to `VisualModuleStudio` with Banking & Finance tracks and Banking & Finance search capsules.
 
-## Banking & Finance redesign
+## CFA & Certifications
 
-`BankingCreditRiskStudyPage` is a command center with orientation paths plus `Banking & Finance Search Capsules` powered by the real search index. It organizes:
+`ProfessionalCertificationsPage` now delegates to `VisualModuleStudio` with CFA-first tracks and CFA & Certifications search capsules.
 
-- Credit Risk Core
-- Credit Scoring & Model Lifecycle
-- Corporate Finance & Valuation
-- Portfolio Monitoring & Governance
-
-## CFA & Certifications redesign
-
-`ProfessionalCertificationsPage` is a CFA-first command center with orientation paths plus `CFA & Certifications Search Capsules` powered by the real search index. It organizes:
-
-- CFA Level I Roadmap
-- Finance Foundations for CFA
-- Investments & Portfolio Management
-- Bloomberg as Support Tool
-
-## User-facing effect
-
-The user is no longer forced to browse dozens of sidebar items, and the modules no longer feel like summaries. The preferred experience is:
+## User-facing flow
 
 1. Open one of the five main modules.
-2. Use the orientation flow to understand the learning structure.
-3. Use the restored search capsules inside the module to browse real Global Search entries.
-4. Select a capsule, inspect the detail panel and open the focused route for an exact asset, formula, output, model, case or governance page.
+2. Choose a visual learning path chip.
+3. Study the path through the hero, reading guide, workflow and output panel.
+4. Browse restored search capsules inside the module.
+5. Open the focused route for an exact asset, formula, output, model, case or governance page.
