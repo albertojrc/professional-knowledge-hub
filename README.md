@@ -8,20 +8,27 @@ The Hub is designed as a professional second brain. It explains what a concept i
 
 ## Current sprint status
 
-The project has advanced through Sprint 5.13 and UX Reorg 1.
+The project has advanced through Sprint 5.13 and UX Reorg 2.
 
-UX Reorg 1 simplifies the sidebar and converts Banking & Finance plus CFA & Certifications into command centers. The visible navigation is now intentionally small, while Global Search remains the main entry point for specific terms, outputs, formulas, models, governance pages and deep details.
+UX Reorg 2 sets the visible sidebar to exactly five modules and converts Data Science, Banking & Finance and CFA & Certifications into command centers. Each module now uses search-style capsules with detailed panels that show workflow, outputs, concepts, formulas/tools, practice moves and connected views.
 
 ## Visible navigation modules
 
 - Home
-- Global Search
+- Data Science
 - Banking & Finance
 - CFA & Certifications
 - Knowledge Map
 
 ## Current command centers
 
+- Data Science Command Center
+  - Data Workflow Foundations
+  - SQL, ABT & Analytics Engineering
+  - EDA, Statistics & Interpretation
+  - Machine Learning Lifecycle
+  - BI, Dashboards & Decision Storytelling
+  - Governance, Monitoring & Responsible AI
 - Banking & Finance Command Center
   - Credit Risk Core
   - Credit Scoring & Model Lifecycle
@@ -87,9 +94,10 @@ docs/UX_REORG_1_CLEAN_NAVIGATION_COMMAND_CENTERS.md
 
 ## Design principles
 
-- The sidebar should stay small.
-- Global Search is the preferred entry point for specific terms and deep pages.
-- Main modules should behave like command centers, not long lists of internal pages.
+- The sidebar should stay fixed at five visible modules.
+- Data Science, Banking & Finance and CFA & Certifications should behave like command centers.
+- Each module capsule should open a detail panel with at least Global Search-level clarity.
+- Specific deep pages remain accessible through search, internal links and focused routes.
 - Main theory must be visible.
 - Every important topic should answer: what, when, how, project moment, output, decision and monitoring.
 - Output Atlas teaches how to interpret outputs.
@@ -102,8 +110,9 @@ docs/UX_REORG_1_CLEAN_NAVIGATION_COMMAND_CENTERS.md
 
 - Architecture: React/Vite/TypeScript Professional Knowledge Operating System.
 - Content depth: study-first modules with controlled Evidence & QA expansion.
+- Data Science: command center now organizes workflow foundations, SQL/ABT, EDA/statistics, ML lifecycle, BI/storytelling and governance/monitoring.
 - Banking analytics: ABT blueprint, ABT schema template, field review matrix, model-ready feature set, credit scoring experiment blueprint, model card monitoring handoff, portfolio monitoring dashboard blueprint and alert remediation workflow are now connected.
-- UX/UI: cleaner navigation with command centers for Banking & Finance and CFA & Certifications.
-- Search: global search remains the primary route into detailed concepts, outputs, formulas, models, business cases and governance pages.
-- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.13 plus UX Reorg 1.
-- Next phase: refine the Dashboard so it matches the same command-center navigation model before adding Sprint 5.14 content.
+- UX/UI: cleaner five-module navigation with command centers for Data Science, Banking & Finance and CFA & Certifications.
+- Search: specific terms and deep pages remain accessible through search and focused routes, without crowding the sidebar.
+- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.13 plus UX Reorg 2.
+- Next phase: refine the Home dashboard so it matches the same five-module command-center navigation model before adding Sprint 5.14 content.
