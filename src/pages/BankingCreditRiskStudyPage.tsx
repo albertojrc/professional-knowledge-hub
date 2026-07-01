@@ -1,24 +1,98 @@
 import { useMemo, useState } from 'react'
-import { bankingCreditRiskLessons, bankingCreditRiskStudySummary } from '../data/bankingCreditRiskStudy'
-import { bankingSafeUpdates, bankingSafeUpdateSummary } from '../data/bankingSafeUpdates'
-import type { BankingRiskStudyLesson } from '../types/bankingCreditRiskStudy'
-import type { BankingSafeUpdate } from '../types/bankingSafeUpdate'
+import { bankingFinanceSummary, bankingFinanceTracks } from '../data/moduleCommandCenters'
+import type { CommandCenterTrack } from '../types/moduleCommandCenter'
 import { BadgeList } from '../components/ui/BadgeList'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
 
 interface BankingCreditRiskStudyPageProps { focusId?: string | null }
 const allValue = 'All'
-const levelOptions = [allValue, ...Array.from(new Set(bankingCreditRiskLessons.map((lesson) => lesson.level))).sort()]
-const evidenceOptions = [allValue, ...Array.from(new Set(bankingCreditRiskLessons.map((lesson) => lesson.evidenceStatus))).sort()]
+const statusOptions = [allValue, ...Array.from(new Set(bankingFinanceTracks.map((track) => track.status))).sort()]
 
 export function BankingCreditRiskStudyPage({ focusId }: BankingCreditRiskStudyPageProps) {
-  const [level, setLevel] = useState(allValue)
-  const [evidence, setEvidence] = useState(allValue)
   const [query, setQuery] = useState('')
-  const lessons = useMemo(() => { const q = query.trim().toLowerCase(); return bankingCreditRiskLessons.filter((lesson) => level === allValue || lesson.level === level).filter((lesson) => evidence === allValue || lesson.evidenceStatus === evidence).filter((lesson) => !q || [lesson.title, lesson.level, lesson.evidenceStatus, lesson.studyObjective, ...lesson.sourceMaterials, ...lesson.coreConcepts, ...lesson.workflow, ...lesson.formulas, ...lesson.outputs, ...lesson.interpretation, ...lesson.businessDecisions, ...lesson.practicePrompts, ...lesson.connections].join(' ').toLowerCase().includes(q)).sort((a, b) => (a.id === focusId ? -1 : b.id === focusId ? 1 : levelRank(a.level) - levelRank(b.level) || a.title.localeCompare(b.title))) }, [evidence, focusId, level, query])
-  return <section className="page-stack">{focusId && <div className="deep-link-banner">Opened from Global Search · focused banking lesson</div>}<div className="hero-panel banking-study-hero"><div><span className="eyebrow">Sprint 5.4 · Banking & Credit Risk Study Module</span><h1>Credit risk learning with safe pending-ref study updates.</h1><p>This module now shows controlled workflow, target, validation and policy placeholders from the review queue. Source evidence remains pending until exact refs are reviewed.</p></div><div className="banking-study-score-card"><span className="eyebrow">Study Module</span><strong>{bankingCreditRiskStudySummary.totalLessons}</strong><p>{bankingCreditRiskStudySummary.sourceCandidates} source candidates · {bankingSafeUpdateSummary.total} safe updates</p><div className="inventory-mini-stats"><span>{bankingSafeUpdateSummary.applied} applied</span><span>{bankingSafeUpdateSummary.pending} pending refs</span></div></div></div><section className="manual-panel result-impact"><span className="eyebrow">Safe Study Flow</span><h2>Review queue content is visible, but not over-claimed</h2><KnowledgeChain nodes={['Review Pass','Promotion Queue','Safe Placeholder','Study Lesson','Pending Refs','Future Promotion']} /></section><section className="manual-panel warning"><span className="eyebrow">Evidence Rule</span><h2>No source-backed label yet.</h2><p>These are safe placeholders and review links. Exact page references are still required before academic-backed promotion.</p></section><section className="manual-panel"><div className="library-filter-header"><div><span className="eyebrow">Safe Updates Applied</span><h2>{bankingSafeUpdateSummary.total} controlled updates inside the Banking Study module</h2></div><div className="inventory-mini-stats"><span>{bankingSafeUpdateSummary.reviewLinks} review links</span><span>{bankingSafeUpdateSummary.pending} pending</span></div></div><div className="banking-study-grid">{bankingSafeUpdates.map((update) => <SafeUpdateCard key={update.id} update={update} />)}</div></section><section className="manual-panel inventory-filter-panel"><div className="library-filter-header"><div><span className="eyebrow">Lesson Filters</span><h2>{lessons.length} of {bankingCreditRiskLessons.length} lessons visible</h2></div><button className="text-button" onClick={() => { setLevel(allValue); setEvidence(allValue); setQuery('') }} type="button">Clear filters</button></div><input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search credit scoring, PD, KS, ABT, policy, formulas or outputs..." /><div className="library-filter-grid"><StudySelect label="Level" value={level} values={levelOptions} onChange={setLevel} /><StudySelect label="Evidence" value={evidence} values={evidenceOptions} onChange={setEvidence} /></div></section><section className="manual-panel"><span className="eyebrow">Credit Risk Lessons</span><h2>Learn concepts through workflows, outputs and decisions</h2><div className="banking-study-grid">{lessons.map((lesson) => <LessonCard key={lesson.id} lesson={lesson} focused={lesson.id === focusId} />)}</div></section></section>
+  const [status, setStatus] = useState(allValue)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return bankingFinanceTracks
+      .filter((track) => status === allValue || track.status === status)
+      .filter((track) => !q || [track.title, track.eyebrow, track.level, track.status, track.summary, track.whyItMatters, track.nextAction, ...track.primaryOutputs, ...track.workflow, ...track.coreConcepts, ...track.formulasAndTools, ...track.practiceMoves, ...track.connectedViews, ...track.searchTerms].join(' ').toLowerCase().includes(q))
+  }, [query, status])
+  const focused = bankingFinanceTracks.find((track) => track.id === focusId || track.aliases?.includes(focusId ?? ''))
+  const selected = focused ?? visible.find((track) => track.id === selectedId) ?? visible[0] ?? bankingFinanceTracks[0]
+
+  return (
+    <section className="page-stack command-center-page">
+      {focusId && <div className="deep-link-banner">Opened from Global Search · Banking & Finance context selected</div>}
+      <div className="hero-panel command-center-hero banking-finance-command-hero">
+        <div>
+          <span className="eyebrow">Reorg UX · Banking & Finance</span>
+          <h1>Banking & Finance Command Center.</h1>
+          <p>A cleaner module built around a few professional paths. Use the cards like search results; select one path, then study the detail panel on the right.</p>
+        </div>
+        <div className="command-center-score-card">
+          <span className="eyebrow">Simplified Module</span>
+          <strong>{bankingFinanceSummary.totalTracks}</strong>
+          <p>{bankingFinanceSummary.primaryTracks} primary paths · {bankingFinanceSummary.professionalTracks} professional layers</p>
+          <div className="inventory-mini-stats"><span>{bankingFinanceSummary.outputs} outputs</span><span>Search-first</span></div>
+        </div>
+      </div>
+
+      <section className="manual-panel command-center-rule">
+        <span className="eyebrow">Navigation rule</span>
+        <h2>Start from the concept, not from the backstage pages.</h2>
+        <p>The old governance pages still exist, but they are no longer the navigation experience. Global Search and these command-center cards should be the main way to enter content.</p>
+      </section>
+
+      <section className="manual-panel inventory-filter-panel command-center-filter-panel">
+        <div className="library-filter-header">
+          <div><span className="eyebrow">Module Search</span><h2>{visible.length} of {bankingFinanceTracks.length} paths visible</h2></div>
+          <button className="text-button" onClick={() => { setQuery(''); setStatus(allValue); setSelectedId(null) }} type="button">Clear</button>
+        </div>
+        <input className="library-search-input" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search credit risk, PD, WACC, DCF, ABT, monitoring, remediation..." />
+        <div className="library-filter-grid"><CommandSelect label="Path type" value={status} values={statusOptions} onChange={setStatus} /></div>
+      </section>
+
+      <section className="command-center-layout">
+        <div className="command-center-results" aria-label="Banking and Finance paths">
+          {visible.map((track) => <CommandResultCard key={track.id} track={track} selected={track.id === selected.id} onSelect={() => setSelectedId(track.id)} />)}
+        </div>
+        <CommandDetailPanel track={selected} />
+      </section>
+    </section>
+  )
 }
-function SafeUpdateCard({ update }: { update: BankingSafeUpdate }) { const cls = update.status.toLowerCase().split(' ').join('-'); return <article className="banking-study-card safe-update-card"><div className="banking-study-card-top"><span className="eyebrow">{update.updateType}</span><span className={`banking-study-pill status-${cls}`}>{update.status}</span></div><h3>{update.title}</h3><p>{update.displayText}</p><div className="mini-result warning"><strong>Evidence note:</strong> {update.evidenceNote}</div><h4>Linked review views</h4><BadgeList items={update.linkedReviewViews} tone="purple" /><h4>Target lesson</h4><BadgeList items={[update.lessonId]} tone="blue" /><h4>Next action</h4><KnowledgeChain nodes={[update.nextAction]} /></article> }
-function LessonCard({ lesson, focused }: { lesson: BankingRiskStudyLesson; focused: boolean }) { return <article className={`banking-study-card ${focused ? 'focused-result-card' : ''}`}><div className="banking-study-card-top"><span className="eyebrow">{lesson.level} · {lesson.evidenceStatus}</span><span className={`banking-study-pill status-${lesson.evidenceStatus.toLowerCase().split(' ').join('-')}`}>{lesson.evidenceStatus}</span></div><h3>{lesson.title}</h3><p>{lesson.studyObjective}</p><h4>Source materials</h4><BadgeList items={lesson.sourceMaterials} tone="blue" /><h4>Core concepts</h4><BadgeList items={lesson.coreConcepts} tone="purple" /><h4>Professional workflow</h4><ol>{lesson.workflow.map((step) => <li key={step}>{step}</li>)}</ol><h4>Formulas and outputs</h4><BadgeList items={[...lesson.formulas, ...lesson.outputs]} tone="green" /><h4>How to interpret</h4><ul>{lesson.interpretation.map((item) => <li key={item}>{item}</li>)}</ul><h4>Business decisions</h4><BadgeList items={lesson.businessDecisions} tone="amber" /><h4>Practice prompts</h4><ul>{lesson.practicePrompts.map((prompt) => <li key={prompt}>{prompt}</li>)}</ul><h4>Connected areas</h4><BadgeList items={lesson.connections} tone="blue" /></article> }
-function StudySelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) { return <label className="library-select"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{values.map((item) => <option key={item} value={item}>{item}</option>)}</select></label> }
-function levelRank(level: BankingRiskStudyLesson['level']) { if (level === 'Foundation') return 1; if (level === 'Applied') return 2; return 3 }
+
+function CommandResultCard({ track, selected, onSelect }: { track: CommandCenterTrack; selected: boolean; onSelect: () => void }) {
+  return (
+    <button className={`command-result-card ${selected ? 'selected' : ''}`} onClick={onSelect} type="button">
+      <div>
+        <span className="eyebrow">{track.eyebrow} · {track.level}</span>
+        <h3>{track.title}</h3>
+        <p>{track.summary}</p>
+      </div>
+      <div className="search-result-meta"><span>{track.status}</span><span>{track.primaryOutputs.length} outputs</span><span>Open detail</span></div>
+    </button>
+  )
+}
+
+function CommandDetailPanel({ track }: { track: CommandCenterTrack }) {
+  return (
+    <article className="command-detail-panel">
+      <div className="command-detail-top"><span className="eyebrow">{track.eyebrow}</span><span className="command-status-pill">{track.status}</span></div>
+      <h2>{track.title}</h2>
+      <p>{track.whyItMatters}</p>
+      <section className="lesson-block"><div className="lesson-block-title"><span>1</span><h3>Professional workflow</h3></div><KnowledgeChain nodes={track.workflow} /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>2</span><h3>Primary outputs</h3></div><BadgeList items={track.primaryOutputs} tone="blue" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>3</span><h3>Core concepts</h3></div><BadgeList items={track.coreConcepts} tone="purple" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>4</span><h3>Formulas and tools</h3></div><BadgeList items={track.formulasAndTools} tone="green" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>5</span><h3>Practice moves</h3></div><ul className="clean-list">{track.practiceMoves.map((item) => <li key={item}>{item}</li>)}</ul></section>
+      <section className="lesson-block insight-block"><div className="lesson-block-title"><span>✓</span><h3>How to enter this content</h3></div><p>{track.nextAction}</p><BadgeList items={track.searchTerms} tone="amber" /></section>
+      <section className="lesson-block"><div className="lesson-block-title"><span>→</span><h3>Connected views</h3></div><BadgeList items={track.connectedViews} tone="blue" /></section>
+    </article>
+  )
+}
+
+function CommandSelect({ label, value, values, onChange }: { label: string; value: string; values: string[]; onChange: (value: string) => void }) {
+  return <label className="library-select"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{values.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
+}
