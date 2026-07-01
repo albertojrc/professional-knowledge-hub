@@ -1,0 +1,8 @@
+import{existsSync,readFileSync}from'node:fs'
+const files=['src/types/modelRefreshChallenger.ts','src/data/modelRefreshChallenger.ts','src/data/modelRefreshCommandTrack.ts','src/pages/ModelRefreshChallengerReviewPage.tsx','src/styles/modelRefreshChallengerOS.css','src/pages/BankingCreditRiskStudyPage.tsx','src/data/searchIndex.ts','src/main.tsx']
+const signals=[['src/data/modelRefreshChallenger.ts','refreshStages'],['src/data/modelRefreshChallenger.ts','challengerCriteria'],['src/data/modelRefreshChallenger.ts','refreshOutputs'],['src/data/modelRefreshChallenger.ts','refreshScenarios'],['src/data/modelRefreshCommandTrack.ts','Model Refresh & Challenger Review'],['src/data/modelRefreshCommandTrack.ts','Champion vs challenger'],['src/pages/ModelRefreshChallengerReviewPage.tsx','concept-learning-page'],['src/pages/ModelRefreshChallengerReviewPage.tsx','Champion vs Challenger Matrix'],['src/pages/ModelRefreshChallengerReviewPage.tsx','Promotion checklist'],['src/styles/modelRefreshChallengerOS.css','refresh-review-hero'],['src/styles/modelRefreshChallengerOS.css','refresh-matrix-preview'],['src/styles/modelRefreshChallengerOS.css','refresh-stage-picker'],['src/pages/BankingCreditRiskStudyPage.tsx','modelRefreshChallengerTrack'],['src/data/searchIndex.ts','bf-model-refresh-challenger-review'],['src/data/searchIndex.ts','Sprint 5.14'],['src/main.tsx','modelRefreshChallengerOS.css']]
+let bad=0
+for(const f of files){if(!existsSync(f)){console.error('missing '+f);bad=1}}
+for(const [f,s]of signals){if(!existsSync(f)||!readFileSync(f,'utf8').includes(s)){console.error(f+' missing '+s);bad=1}}
+if(bad)process.exit(1)
+console.log('Sprint 5.14 check passed.')
