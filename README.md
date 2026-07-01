@@ -6,11 +6,11 @@ A React + Vite + TypeScript platform for Data Science, Banking, Finance, Economi
 
 The Hub is designed as a professional second brain. It explains what a concept is, when to use it, how to use it, where it appears in a project, what output it produces, what decision it supports and what should be monitored afterward.
 
-## Sprint 1 status
+## Current sprint status
 
-Sprint 1 is functionally complete as the foundation phase of the Professional Knowledge Operating System.
+The project has advanced through Sprint 5.9.
 
-It created the platform structure required to scale from isolated notes into a connected professional knowledge system.
+Sprint 5.9 adds the `Model-Ready Feature Set`, a controlled Evidence & QA layer that converts the ABT Field Review Matrix into leakage-safe feature groups before credit scoring model experiments.
 
 ## Current modules
 
@@ -34,6 +34,14 @@ It created the platform structure required to scale from isolated notes into a c
 - Business Cases
 - Knowledge Map
 - Quality Review
+- Study Modules
+- Professional Certifications
+- Banking & Credit Risk Study
+- Academic Upgrade Pass
+- ABT Blueprint
+- ABT Schema Template
+- ABT Field Review Matrix
+- Model-Ready Feature Set
 
 ## Local setup
 
@@ -60,6 +68,8 @@ Or run each step manually:
 
 ```bash
 npm run qa:audit
+npm run qa:sprint58
+npm run qa:sprint59
 npm run lint
 npm run build
 ```
@@ -71,6 +81,8 @@ docs/QA_CHECKLIST.md
 docs/SPRINT_1_QA_HARDENING.md
 docs/SPRINT_1_FINAL_REVIEW.md
 docs/SPRINT_2_ROADMAP.md
+docs/SPRINT_5_8_ABT_FIELD_REVIEW_MATRIX.md
+docs/SPRINT_5_9_MODEL_READY_FEATURE_SET.md
 ```
 
 ## Design principles
@@ -85,8 +97,9 @@ docs/SPRINT_2_ROADMAP.md
 
 ## Current maturity
 
-- Architecture: Sprint 1 foundation complete.
-- Content depth: seeded and expanding through modular batches.
-- UX/UI: functional learning platform, ready for continued polish.
-- Technical QA: qa:audit, lint, build and validate scripts configured.
-- Next phase: Sprint 2 source-based knowledge consolidation from class materials.
+- Architecture: React/Vite/TypeScript Professional Knowledge Operating System.
+- Content depth: study-first modules with controlled Evidence & QA expansion.
+- Banking analytics: ABT blueprint, ABT schema template, field review matrix and model-ready feature set are now connected.
+- UX/UI: functional learning platform with backstage governance pages.
+- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.9.
+- Next phase: Sprint 5.10 should define the first credit scoring experiment blueprint from the approved feature set.
