@@ -6,11 +6,11 @@ import { BadgeList } from '../components/ui/BadgeList'
 import { KnowledgeChain } from '../components/knowledge/KnowledgeChain'
 import { ModuleSearchCapsules } from '../components/search/ModuleSearchCapsules'
 
-interface DataScienceAnalyticsStudyPageProps { focusId?: string | null; onNavigate: (view: ViewId, focusId?: string | null) => void; onOpenAsset: (assetId: string) => void }
+interface DataScienceAnalyticsStudyPageProps { focusId?: string | null; onNavigate?: (view: ViewId, focusId?: string | null) => void; onOpenAsset?: (assetId: string) => void }
 const allValue = 'All'
 const statusOptions = [allValue, ...Array.from(new Set(dataScienceTracks.map((track) => track.status))).sort()]
 
-export function DataScienceAnalyticsStudyPage({ focusId, onNavigate, onOpenAsset }: DataScienceAnalyticsStudyPageProps) {
+export function DataScienceAnalyticsStudyPage({ focusId, onNavigate = () => undefined, onOpenAsset = () => undefined }: DataScienceAnalyticsStudyPageProps) {
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState(allValue)
   const [selectedId, setSelectedId] = useState<string | null>(null)
