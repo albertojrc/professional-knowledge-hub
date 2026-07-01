@@ -8,44 +8,30 @@ The Hub is designed as a professional second brain. It explains what a concept i
 
 ## Current sprint status
 
-The project has advanced through Sprint 5.13.
+The project has advanced through Sprint 5.13 and UX Reorg 1.
 
-Sprint 5.13 adds the `Alert Playbook & Remediation Workflow`, a controlled Evidence & QA layer that turns portfolio monitoring alerts into trigger triage, owner assignment, root-cause diagnosis, remediation actions, escalation paths, evidence packs and closure criteria.
+UX Reorg 1 simplifies the sidebar and converts Banking & Finance plus CFA & Certifications into command centers. The visible navigation is now intentionally small, while Global Search remains the main entry point for specific terms, outputs, formulas, models, governance pages and deep details.
 
-## Current modules
+## Visible navigation modules
 
-- Dashboard
+- Home
 - Global Search
-- Knowledge Library
-- Knowledge Asset Detail
-- Smart Tooltips
-- Knowledge Factory
-- Study Paths
-- Learning Session Mode
-- Data Science Operating System
-- Business Operating System
 - Banking & Finance
-- Credit Risk Analytics
-- Professional Scenarios
-- Decision Playbooks
-- Output Atlas
-- Formula Library
-- Model Library
-- Business Cases
+- CFA & Certifications
 - Knowledge Map
-- Quality Review
-- Study Modules
-- Professional Certifications
-- Banking & Credit Risk Study
-- Academic Upgrade Pass
-- ABT Blueprint
-- ABT Schema Template
-- ABT Field Review Matrix
-- Model-Ready Feature Set
-- Credit Scoring Experiment Blueprint
-- Model Card & Monitoring Handoff
-- Portfolio Monitoring Dashboard Blueprint
-- Alert Playbook & Remediation Workflow
+
+## Current command centers
+
+- Banking & Finance Command Center
+  - Credit Risk Core
+  - Credit Scoring & Model Lifecycle
+  - Corporate Finance & Valuation
+  - Portfolio Monitoring & Governance
+- CFA & Certifications Command Center
+  - CFA Level I Roadmap
+  - Finance Foundations for CFA
+  - Investments & Portfolio Management
+  - Bloomberg as Support Tool
 
 ## Local setup
 
@@ -78,6 +64,7 @@ npm run qa:sprint510
 npm run qa:sprint511
 npm run qa:sprint512
 npm run qa:sprint513
+npm run qa:ux-reorg
 npm run lint
 npm run build
 ```
@@ -95,10 +82,14 @@ docs/SPRINT_5_10_CREDIT_SCORING_EXPERIMENT_BLUEPRINT.md
 docs/SPRINT_5_11_MODEL_CARD_MONITORING_HANDOFF.md
 docs/SPRINT_5_12_PORTFOLIO_MONITORING_DASHBOARD_BLUEPRINT.md
 docs/SPRINT_5_13_ALERT_REMEDIATION_WORKFLOW.md
+docs/UX_REORG_1_CLEAN_NAVIGATION_COMMAND_CENTERS.md
 ```
 
 ## Design principles
 
+- The sidebar should stay small.
+- Global Search is the preferred entry point for specific terms and deep pages.
+- Main modules should behave like command centers, not long lists of internal pages.
 - Main theory must be visible.
 - Every important topic should answer: what, when, how, project moment, output, decision and monitoring.
 - Output Atlas teaches how to interpret outputs.
@@ -112,7 +103,7 @@ docs/SPRINT_5_13_ALERT_REMEDIATION_WORKFLOW.md
 - Architecture: React/Vite/TypeScript Professional Knowledge Operating System.
 - Content depth: study-first modules with controlled Evidence & QA expansion.
 - Banking analytics: ABT blueprint, ABT schema template, field review matrix, model-ready feature set, credit scoring experiment blueprint, model card monitoring handoff, portfolio monitoring dashboard blueprint and alert remediation workflow are now connected.
-- UX/UI: functional learning platform with backstage governance pages.
-- Search: global search now includes the credit scoring governance pages for feature readiness, experiment design, model card monitoring, portfolio dashboard monitoring and alert remediation.
-- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.13.
-- Next phase: Sprint 5.14 should define the model refresh and challenger review workflow from remediation outcomes.
+- UX/UI: cleaner navigation with command centers for Banking & Finance and CFA & Certifications.
+- Search: global search remains the primary route into detailed concepts, outputs, formulas, models, business cases and governance pages.
+- Technical QA: sprint checks, lint, build and validate scripts configured through Sprint 5.13 plus UX Reorg 1.
+- Next phase: refine the Dashboard so it matches the same command-center navigation model before adding Sprint 5.14 content.
