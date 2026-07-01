@@ -31,6 +31,18 @@ Each module must behave like a command center and also expose a real search-caps
 - route context
 - button to open the same focused route when routing handlers are available
 
+## UX polish added
+
+The restored capsule layer now has a clearer user flow:
+
+- capsule count and total module inventory are visible at the top
+- search input explains what can be searched inside the module
+- filter reset is separated from the search box
+- selected capsule is visually highlighted
+- result list has its own scroll area to reduce page jumping
+- empty state explains what to do when filters return no matches
+- detail panel shows where the capsule belongs, search signals and a direct `Open exact view` action
+
 ## Data Science redesign
 
 `DataScienceAnalyticsStudyPage` is a command center with orientation paths plus `Data Science Search Capsules` powered by the real search index. It organizes:
@@ -67,4 +79,4 @@ The user is no longer forced to browse dozens of sidebar items, and the modules 
 1. Open one of the five main modules.
 2. Use the orientation flow to understand the learning structure.
 3. Use the restored search capsules inside the module to browse real Global Search entries.
-4. Open the focused route for an exact asset, formula, output, model, case or governance page.
+4. Select a capsule, inspect the detail panel and open the focused route for an exact asset, formula, output, model, case or governance page.
