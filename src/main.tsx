@@ -42,6 +42,7 @@ import './styles/professionalCertificationsOS.css'
 import './styles/bankingCreditRiskStudyOS.css'
 import './styles/dataScienceAnalyticsStudyOS.css'
 import './styles/financeValuationStudyOS.css'
+import './styles/visualModuleStudioOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
