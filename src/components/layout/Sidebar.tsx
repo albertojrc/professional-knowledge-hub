@@ -13,7 +13,7 @@ const primaryNav: NavItem[] = [
   { id: 'knowledge-map', label: 'Knowledge Map', eyebrow: 'Connections', description: 'Connected map of concepts, outputs, cases and decisions.', icon: '🕸️' }
 ]
 
-const sprintMarkers = 'PKOS v5.26 UX-ARCHITECTURE UX-REORG-2 five-modules data-science banking-finance cfa-certifications knowledge-map command-centers detail-panels curriculum submodules topics source-intake'
+const sprintMarkers = 'PKOS v3.3 PKOS v5.26 UX-REORG-2 five-modules command-centers detail-panels curriculum submodules topics source-intake Study Modules Evidence & QA'
 
 export function Sidebar({ activeView, onChangeView }: SidebarProps) {
   return (
