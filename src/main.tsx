@@ -50,6 +50,7 @@ import './styles/moduleCurriculumOS.css'
 import './styles/assetVisualOutputOS.css'
 import './styles/deepDetailCleanupOS.css'
 import './styles/curriculumKnowledgeMapOS.css'
+import './styles/uxConsistencyOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
