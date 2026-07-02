@@ -48,6 +48,7 @@ import './styles/homeVisualDashboardOS.css'
 import './styles/visualSearchStudioOS.css'
 import './styles/moduleCurriculumOS.css'
 import './styles/assetVisualOutputOS.css'
+import './styles/deepDetailCleanupOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
