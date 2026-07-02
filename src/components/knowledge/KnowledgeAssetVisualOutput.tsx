@@ -1,15 +1,12 @@
-import type { KnowledgeAsset, VisualOutputType } from '../../types/knowledgeAsset'
+import { resolveVisualOutputType } from '../../data/visualOutputTypeResolver'
+import type { KnowledgeAsset } from '../../types/knowledgeAsset'
 import { BadgeList } from '../ui/BadgeList'
 import { MlMiniChart, type MlChartType } from '../charts/MlMiniChart'
 
-interface KnowledgeAssetVisualOutputProps {
-  asset: KnowledgeAsset
-  chartType: MlChartType | null
-  graphTitle?: string
-}
+interface KnowledgeAssetVisualOutputProps { asset: KnowledgeAsset; chartType: MlChartType | null; graphTitle?: string }
 
 export function KnowledgeAssetVisualOutput({ asset, chartType, graphTitle }: KnowledgeAssetVisualOutputProps) {
-  const visualType = resolveVisualOutputType(asset, chartType)
+  const visualType = resolveVisualOutputType(asset, Boolean(chartType && graphTitle))
   if (visualType === 'chart' && chartType && graphTitle) return <MlMiniChart title={graphTitle} type={chartType} />
   if (visualType === 'formula-card') return <FormulaVisual asset={asset} />
   if (visualType === 'matrix') return <MatrixVisual asset={asset} />
@@ -18,18 +15,6 @@ export function KnowledgeAssetVisualOutput({ asset, chartType, graphTitle }: Kno
   if (visualType === 'decision-table') return <DecisionTableVisual asset={asset} />
   if (visualType === 'case-card') return <CaseCardVisual asset={asset} />
   return <FallbackVisual asset={asset} />
-}
-
-export function resolveVisualOutputType(asset: KnowledgeAsset, chartType: MlChartType | null): VisualOutputType {
-  if (asset.visualOutputType) return asset.visualOutputType
-  if (chartType && asset.graphs.length > 0) return 'chart'
-  if (asset.formula) return 'formula-card'
-  if (asset.type === 'Framework') return 'process-flow'
-  if (asset.type === 'Case' || asset.type === 'Project') return 'case-card'
-  if (asset.area.includes('CFA') || asset.category.includes('CFA')) return 'checklist'
-  if (asset.category.toLowerCase().includes('risk') || asset.category.toLowerCase().includes('governance')) return 'decision-table'
-  if (asset.outputs.length >= 3 && asset.metrics.length >= 3) return 'matrix'
-  return 'fallback'
 }
 
 function FormulaVisual({ asset }: { asset: KnowledgeAsset }) { return <div className="asset-visual formula-visual"><span className="eyebrow">Formula card</span><pre>{asset.formula ?? asset.outputs[0] ?? asset.title}</pre>{asset.example && <p>{asset.example}</p>}</div> }
