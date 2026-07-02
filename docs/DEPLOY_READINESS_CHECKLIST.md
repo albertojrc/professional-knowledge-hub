@@ -30,6 +30,7 @@ node scripts/check-532.mjs
 node scripts/check-533.mjs
 node scripts/check-534.mjs
 node scripts/check-535.mjs
+node scripts/check-536.mjs
 ```
 
 ## 3. Run technical checks
