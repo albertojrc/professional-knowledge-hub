@@ -9,10 +9,9 @@ const files = [
 ]
 
 const checks = [
-  ['src/types/knowledge.ts', 'course-evidence'],
   ['src/app/App.tsx', 'CourseEvidencePage'],
   ['src/app/App.tsx', 'course-evidence'],
-  ['src/components/layout/Sidebar.tsx', 'course-evidence'],
+  ['src/routes/routeRegistry.ts', 'course-evidence'],
   ['src/main.tsx', 'courseEvidenceOS.css'],
   ['src/data/courseEvidenceExtraction.ts', 'evidence-project-governance'],
   ['src/data/courseEvidenceExtraction.ts', 'evidence-index-shell'],
