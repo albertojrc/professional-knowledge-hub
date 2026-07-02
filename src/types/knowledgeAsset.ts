@@ -1,5 +1,6 @@
 export type KnowledgeAssetType = 'Concept' | 'Model' | 'Formula' | 'Framework' | 'Tool' | 'Output' | 'Case' | 'Project'
 export type KnowledgeDifficulty = 'Foundation' | 'Intermediate' | 'Advanced' | 'Professional'
+export type VisualOutputType = 'chart' | 'formula-card' | 'matrix' | 'checklist' | 'process-flow' | 'decision-table' | 'case-card' | 'fallback'
 
 export interface KnowledgeAsset {
   id: string
@@ -24,6 +25,7 @@ export interface KnowledgeAsset {
   bankingApplications: string[]
   commonMistakes: string[]
   professionalTip: string
+  visualOutputType?: VisualOutputType
   formula?: string
   example?: string
   pythonSnippet?: string
