@@ -5,7 +5,8 @@ import { BadgeList } from '../components/ui/BadgeList'
 import { SmartBadgeList } from '../components/ui/SmartBadgeList'
 import { ReadingGuide } from '../components/ui/ReadingGuide'
 import { AssetProgressControl } from '../components/ui/AssetProgressControl'
-import { MlMiniChart, type MlChartType } from '../components/charts/MlMiniChart'
+import type { MlChartType } from '../components/charts/MlMiniChart'
+import { KnowledgeAssetVisualOutput } from '../components/knowledge/KnowledgeAssetVisualOutput'
 
 interface AssetProgressApi {
   getAssetStatus: (assetId: string) => AssetProgressStatus
@@ -89,7 +90,7 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
         <aside className="concept-output-panel">
           <div className="output-panel-card progress-panel"><span className="eyebrow">Study Tracker</span><h2>{asset.title}</h2><AssetProgressControl status={status} onChange={(nextStatus) => assetProgress.setAssetStatus(asset.id, nextStatus)} /></div>
           {sourceMeta && <div className="output-panel-card source-evidence-card"><span className="eyebrow">Evidence Status</span><h3>{sourceMeta.evidenceLabel}</h3><p>{sourceMeta.evidenceExplanation}</p></div>}
-          <div className="output-panel-card"><span className="eyebrow">Output View</span><h2>{mainGraph ?? 'Professional Output'}</h2>{mainGraph && chartType ? <MlMiniChart title={mainGraph} type={chartType} /> : <GraphFallback assetTitle={asset.title} outputs={asset.outputs} />}</div>
+          <div className="output-panel-card"><span className="eyebrow">Output View</span><h2>{mainGraph ?? asset.visualOutputType ?? 'Professional Output'}</h2><KnowledgeAssetVisualOutput asset={asset} chartType={chartType} graphTitle={mainGraph} /></div>
           <div className="output-panel-card success-panel"><h3>Interpretation checklist</h3><ul><li>What does the output show?</li><li>Is the metric aligned with the business problem?</li><li>What decision becomes possible?</li></ul></div>
           <div className="output-panel-card"><h3>Metrics</h3><SmartBadgeList items={asset.metrics} tone="green" /><h3>Assumptions</h3><SmartBadgeList items={asset.assumptions} tone="amber" /><h3>Outputs</h3><SmartBadgeList items={asset.outputs} tone="blue" /></div>
           <div className="output-panel-card"><h3>Learning goals</h3><ul>{asset.learningGoals.map((goal) => <li key={goal}>{goal}</li>)}</ul></div>
@@ -99,10 +100,6 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
       </div>
     </section>
   )
-}
-
-function GraphFallback({ assetTitle, outputs }: { assetTitle: string; outputs: string[] }) {
-  return <div className="module-capsule-empty"><strong>No specific chart assigned for {assetTitle}.</strong><p>Use the outputs below instead of forcing an unrelated chart.</p><BadgeList items={outputs.slice(0, 6)} tone="blue" /></div>
 }
 
 function graphToType(graph: string): MlChartType | null {
