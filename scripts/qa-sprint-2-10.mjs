@@ -9,16 +9,14 @@ const files = [
 ]
 
 const checks = [
-  ['src/types/knowledge.ts', 'source-review-execution'],
   ['src/app/App.tsx', 'SourceReviewExecutionPage'],
   ['src/app/App.tsx', 'source-review-execution'],
-  ['src/components/layout/Sidebar.tsx', 'source-review-execution'],
   ['src/data/searchIndex.ts', 'sourceExecutionRecords'],
   ['src/data/searchIndex.ts', 'Source Execution'],
   ['src/main.tsx', 'sourceExecutionOS.css'],
   ['src/data/sourceReviewExecution.ts', 'execution-index-html'],
   ['src/data/sourceReviewExecution.ts', 'execution-project-brief'],
-  ['src/data/sourceReviewExecution.ts', 'No academic asset'],
+  ['src/data/sourceReviewExecution.ts', 'No course evidence'],
   ['src/pages/SourceReviewExecutionPage.tsx', 'sourceExecutionSummary']
 ]
 
