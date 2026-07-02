@@ -49,6 +49,7 @@ import './styles/visualSearchStudioOS.css'
 import './styles/moduleCurriculumOS.css'
 import './styles/assetVisualOutputOS.css'
 import './styles/deepDetailCleanupOS.css'
+import './styles/curriculumKnowledgeMapOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
