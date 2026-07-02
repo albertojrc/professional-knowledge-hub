@@ -3,10 +3,11 @@ import { getSourceAwareAssetMeta } from '../data/sourceAwareAssets'
 import type { AssetProgressStatus } from '../types/learningProgress'
 import { BadgeList } from '../components/ui/BadgeList'
 import { SmartBadgeList } from '../components/ui/SmartBadgeList'
-import { ReadingGuide } from '../components/ui/ReadingGuide'
 import { AssetProgressControl } from '../components/ui/AssetProgressControl'
 import type { MlChartType } from '../components/charts/MlMiniChart'
 import { KnowledgeAssetVisualOutput } from '../components/knowledge/KnowledgeAssetVisualOutput'
+import { KnowledgeAssetStudyGuide } from '../components/knowledge/KnowledgeAssetStudyGuide'
+import { KnowledgeAssetDecisionBrief } from '../components/knowledge/KnowledgeAssetDecisionBrief'
 
 interface AssetProgressApi {
   getAssetStatus: (assetId: string) => AssetProgressStatus
@@ -20,7 +21,7 @@ interface KnowledgeAssetDetailPageProps {
   assetProgress: AssetProgressApi
 }
 
-const lessonSections = ['Overview', 'Use', 'Interpret', 'Outputs', 'Applications', 'Practice']
+const lessonSections = ['Define', 'Use', 'Apply', 'Interpret', 'Output', 'Decision']
 
 export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetProgress }: KnowledgeAssetDetailPageProps) {
   const asset = knowledgeAssetRegistry.find((item) => item.id === assetId) ?? knowledgeAssetRegistry[0]
@@ -54,8 +55,8 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
           )}
 
           <nav className="lesson-section-tabs" aria-label="Concept sections">{lessonSections.map((section, index) => <span key={section}>{index + 1}. {section}</span>)}</nav>
-
-          <ReadingGuide title="How to study this concept" steps={['Start with the business intuition before the formula or code.', 'Connect the concept to outputs, graphs, metrics and assumptions.', 'Finish by translating the concept into business and banking decisions.']} />
+          <KnowledgeAssetStudyGuide asset={asset} />
+          <KnowledgeAssetDecisionBrief asset={asset} />
 
           <section className="lesson-block"><div className="lesson-block-title"><span>1</span><h2>What is it?</h2></div><p>{asset.whatItIs}</p></section>
           <section className="lesson-block insight-block"><div className="lesson-block-title"><span>2</span><h2>Why does it matter?</h2></div><p>{asset.whyItMatters}</p></section>
@@ -70,7 +71,7 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
 
           <section className="lesson-block output-learning-block">
             <div className="lesson-block-title"><span>6</span><h2>Outputs, metrics and assumptions</h2></div>
-            <p>Hover or focus each capsule to understand what it means, what good looks like and how to improve it.</p>
+            <p>Use this block to connect the concept to the exact artifact, metric and assumption that should be reviewed.</p>
             <div className="three-column-soft">
               <div><h3>Metrics</h3><SmartBadgeList items={asset.metrics} tone="green" /></div>
               <div><h3>Assumptions</h3><SmartBadgeList items={asset.assumptions} tone="amber" /></div>
@@ -91,7 +92,7 @@ export function KnowledgeAssetDetailPage({ assetId, onBack, onOpenAsset, assetPr
           <div className="output-panel-card progress-panel"><span className="eyebrow">Study Tracker</span><h2>{asset.title}</h2><AssetProgressControl status={status} onChange={(nextStatus) => assetProgress.setAssetStatus(asset.id, nextStatus)} /></div>
           {sourceMeta && <div className="output-panel-card source-evidence-card"><span className="eyebrow">Evidence Status</span><h3>{sourceMeta.evidenceLabel}</h3><p>{sourceMeta.evidenceExplanation}</p></div>}
           <div className="output-panel-card"><span className="eyebrow">Output View</span><h2>{mainGraph ?? asset.visualOutputType ?? 'Professional Output'}</h2><KnowledgeAssetVisualOutput asset={asset} chartType={chartType} graphTitle={mainGraph} /></div>
-          <div className="output-panel-card success-panel"><h3>Interpretation checklist</h3><ul><li>What does the output show?</li><li>Is the metric aligned with the business problem?</li><li>What decision becomes possible?</li></ul></div>
+          <div className="output-panel-card success-panel"><h3>Interpretation checklist</h3><ul><li>Read the output first, not the label.</li><li>Check the metric against the decision problem.</li><li>Challenge the main assumption before acting.</li></ul></div>
           <div className="output-panel-card"><h3>Metrics</h3><SmartBadgeList items={asset.metrics} tone="green" /><h3>Assumptions</h3><SmartBadgeList items={asset.assumptions} tone="amber" /><h3>Outputs</h3><SmartBadgeList items={asset.outputs} tone="blue" /></div>
           <div className="output-panel-card"><h3>Learning goals</h3><ul>{asset.learningGoals.map((goal) => <li key={goal}>{goal}</li>)}</ul></div>
           <div className="output-panel-card"><h3>Related assets</h3>{related.length > 0 ? <div className="related-stack">{related.map((item) => item && <button className="related-card" key={item.id} onClick={() => onOpenAsset(item.id)} type="button"><strong>{item.title}</strong><span>{item.type} · {item.area}</span></button>)}</div> : <p>Related assets will appear as the library expands.</p>}</div>
