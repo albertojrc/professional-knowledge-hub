@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { NavItem, ViewId } from '../types/knowledge'
-import { navItems } from '../data/knowledge'
+import { getRouteNavItem } from '../routes/routeRegistry'
 import { useAssetProgress } from '../hooks/useAssetProgress'
 import { usePathPrefs } from '../hooks/usePathPrefs'
 import { Sidebar } from '../components/layout/Sidebar'
@@ -75,16 +75,6 @@ import { BusinessCasesPage } from '../pages/BusinessCasesPage'
 import { KnowledgeMapPage } from '../pages/KnowledgeMapPage'
 import { QualityReviewPage } from '../pages/QualityReviewPage'
 
-const navCatalog: NavItem[] = [
-  ...navItems,
-  { id: 'model-ready-feature-set', label: 'Model-Ready Feature Set', eyebrow: 'Evidence & QA', description: 'Leakage-safe feature promotion for credit scoring.', icon: 'MF' },
-  { id: 'credit-scoring-experiment-blueprint', label: 'Credit Scoring Experiment Blueprint', eyebrow: 'Evidence & QA', description: 'Experiment design for credit scoring models.', icon: 'CE' },
-  { id: 'model-card-monitoring-handoff', label: 'Model Card & Monitoring Handoff', eyebrow: 'Evidence & QA', description: 'Model card, monitoring controls and ownership handoff.', icon: 'MC' },
-  { id: 'portfolio-monitoring-dashboard-blueprint', label: 'Portfolio Monitoring Dashboard Blueprint', eyebrow: 'Evidence & QA', description: 'Portfolio risk monitoring dashboard for scores, drift and alerts.', icon: 'PM' },
-  { id: 'alert-remediation-workflow', label: 'Alert Playbook & Remediation Workflow', eyebrow: 'Evidence & QA', description: 'Alert triage, owner actions, escalation and closure workflow.', icon: 'AR' }
-]
-const titleFromView = (id: ViewId): string => id.split('-').map((x) => x.charAt(0).toUpperCase() + x.slice(1)).join(' ')
-
 export function App() {
   const [activeView, setActiveView] = useState<ViewId>('dashboard')
   const [query, setQuery] = useState('')
@@ -92,7 +82,7 @@ export function App() {
   const [focusId, setFocusId] = useState<string | null>(null)
   const assetProgress = useAssetProgress()
   const pathPrefs = usePathPrefs()
-  const activeItem = useMemo<NavItem>(() => navCatalog.find((item) => item.id === activeView) ?? { id: activeView, label: titleFromView(activeView), eyebrow: 'Hub', description: 'Professional Knowledge Hub.', icon: 'PK' }, [activeView])
+  const activeItem = useMemo<NavItem>(() => getRouteNavItem(activeView), [activeView])
   const openAsset = (assetId: string) => { setFocusId(null); setActiveAssetId(assetId); setActiveView('knowledge-library') }
   const changeView = (view: ViewId, nextFocusId: string | null = null) => { setActiveAssetId(null); setFocusId(nextFocusId); setActiveView(view) }
   return (<div className="app-shell"><Sidebar activeView={activeView} onChangeView={changeView} /><div className="app-main"><TopBar activeItem={activeItem} query={query} onQueryChange={setQuery} /><main className="content-shell">
