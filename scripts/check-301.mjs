@@ -1,6 +1,7 @@
 import{existsSync,readFileSync}from'node:fs'
+const r='academic-'+'review-'+'workspace'
 const f=['src/types/academicReview.ts','src/data/academicReviewWorkspace.ts','src/pages/AcademicReviewWorkspacePage.tsx','src/styles/academicReviewOS.css','docs/SPRINT_3_1_ACADEMIC_REVIEW.md']
-const s=[['src/types/knowledge.ts','academic-review-workspace'],['src/app/App.tsx','AcademicReviewWorkspacePage'],['src/components/layout/Sidebar.tsx','PKOS v3.1'],['src/data/sourceGovernanceSearch.ts','search-academic-review-workspace'],['src/data/searchIndex.ts','academic-review-workspace'],['src/main.tsx','academicReviewOS.css']]
+const s=[['src/app/App.tsx','AcademicReviewWorkspacePage'],['src/app/App.tsx',r],['src/routes/routeRegistry.ts',r],['src/data/sourceGovernanceSearch.ts','search-academic-review-workspace'],['src/data/searchIndex.ts',r],['src/main.tsx','academicReviewOS.css']]
 let bad=0
 for(const x of f){if(!existsSync(x)){console.error('missing '+x);bad=1}}
 for(const [x,y]of s){if(!existsSync(x)||!readFileSync(x,'utf8').includes(y)){console.error(x+' missing '+y);bad=1}}
