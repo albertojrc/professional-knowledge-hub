@@ -25,7 +25,7 @@ export const routeRegistry: RouteRegistryEntry[] = [
   ...governanceRouteItems.map((item) => ({ ...item, group: 'governance' as RouteGroup }))
 ]
 
-export const navCatalog: NavItem[] = routeRegistry.map(({ group: _group, ...item }) => item)
+export const navCatalog: NavItem[] = routeRegistry.map((entry) => ({ id: entry.id, label: entry.label, eyebrow: entry.eyebrow, description: entry.description, icon: entry.icon }))
 
 export const routeGroups: Record<RouteGroup, ViewId[]> = {
   primary: ['dashboard', 'global-search', 'knowledge-map'],
