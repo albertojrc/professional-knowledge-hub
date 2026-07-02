@@ -46,6 +46,7 @@ import './styles/visualModuleStudioOS.css'
 import './styles/modelRefreshChallengerOS.css'
 import './styles/homeVisualDashboardOS.css'
 import './styles/visualSearchStudioOS.css'
+import './styles/moduleCurriculumOS.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
